@@ -55,7 +55,7 @@ class fasttext_downloader():
     def __init__(self,folder,language):
         self.folder = folder
         self.language = language   
-        self.file_name = "word2vec_" + str(self.language)
+        self.file_name = "fasttext_" + str(self.language)
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
 
 
