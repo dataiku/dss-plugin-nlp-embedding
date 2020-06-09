@@ -2,7 +2,8 @@
     "model_id" : "word2vec",
     "language" : "english",
     "params": {
-        "link_model" : ""
+        "link_model" : "https://docs.google.com/uc?export=download",
+        "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
     },
 
     "model_id" : "fasttext",
