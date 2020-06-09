@@ -8,6 +8,7 @@ from macro_utils import (word2vec_downloader,
                          )
 
 import zipfile
+import json
 
 
 
