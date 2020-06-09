@@ -2,42 +2,15 @@
 
 import dataiku
 from dataiku.runnables import Runnable
+from macro_utils import (word2vec_downloader,
+                         fasttext_downloader
+                         )
 
 import os
 import gzip
 import zipfile
 import requests
 import shutil
-
-
-def download_file_from_google_drive(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
-
-    session = requests.Session()
-    response = session.get(URL, params={'id': id}, stream=True)
-    token = get_confirm_token(response)
-
-    if token:
-        params = {'id': id, 'confirm': token}
-        response = session.get(URL, params=params, stream=True)
-    save_response_content(response, destination)
-
-
-def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-    return None
-
-
-def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
-
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk:  # filter out keep-alive new chunks
-                f.write(chunk)
-
 
 class MyRunnable(Runnable):
     """The base interface for a Python runnable"""
@@ -93,30 +66,11 @@ class MyRunnable(Runnable):
         #######################################
 
         if source == 'word2vec':
-            if text_language == 'english':
-                file_id = '0B7XkCwpI5KDYNlNUTTlSS21pQmM'
-            else:
-                raise NotImplementedError("Word2vec vectors are only available for English. Use fastText for other languages.")
-
-            # Download from Google Drive
-            archive_fname = os.path.join(output_folder_path, "GoogleNews-vectors-negative300.bin.gz")
-            download_file_from_google_drive(file_id, archive_fname)
-
-            # Decompress in managed folder and rename
-            """
-            decompressed_file = gzip.GzipFile(archive_fname)
-            with open(os.path.join(output_folder_path, "Word2vec_embeddings"), 'wb') as outfile:
-                print('))))))))))) WRITING FILE')
-                outfile.write(decompressed_file.read())
-            """
-            outfile_path = os.path.join(output_folder_path, "Word2vec_embeddings")
-            with open(outfile_path, 'wb') as f_out, gzip.open(archive_fname, 'rb') as f_in:
-                shutil.copyfileobj(f_in, f_out)
-
-            os.remove(archive_fname)
+            
 
 
         elif source == 'fasttext':
+            fasttext_downloader().download()
             if text_language == 'english':
                 url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec'
             elif text_language == 'french':
