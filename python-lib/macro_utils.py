@@ -12,7 +12,6 @@ class word2vec_downloader():
         self.file_name = "word2vec_" + str(self.language)
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
         self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
-        self.CHUNK_SIZE = 32768
 
 
     def get_stream(self):
@@ -33,7 +32,7 @@ class word2vec_downloader():
         destination_writer = self.folder.get_writer()
 
         #Write .gz file to folder
-        for chunk in response.iter_content(self.CHUNK_SIZE):
+        for chunk in response.iter_content(chunk_size=32768):
             if chunk:  # filter out keep-alive new chunks
                 destination_writer.write(chunk)
         destination_writer.close()
