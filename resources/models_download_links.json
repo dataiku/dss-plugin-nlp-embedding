@@ -29,21 +29,23 @@
         "link_model" : "http://nlp.stanford.edu/data/glove.42B.300d.zip"
     },
 
-    "model_id" : "word2vec",
+    "model_id" : "elmo",
     "language" : "english",
     "params": {
-        "link_model" : ""
+        "link_model" : "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
     },
 
-    "model_id" : "word2vec",
+    "model_id" : "use",
     "language" : "english",
     "params": {
-        "link_model" : ""
+        "link_model" : "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
     },
 
-    "model_id" : "word2vec",
+    "model_id" : "bert-base-uncased",
     "language" : "english",
     "params": {
-        "link_model" : ""
+        "link_model" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin",
+        "link_config" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json",
+        "link_vocab" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
     }
 }
