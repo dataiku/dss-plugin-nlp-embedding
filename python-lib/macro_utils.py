@@ -9,9 +9,11 @@ class word2vec_downloader():
         self.folder = folder
         self.language = language
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
-        self.destination_file_name = "word2vec_" + str(self.language)
+        self.file_name = "word2vec_" + str(self.language)
         self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
-        
+        self.CHUNK_SIZE = 32768
+
+
     def get_stream(self):
         session = requests.Session()
         response = session.get(self.params["link_model"], params={'id': self.params["id_model"]}, stream=True)
