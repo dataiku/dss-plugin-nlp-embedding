@@ -64,7 +64,7 @@ class MyRunnable(Runnable):
         #######################################
 
         if source == 'word2vec':
-            word2vec_downloader(output_folder,text_language)
+            word2vec_downloader(output_folder,text_language).download()
 
 
         elif source == 'fasttext':
