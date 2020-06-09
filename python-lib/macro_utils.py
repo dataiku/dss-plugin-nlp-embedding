@@ -7,7 +7,11 @@ import gzip
 class word2vec_downloader():
     def __init__(self,folder,language):
         self.folder = folder
+
         self.language = language
+        if self.language != 'english':
+            raise NotImplementedError("Word2vec vectors are only available for English. Use fastText for other languages.")
+        
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
         self.CHUNK_SIZE = 32768
         
@@ -19,6 +23,8 @@ class word2vec_downloader():
         if token:
             params = {'id': self.params["id_model"], 'confirm': token}
             response = session.get(URL, params=params, stream=True)
+        else:
+            raise raise NotImplementedError("Token")
 
         return response
 
