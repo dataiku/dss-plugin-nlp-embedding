@@ -8,8 +8,8 @@ class word2vec_downloader():
     def __init__(self,folder,language):
         self.folder = folder
         self.language = language
-        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
         self.file_name = "word2vec_" + str(self.language)
+        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
         self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
         self.CHUNK_SIZE = 32768
 
@@ -38,7 +38,7 @@ class word2vec_downloader():
         destination_writer.close()
 
         #Unzip file
-        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream(self.gdrive_file_name) as f_in:
+        with self.folder.get_writer(self.file_name) as f_out, self.folder.get_download_stream(self.gdrive_file_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
         #Remove the .gz file
@@ -56,7 +56,7 @@ class fasttext_downloader():
         self.folder = folder
         self.language = language   
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["fastext"]
-        self.file_name = 
+        self.file_name = "word2vec_" + str(self.language)
 
     def get_stream(self):
         response = requests.get(self.params["link_model"], stream=True)
