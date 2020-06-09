@@ -13,18 +13,20 @@ import os
 MODELS_DOWNLOAD_LINKS = {
     
     "word2vec-english": {
-    "model": "word2vec",  
-    "language" : "english",
-    "params": {
-        "link_model" : "https://docs.google.com/uc?export=download",
-        "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
+        "model": "word2vec",  
+        "language" : "english",
+        "params": {
+            "link_model" : "https://docs.google.com/uc?export=download",
+            "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
+        }
     },
 
     "fasttext-english" : {
-    "model" : "fasttext",    
-    "language" : "english",
-    "params": {
-        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
+        "model" : "fasttext",    
+        "language" : "english",
+        "params": {
+            "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
+        }
     },
 
     "model_id" : "fasttext-french",
