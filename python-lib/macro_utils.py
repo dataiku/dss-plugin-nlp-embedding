@@ -3,6 +3,7 @@ from dataiku.customrecipe import get_recipe_resource
 import requests
 import shutil
 import gzip
+import os
 
 class word2vec_downloader():
     def __init__(self,folder,language):
