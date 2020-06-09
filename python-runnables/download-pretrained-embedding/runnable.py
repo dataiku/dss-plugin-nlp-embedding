@@ -9,6 +9,7 @@ from macro_utils import (word2vec_downloader,
 
 import zipfile
 import json
+import os
 
 
 
@@ -26,7 +27,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.client = dataiku.api_client()
-        json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
+        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))
 
     def get_progress_target(self):
         """
