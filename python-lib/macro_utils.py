@@ -24,7 +24,7 @@ class word2vec_downloader():
             params = {'id': self.params["id_model"], 'confirm': token}
             response = session.get(URL, params=params, stream=True)
         else:
-            raise raise NotImplementedError("Token")
+            raise NotImplementedError("Token")
 
         return response
 
