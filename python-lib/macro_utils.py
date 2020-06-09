@@ -7,14 +7,10 @@ import gzip
 class word2vec_downloader():
     def __init__(self,folder,language):
         self.folder = folder
-
         self.language = language
-        if self.language != 'english':
-            raise NotImplementedError("Word2vec vectors are only available for English. Use fastText for other languages.")
-        
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
-        self.CHUNK_SIZE = 32768
-        self.file_name = "GoogleNews-vectors-negative300.bin.gz"
+        self.destination_file_name = "word2vec_" + str(self.language)
+        self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
         
     def get_stream(self):
         session = requests.Session()
@@ -31,7 +27,6 @@ class word2vec_downloader():
 
     def download(self):
         response = self.get_stream()
-        destination_file_name = "word2vec_" + str(self.language)
         destination_writer = self.folder.get_writer()
 
         #Write .gz file to folder
@@ -41,11 +36,11 @@ class word2vec_downloader():
         destination_writer.close()
 
         #Unzip file
-        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream(self.file_name) as f_in:
+        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream(self.gdrive_file_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
         #Remove the .gz file
-        self.folder.delete_path(self.file_name)
+        self.folder.delete_path(self.gdrive_file_name)
 
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
@@ -53,3 +48,21 @@ class word2vec_downloader():
                 return value
         return None   
 
+
+class fasttext_downloader():
+    def __init__(self,folder,language):
+        self.folder = folder
+        self.language = language   
+        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["fastext"]
+        self.file_name = 
+
+    def get_stream(self):
+        response = requests.get(self.params["link_model"], stream=True)
+        return response
+
+    def download(self):
+        response = self.get_stream()
+        with self.folder.get_writer("fastText_embeddings_remote") as w:
+            for chunk in r.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
