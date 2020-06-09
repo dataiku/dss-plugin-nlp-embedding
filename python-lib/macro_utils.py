@@ -56,7 +56,8 @@ class fasttext_downloader():
         self.folder = folder
         self.language = language   
         self.file_name = "fasttext_" + str(self.language)
-        print("heeeere: " + get_recipe_resource())
+        print("heeeere: ")
+        print(get_recipe_resource()
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
 
 
