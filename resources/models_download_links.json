@@ -1,0 +1,49 @@
+{
+    "model_id" : "word2vec",
+    "language" : "english",
+    "params": {
+        "link_model" : ""
+    },
+
+    "model_id" : "fasttext",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
+    },
+
+    "model_id" : "fasttext",
+    "language" : "french",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.fr.vec"
+    },
+
+    "model_id" : "fasttext",
+    "language" : "german",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.de.vec"
+    },
+
+    "model_id" : "glove",
+    "language" : "english",
+    "params": {
+        "link_model" : "http://nlp.stanford.edu/data/glove.42B.300d.zip"
+    },
+
+    "model_id" : "word2vec",
+    "language" : "english",
+    "params": {
+        "link_model" : ""
+    },
+
+    "model_id" : "word2vec",
+    "language" : "english",
+    "params": {
+        "link_model" : ""
+    },
+
+    "model_id" : "word2vec",
+    "language" : "english",
+    "params": {
+        "link_model" : ""
+    }
+}
