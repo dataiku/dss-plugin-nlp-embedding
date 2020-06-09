@@ -42,6 +42,9 @@ class word2vec_downloader():
         #Unzip file
         with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream("GoogleNews-vectors-negative300.bin.gz") as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
+        
+        #Remove the .gz file
+        ##TODO
 
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
