@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import dataiku
-from dataiku.customrecipe import *
 from dataiku.runnables import Runnable
 from macro_utils import (word2vec_downloader,
                          fasttext_downloader
@@ -11,7 +10,58 @@ import zipfile
 import json
 import os
 
+MODELS_DOWNLOAD_LINKS = {
+    "model_id" : "word2vec-english",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://docs.google.com/uc?export=download",
+        "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
+    },
 
+    "model_id" : "fasttext-english",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
+    },
+
+    "model_id" : "fasttext-french",
+    "language" : "french",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.fr.vec"
+    },
+
+    "model_id" : "fasttext-german",
+    "language" : "german",
+    "params": {
+        "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.de.vec"
+    },
+
+    "model_id" : "glove",
+    "language" : "english",
+    "params": {
+        "link_model" : "http://nlp.stanford.edu/data/glove.42B.300d.zip"
+    },
+
+    "model_id" : "elmo",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
+    },
+
+    "model_id" : "use",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
+    },
+
+    "model_id" : "bert-base-uncased",
+    "language" : "english",
+    "params": {
+        "link_model" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin",
+        "link_config" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json",
+        "link_vocab" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
+    }
+}
 
 
 class MyRunnable(Runnable):
