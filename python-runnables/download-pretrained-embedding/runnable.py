@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import dataiku
+from dataiku.customrecipe import *
 from dataiku.runnables import Runnable
 from macro_utils import (word2vec_downloader,
                          fasttext_downloader
                          )
 
 import zipfile
+
 
 
 
@@ -23,6 +25,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.client = dataiku.api_client()
+        json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
 
     def get_progress_target(self):
         """
