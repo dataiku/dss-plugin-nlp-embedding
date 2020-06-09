@@ -1,3 +1,4 @@
+from dataiku.customrecipe import *
 import json
 import requests
 import shutil
