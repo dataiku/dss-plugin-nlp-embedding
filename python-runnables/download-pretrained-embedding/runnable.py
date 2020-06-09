@@ -6,11 +6,9 @@ from macro_utils import (word2vec_downloader,
                          fasttext_downloader
                          )
 
-import os
-import gzip
 import zipfile
-import requests
-import shutil
+
+
 
 class MyRunnable(Runnable):
     """The base interface for a Python runnable"""
