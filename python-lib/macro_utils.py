@@ -55,8 +55,9 @@ class fasttext_downloader():
     def __init__(self,folder,language):
         self.folder = folder
         self.language = language   
-        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["fastext"]
         self.file_name = "word2vec_" + str(self.language)
+        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
+
 
     def get_stream(self):
         response = requests.get(self.params["link_model"], stream=True)
