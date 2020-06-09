@@ -11,7 +11,7 @@ class word2vec_downloader():
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
         self.CHUNK_SIZE = 32768
         
-    def download(self):
+    def get_stream(self):
         session = requests.Session()
         response = session.get(self.params["link_model"], params={'id': self.params["id_model"]}, stream=True)
         token = self.__get_confirm_token(response)
@@ -22,8 +22,8 @@ class word2vec_downloader():
 
         return response
 
-    def write(self):
-        response = self.download()
+    def download(self):
+        response = self.get_stream()
         destination_file_name = "word2vec_" + str(self.language) + ".bin"
         destination_writer = folder.get_writer(destination_file_name+".gz")
 
@@ -38,9 +38,8 @@ class word2vec_downloader():
             shutil.copyfileobj(gzip.open(f_in), f_out)
 
     def __get_confirm_token(self,response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-    return None   
+        for key, value in response.cookies.items():
+            if key.startswith('download_warning'):
+                return value
+        return None   
 
-    def 
