@@ -1,4 +1,3 @@
-from dataiku.customrecipe import *
 import json
 import requests
 import shutil
@@ -52,15 +51,11 @@ class word2vec_downloader():
 
 
 class fasttext_downloader():
-    def __init__(self,folder,language):
+    def __init__(self,folder,language,params):
         self.folder = folder
         self.language = language   
         self.file_name = "fasttext_" + str(self.language)
-        print("heeeere: ")
-        #print(get_recipe_config())
-        print("***")
-        print(get_recipe_resource())
-        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
+        self.params = params[self.file_name]
 
 
     def get_stream(self):
