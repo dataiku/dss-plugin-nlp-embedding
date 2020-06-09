@@ -1,5 +1,4 @@
 import json
-from dataiku.customrecipe import get_recipe_resource
 import requests
 import shutil
 import gzip
