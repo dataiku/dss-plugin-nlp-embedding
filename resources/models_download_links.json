@@ -1,24 +1,24 @@
 {
-    "model_id" : "word2vec",
+    "model_id" : "word2vec-english",
     "language" : "english",
     "params": {
         "link_model" : "https://docs.google.com/uc?export=download",
         "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
     },
 
-    "model_id" : "fasttext",
+    "model_id" : "fasttext-english",
     "language" : "english",
     "params": {
         "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
     },
 
-    "model_id" : "fasttext",
+    "model_id" : "fasttext-french",
     "language" : "french",
     "params": {
         "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.fr.vec"
     },
 
-    "model_id" : "fasttext",
+    "model_id" : "fasttext-german",
     "language" : "german",
     "params": {
         "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.de.vec"
