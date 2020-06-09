@@ -66,7 +66,7 @@ class fasttext_downloader():
 
     def download(self):
         response = self.get_stream()
-        with self.folder.get_writer("fastText_embeddings_remote") as w:
-            for chunk in r.iter_content(chunk_size=100000):
+        with self.folder.get_writer(self.file_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
                     w.write(chunk)
