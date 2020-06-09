@@ -71,7 +71,7 @@ class MyRunnable(Runnable):
 
 
         elif source == 'fasttext':
-            fasttext_downloader(output_folder,text_language).download()
+            fasttext_downloader(output_folder,text_language,self.params).download()
 
 
         elif source == 'glove':
