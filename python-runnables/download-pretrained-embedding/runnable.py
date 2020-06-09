@@ -59,32 +59,16 @@ class MyRunnable(Runnable):
         output_folder = dataiku.Folder(output_folder.get_definition()["id"],
                                        project_key=self.project_key)
 
-        output_folder_path = output_folder.get_path()
-
         #######################################
         # Downloading and extracting the data
         #######################################
 
         if source == 'word2vec':
-            
+            word2vec_downloader(output_folder,text_language)
 
 
         elif source == 'fasttext':
-            fasttext_downloader().download()
-            if text_language == 'english':
-                url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec'
-            elif text_language == 'french':
-                url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.fr.vec'
-            elif text_language == 'german':
-                url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.de.vec'
-            else:
-                raise NotImplementedError(
-                    "Only English, French and German languages are supported.")
-            r = requests.get(url, stream=True)
-            with output_folder.get_writer("fastText_embeddings") as w:
-                for chunk in r.iter_content(chunk_size=100000):
-                    if chunk:
-                        w.write(chunk)
+            fasttext_downloader(output_folder,text_language).download()
 
 
         elif source == 'glove':
