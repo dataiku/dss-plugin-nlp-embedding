@@ -25,7 +25,7 @@ class word2vec_downloader():
     def download(self):
         response = self.get_stream()
         destination_file_name = "word2vec_" + str(self.language) + ".bin"
-        destination_writer = folder.get_writer(destination_file_name+".gz")
+        destination_writer = self.folder.get_writer(destination_file_name+".gz")
 
         #Write .gz file to folder
         for chunk in response.iter_content(self.CHUNK_SIZE):
@@ -34,7 +34,7 @@ class word2vec_downloader():
         destination_writer.close()
 
         #Unzip file
-        with folder.get_writer(destination_file_name) as f_out, folder.get_download_stream(destination_file_name+".gz") as f_in:
+        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream(destination_file_name+".gz") as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
 
     def __get_confirm_token(self,response):
