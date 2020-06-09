@@ -14,6 +14,7 @@ class word2vec_downloader():
         
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))["word2vec"]
         self.CHUNK_SIZE = 32768
+        self.file_name = "GoogleNews-vectors-negative300.bin.gz"
         
     def get_stream(self):
         session = requests.Session()
@@ -40,11 +41,11 @@ class word2vec_downloader():
         destination_writer.close()
 
         #Unzip file
-        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream("GoogleNews-vectors-negative300.bin.gz") as f_in:
+        with self.folder.get_writer(destination_file_name) as f_out, self.folder.get_download_stream(self.file_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
         #Remove the .gz file
-        ##TODO
+        self.folder.delete_path(self.file_name)
 
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
