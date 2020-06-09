@@ -27,6 +27,8 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.client = dataiku.api_client()
+        print("heeere")
+        print(get_recipe_resource())
         self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))
 
     def get_progress_target(self):
