@@ -54,7 +54,7 @@ class fasttext_downloader():
     def __init__(self,folder,language,params):
         self.folder = folder
         self.language = language   
-        self.file_name = "fasttext_" + str(self.language)
+        self.file_name = "fasttext-" + str(self.language)
         self.params = params[self.file_name]
 
 
