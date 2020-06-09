@@ -55,7 +55,7 @@ class fasttext_downloader():
         self.folder = folder
         self.language = language   
         self.file_name = "fasttext-" + str(self.language)
-        self.params = params[self.file_name]
+        self.params = params[self.file_name]["params"]
 
 
     def get_stream(self):
