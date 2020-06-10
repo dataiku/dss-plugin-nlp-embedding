@@ -115,8 +115,8 @@ class Word2vecDownloader(BaseDownloader):
         return response
 
     def download(self):
-        response = self.get_stream(self.archive_name)
-        destination_writer = self.folder.get_writer()
+        response = self.get_stream()
+        destination_writer = self.folder.get_writer(self.archive_name)
 
         #Write .gz file to folder
         for chunk in response.iter_content(chunk_size=32768):
