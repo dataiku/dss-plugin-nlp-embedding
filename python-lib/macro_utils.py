@@ -89,7 +89,7 @@ class UseDownloader(BaseDownloader):
     def __init__(self,folder,model_id,model_params):
         BaseDownloader.__init__(self,folder,model_id,model_params)
 
-class HuggingFaceDownloader():
+class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,model_id,model_params):
         BaseDownloader.__init__(self,folder,model_id,model_params)
 
