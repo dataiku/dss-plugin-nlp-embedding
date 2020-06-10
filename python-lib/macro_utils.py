@@ -81,6 +81,7 @@ class BaseDownloader(object):
         self.folder = folder
         self.model_id = model_id
         self.model_params = MODELS_DOWNLOAD_LINKS[self.model_id]
+        self.archive_name = self.model_id
 
 
 
@@ -90,7 +91,7 @@ class BaseDownloader(object):
 
     def download(self):
         response = self.get_stream()
-        with self.folder.get_writer(self.model_id) as w:
+        with self.folder.get_writer(self.archive_name) as w:
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
                     w.write(chunk)
@@ -146,6 +147,7 @@ class FasttextDownloader(BaseDownloader):
 class GloveDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
+        self.archive_name = self.model_id + ".zip"
 
 
 class ElmoDownloader(BaseDownloader):
