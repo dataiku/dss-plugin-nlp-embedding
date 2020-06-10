@@ -2,9 +2,12 @@
 
 import dataiku
 from dataiku.runnables import Runnable
-from macro_utils import (word2vec_downloader,
-                         fasttext_downloader,
-                         elmo_downloader
+from macro_utils import (Word2vecDownloader,
+                         FasttextDownloader,
+                         GloveDownloader,
+                         ElmoDownloader,
+                         UseDownloader,
+                         HuggingFaceDownloader
                          )
 
 import zipfile
@@ -135,48 +138,25 @@ class MyRunnable(Runnable):
         #######################################
 
         if source == 'word2vec':
-            word2vec_downloader(output_folder,text_language).download()
+            model_id = source + "-" + text_language
+            Word2vecDownloader(output_folder,model_id,self.params[model_id]).download()
 
 
         elif source == 'fasttext':
-            fasttext_downloader(output_folder,text_language,self.params).download()
+            model_id = source + "-" + text_language
+            FasttextDownloader(output_folder,model_id,self.params[model_id]).download()
 
 
         elif source == 'glove':
-            if text_language == 'english':
-                url = 'http://nlp.stanford.edu/data/glove.42B.300d.zip'
-            else:
-                raise NotImplementedError("GloVe vectors are only available for English. Use fastText for other languages.")
-
-            archive_name = os.path.basename(url)
-
-            # Download archive
-            r = requests.get(url, stream=True)
-            with output_folder.get_writer(archive_name) as w:
-                for chunk in r.iter_content(chunk_size=100000):
-                    if chunk:
-                        w.write(chunk)
-
-            file_basename = os.path.splitext(archive_name)[0]
-            file_name = file_basename + '.txt'
-            file_rename = "GloVe_embeddings"
-
-            # Unzip archive into same directory
-            zip_ref = zipfile.ZipFile(os.path.join(
-                output_folder_path, archive_name), 'r')
-            zip_ref.extractall(output_folder_path)
-            zip_ref.close()
-
-            # remove archive
-            os.remove(os.path.join(output_folder_path, archive_name))
-            # rename embedding file
-            os.rename(os.path.join(output_folder_path, file_name), os.path.join(output_folder_path, file_rename))
-
+            model_id = source + "-" + text_language
+            GloveDownloader(output_folder,model_id,self.params[model_id]).download()
 
         elif source == 'elmo':
-            elmo_downloader(output_folder,text_language,self.params).download()
-            
-        else:
-            raise NotImplementedError(
-                "Only Word2vec, GloVe and FastText embeddings are supported.")
+            model_id = source + "-" + text_language
+            ElmoDownloader(output_folder,model_id,self.params[model_id]).download()
+
+        elif source == 'use':
+            model_id = source + "-" + text_language
+            UseDownloader(output_folder,model_id,self.params[model_id]).download()   
+        
         return "<br><span>The model was downloaded successfuly !</span>"
