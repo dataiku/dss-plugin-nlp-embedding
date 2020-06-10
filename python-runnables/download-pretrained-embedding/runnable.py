@@ -3,7 +3,8 @@
 import dataiku
 from dataiku.runnables import Runnable
 from macro_utils import (word2vec_downloader,
-                         fasttext_downloader
+                         fasttext_downloader,
+                         elmo_downloader
                          )
 
 import zipfile
@@ -161,24 +162,7 @@ class MyRunnable(Runnable):
 
 
         elif source == 'elmo':
-            if text_language == 'english':
-                import tensorflow as tf
-                import tensorflow_hub as hub
-
-                elmo_model_dir = os.path.join(output_folder_path, "ELMo")
-
-                if not os.path.exists(elmo_model_dir):
-                    os.makedirs(elmo_model_dir)
-
-                # Path for saving ELMo
-                os.environ["TFHUB_CACHE_DIR"] = elmo_model_dir
-
-                # Download ELMo
-                elmo_model = hub.Module(
-                    "https://tfhub.dev/google/elmo/2", trainable=False)
-            else:
-                raise NotImplementedError(
-                    "ELMo is only available for English. Use fastText for other languages.")
+            
         else:
             raise NotImplementedError(
                 "Only Word2vec, GloVe and FastText embeddings are supported.")
