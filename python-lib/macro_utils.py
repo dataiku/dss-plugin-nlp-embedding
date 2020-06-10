@@ -163,9 +163,14 @@ class UseDownloader(BaseDownloader):
 class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
+        self.archive_name = {
+            "link_model": "pytorch_model.bin"
+            "link_config": "config.json"
+            "link_vocab": "vocab.txt"
+        }
 
     def download(self):
-        for parameter, file_link in self.model_params["params"].items():
+        for parameter in self.model_params["params"].keys():
             response = self.get_stream(parameter)
             with self.folder.get_writer(file_name) as w:
                 for chunk in response.iter_content(chunk_size=100000):
