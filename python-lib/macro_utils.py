@@ -10,7 +10,7 @@ class word2vec_downloader():
         self.language = language
         self.file_name = "word2vec_" + str(self.language)
         self.params = params[self.file_name]["params"]
-        self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
+        self.archive_name = "GoogleNews-vectors-negative300.bin.gz"
 
 
     def get_stream(self):
@@ -37,7 +37,7 @@ class word2vec_downloader():
         destination_writer.close()
 
         #Unzip file
-        with self.folder.get_writer(self.file_name) as f_out, self.folder.get_download_stream(self.gdrive_file_name) as f_in:
+        with self.folder.get_writer(self.file_name) as f_out, self.folder.get_download_stream(self.archive_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
         #Remove the .gz file
@@ -76,6 +76,7 @@ class glove_downloader():
         self.language = language   
         self.file_name = "glove-" + str(self.language)
         self.params = params[self.file_name]["params"]
+        self.archive_name = ""
 
 
     def get_stream(self):
