@@ -87,6 +87,10 @@ class MyRunnable(Runnable):
 
         elif source == 'use':
             model_id = source + "-" + text_language
-            UseDownloader(output_folder,model_id).download()   
+            UseDownloader(output_folder,model_id).download() 
+
+        elif source == 'bert-base-uncased':
+            model_id = source
+            HuggingFaceDownloader(output_folder,model_id).download() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
