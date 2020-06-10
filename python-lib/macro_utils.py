@@ -75,7 +75,6 @@ class FasttextDownloader(BaseDownloader):
         BaseDownloader.__init__(self,folder,model_id,model_params)
 
 
-
 class GloveDownloader(BaseDownloader):
     def __init__(self,folder,model_id,model_params):
         BaseDownloader.__init__(self,folder,model_id,model_params)
