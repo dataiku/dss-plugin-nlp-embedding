@@ -5,11 +5,11 @@ import gzip
 import os
 
 class word2vec_downloader():
-    def __init__(self,folder,language):
+    def __init__(self,folder,language,params):
         self.folder = folder
         self.language = language
         self.file_name = "word2vec_" + str(self.language)
-        self.params = json.load(os.path.join(get_recipe_resource(),"models_download_links.json"))[self.file_name]
+        self.params = params[self.file_name]["params"]
         self.gdrive_file_name = "GoogleNews-vectors-negative300.bin.gz"
 
 
@@ -68,3 +68,6 @@ class fasttext_downloader():
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
                     w.write(chunk)
+
+
+
