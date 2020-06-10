@@ -8,12 +8,28 @@ import tarfile
 import tensorflow as tf
 import tensorflow_hub as hub
 
-class word2vec_downloader():
-    def __init__(self,folder,language,params):
+
+class BaseDownloader(object):
+    def __init__(self,folder,model_id,model_params):
         self.folder = folder
-        self.language = language
-        self.file_name = "word2vec_" + str(self.language)
-        self.params = params[self.file_name]["params"]
+        self.model_params = model_params
+        self.model_id = model_id
+
+
+    def get_stream(self,link = self.params["params"]["link_model"]):
+        response = requests.get(link, stream=True)
+        return response
+
+    def download(self):
+        response = self.get_stream()
+        with self.folder.get_writer(self.model_id) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
+
+class Word2vecDownloader(BaseDownloader):
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
         self.archive_name = "GoogleNews-vectors-negative300.bin.gz"
 
 
@@ -54,73 +70,28 @@ class word2vec_downloader():
         return None   
 
 
-class fasttext_downloader():
-    def __init__(self,folder,language,params):
-        self.folder = folder
-        self.language = language   
-        self.file_name = "fasttext-" + str(self.language)
-        self.params = params[self.file_name]["params"]
+class FasttextDownloader(BaseDownloader):
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
 
 
-    def get_stream(self):
-        response = requests.get(self.params["link_model"], stream=True)
-        return response
 
-    def download(self):
-        response = self.get_stream()
-        with self.folder.get_writer(self.file_name) as w:
-            for chunk in response.iter_content(chunk_size=100000):
-                if chunk:
-                    w.write(chunk)
+class GloveDownloader(BaseDownloader):
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
 
 
-class glove_downloader():
-    def __init__(self,folder,language,params):
-        self.folder = folder
-        self.language = language   
-        self.file_name = "glove-" + str(self.language)
-        self.params = params[self.file_name]["params"]
-        self.archive_name = ""
+class ElmoDownloader(BaseDownloader):
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
 
+class UseDownloader(BaseDownloader):
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
 
-    def get_stream(self):
-        response = requests.get(self.params["link_model"], stream=True)
-        return response
-
-    def download(self):
-        response = self.get_stream()
-        with self.folder.get_writer(self.file_name) as w:
-            for chunk in response.iter_content(chunk_size=100000):
-                if chunk:
-                    w.write(chunk)
-
-class elmo_downloader():
-    def __init__(self,folder,language,params):
-        self.folder = folder
-        self.language = language   
-        self.file_name = "elmo-" + str(self.language)
-        self.params = params[self.file_name]["params"]
-
-
-    def get_stream(self):
-        response = requests.get(self.params["link_model"], stream=True)
-        return response
-
-    def download(self):
-        response = self.get_stream()
-        with self.folder.get_writer(self.file_name) as w:
-            for chunk in response.iter_content(chunk_size=100000):
-                if chunk:
-                    w.write(chunk)
-
-
-class huggingface_downloader():
-    def __init__(self,folder,language,params):
-        self.folder = folder
-        self.language = language   
-        self.file_name = "elmo-" + str(self.language)
-        self.params = params[self.file_name]["params"]
-        self.archive_name = ""
+class HuggingFaceDownloader():
+    def __init__(self,folder,model_id,model_params):
+        BaseDownloader.__init__(self,folder,model_id,model_params)
 
 
     def get_stream(self):
