@@ -108,7 +108,7 @@ class Word2vecDownloader(BaseDownloader):
 
         if token:
             params = {'id': self.model_params["params"]["id_gdrive"], 'confirm': token}
-            response = session.get(self.model_params["link_model"], params=params, stream=True)
+            response = session.get(self.model_params["params"]["link_model"]], params=params, stream=True)
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 
