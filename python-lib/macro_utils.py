@@ -77,7 +77,7 @@ MODELS_DOWNLOAD_LINKS = {
 
 
 class BaseDownloader(object):
-    def __init__(self,folder,model_id,model_params):
+    def __init__(self,folder,model_id):
         self.folder = folder
         self.model_id = model_id
         self.model_params = MODELS_DOWNLOAD_LINKS[self.model_id]
@@ -96,8 +96,8 @@ class BaseDownloader(object):
                     w.write(chunk)
 
 class Word2vecDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
         self.archive_name = self.model_id + ".bin.gz"
 
 
@@ -139,26 +139,26 @@ class Word2vecDownloader(BaseDownloader):
 
 
 class FasttextDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
 
 
 class GloveDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
 
 
 class ElmoDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
 
 class UseDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
 
 class HuggingFaceDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,model_params):
-        BaseDownloader.__init__(self,folder,model_id,model_params)
+    def __init__(self,folder,model_id):
+        BaseDownloader.__init__(self,folder,model_id)
 
     def download(self):
         for parameter, file_link in self.model_params["params"].items():
