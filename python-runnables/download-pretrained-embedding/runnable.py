@@ -18,7 +18,7 @@ MODELS_DOWNLOAD_LINKS = {
         "language" : "english",
         "params": {
             "link_model" : "https://docs.google.com/uc?export=download",
-            "id_model" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
+            "id_gdrive" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
         }
     },
 
