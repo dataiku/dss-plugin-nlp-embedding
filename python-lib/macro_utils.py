@@ -26,7 +26,7 @@ class BaseDownloader(object):
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,model_id,model_params):
         BaseDownloader.__init__(self,folder,model_id,model_params)
-        self.archive_name = "GoogleNews-vectors-negative300.bin.gz"
+        self.archive_name = self.model_id + ".bin.gz"
 
 
     def get_stream(self):
