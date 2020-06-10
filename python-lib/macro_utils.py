@@ -3,10 +3,6 @@ import requests
 import shutil
 import gzip
 import os
-import tempfile
-import tarfile
-import tensorflow as tf
-import tensorflow_hub as hub
 
 
 class BaseDownloader(object):
