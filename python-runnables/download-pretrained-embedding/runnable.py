@@ -162,6 +162,7 @@ class MyRunnable(Runnable):
 
 
         elif source == 'elmo':
+            elmo_downloader(output_folder,text_language,self.params).download()
             
         else:
             raise NotImplementedError(
