@@ -93,14 +93,10 @@ class HuggingFaceDownloader():
     def __init__(self,folder,model_id,model_params):
         BaseDownloader.__init__(self,folder,model_id,model_params)
 
-
-    def get_stream(self):
-        response = requests.get(self.params["link_model"], stream=True)
-        return response
-
     def download(self):
-        response = self.get_stream()
-        with self.folder.get_writer(self.file_name) as w:
-            for chunk in response.iter_content(chunk_size=100000):
-                if chunk:
-                    w.write(chunk)
+        for file_name, file_link in self.model_params["params"].items():
+            response = self.get_stream(file_link)
+            with self.folder.get_writer(file_name) as w:
+                for chunk in response.iter_content(chunk_size=100000):
+                    if chunk:
+                        w.write(chunk)
