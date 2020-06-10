@@ -70,4 +70,21 @@ class fasttext_downloader():
                     w.write(chunk)
 
 
+class glove_downloader():
+    def __init__(self,folder,language,params):
+        self.folder = folder
+        self.language = language   
+        self.file_name = "glove-" + str(self.language)
+        self.params = params[self.file_name]["params"]
 
+
+    def get_stream(self):
+        response = requests.get(self.params["link_model"], stream=True)
+        return response
+
+    def download(self):
+        response = self.get_stream()
+        with self.folder.get_writer(self.file_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
