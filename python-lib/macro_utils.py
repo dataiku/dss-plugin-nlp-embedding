@@ -158,6 +158,7 @@ class ElmoDownloader(BaseDownloader):
 class UseDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
+        self.archive_name = self.model_id + ".tar.gz"
 
 class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
