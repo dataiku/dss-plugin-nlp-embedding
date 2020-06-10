@@ -89,8 +89,8 @@ class HuggingFaceDownloader(BaseDownloader):
         BaseDownloader.__init__(self,folder,model_id,model_params)
 
     def download(self):
-        for file_name, file_link in self.model_params["params"].items():
-            response = self.get_stream(file_link)
+        for parameter, file_link in self.model_params["params"].items():
+            response = self.get_stream(parameter)
             with self.folder.get_writer(file_name) as w:
                 for chunk in response.iter_content(chunk_size=100000):
                     if chunk:
