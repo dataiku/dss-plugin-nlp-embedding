@@ -12,8 +12,8 @@ class BaseDownloader(object):
         self.model_id = model_id
 
 
-    def get_stream(self,link = self.model_params["params"]["link_model"]):
-        response = requests.get(link, stream=True)
+    def get_stream(self,parameter = "link_model"):
+        response = requests.get(self.model_params["params"][parameter], stream=True)
         return response
 
     def download(self):
@@ -29,7 +29,7 @@ class Word2vecDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".bin.gz"
 
 
-    def get_stream(self,link = self.model_params["params"]["link_model"]):
+    def get_stream(self,link = "link_model"):
         session = requests.Session()
         response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True)
         token = self.__get_confirm_token(response)
