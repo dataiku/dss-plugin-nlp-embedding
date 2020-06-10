@@ -14,76 +14,6 @@ import zipfile
 import json
 import os
 
-MODELS_DOWNLOAD_LINKS = {
-    
-    "word2vec-english": {
-        "model": "word2vec",  
-        "language" : "english",
-        "params": {
-            "link_model" : "https://docs.google.com/uc?export=download",
-            "id_gdrive" : "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
-        }
-    },
-
-    "fasttext-english" : {
-        "model" : "fasttext",    
-        "language" : "english",
-        "params": {
-            "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec"
-        }
-    },
-
-    "fasttext-french" : {
-        "model" : "fasttext",    
-        "language" : "french",
-        "params": {
-            "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.fr.vec"
-        }
-    },
-
-    "fasttext-german" : {
-        "model" : "fasttext",    
-        "language" : "german",
-        "params": {
-            "link_model" : "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.de.vec"
-        }
-    },
-
-    "glove-english" : {
-        "model" : "glove",    
-        "language" : "english",
-        "params": {
-            "link_model" : "http://nlp.stanford.edu/data/glove.42B.300d.zip"
-        }
-    },
-
-    "elmo-english" : {
-        "model" : "elmo",    
-        "language" : "english",
-        "params": {
-            "link_model" : "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
-        }
-    },
-
-    "use-english" : {
-        "model" : "use",    
-        "language" : "english",
-        "params": {
-            "link_model" : "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
-        }
-    },
-
-    "bert-base-uncased" : {
-        "model" : "bert",    
-        "language" : "english",
-        "params": {
-            "link_model" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin",
-            "link_config" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json",
-            "link_vocab" : "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
-        }
-    }
-}
-
 
 class MyRunnable(Runnable):
     """The base interface for a Python runnable"""
@@ -98,7 +28,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.client = dataiku.api_client()
-        self.params = MODELS_DOWNLOAD_LINKS
+        
 
     def get_progress_target(self):
         """
@@ -139,24 +69,24 @@ class MyRunnable(Runnable):
 
         if source == 'word2vec':
             model_id = source + "-" + text_language
-            Word2vecDownloader(output_folder,model_id,self.params[model_id]).download()
+            Word2vecDownloader(output_folder,model_id).download()
 
 
         elif source == 'fasttext':
             model_id = source + "-" + text_language
-            FasttextDownloader(output_folder,model_id,self.params[model_id]).download()
+            FasttextDownloader(output_folder,model_id).download()
 
 
         elif source == 'glove':
             model_id = source + "-" + text_language
-            GloveDownloader(output_folder,model_id,self.params[model_id]).download()
+            GloveDownloader(output_folder,model_id).download()
 
         elif source == 'elmo':
             model_id = source + "-" + text_language
-            ElmoDownloader(output_folder,model_id,self.params[model_id]).download()
+            ElmoDownloader(output_folder,model_id).download()
 
         elif source == 'use':
             model_id = source + "-" + text_language
-            UseDownloader(output_folder,model_id,self.params[model_id]).download()   
+            UseDownloader(output_folder,model_id).download()   
         
         return "<br><span>The model was downloaded successfuly !</span>"
