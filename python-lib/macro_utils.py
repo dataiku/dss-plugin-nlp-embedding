@@ -3,6 +3,10 @@ import requests
 import shutil
 import gzip
 import os
+import tempfile
+import tarfile
+import tensorflow as tf
+import tensorflow_hub as hub
 
 class word2vec_downloader():
     def __init__(self,folder,language,params):
@@ -75,6 +79,46 @@ class glove_downloader():
         self.folder = folder
         self.language = language   
         self.file_name = "glove-" + str(self.language)
+        self.params = params[self.file_name]["params"]
+        self.archive_name = ""
+
+
+    def get_stream(self):
+        response = requests.get(self.params["link_model"], stream=True)
+        return response
+
+    def download(self):
+        response = self.get_stream()
+        with self.folder.get_writer(self.file_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
+
+class elmo_downloader():
+    def __init__(self,folder,language,params):
+        self.folder = folder
+        self.language = language   
+        self.file_name = "elmo-" + str(self.language)
+        self.params = params[self.file_name]["params"]
+
+
+    def get_stream(self):
+        response = requests.get(self.params["link_model"], stream=True)
+        return response
+
+    def download(self):
+        response = self.get_stream()
+        with self.folder.get_writer(self.file_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
+
+
+class huggingface_downloader():
+    def __init__(self,folder,language,params):
+        self.folder = folder
+        self.language = language   
+        self.file_name = "elmo-" + str(self.language)
         self.params = params[self.file_name]["params"]
         self.archive_name = ""
 
