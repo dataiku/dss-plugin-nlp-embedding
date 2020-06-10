@@ -53,11 +53,11 @@ class Word2vecDownloader(BaseDownloader):
         destination_writer.close()
 
         #Unzip file
-        with self.folder.get_writer(self.file_name) as f_out, self.folder.get_download_stream(self.archive_name) as f_in:
+        with self.folder.get_writer(self.model_id) as f_out, self.folder.get_download_stream(self.archive_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
         #Remove the .gz file
-        self.folder.delete_path(self.gdrive_file_name)
+        self.folder.delete_path(self.archive_name)
 
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
