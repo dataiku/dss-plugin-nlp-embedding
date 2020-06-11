@@ -3,6 +3,10 @@ import requests
 import shutil
 import gzip
 import os
+from pathlib import Path
+import tempfile
+import tarfile
+
 
 MODELS_DOWNLOAD_LINKS = {
     
@@ -74,6 +78,8 @@ MODELS_DOWNLOAD_LINKS = {
     }
 }
 
+def is_local(folder):
+    return True if folder.get_info()["type"] == "Filesystem" else False
 
 
 class BaseDownloader(object):
@@ -95,6 +101,9 @@ class BaseDownloader(object):
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
                     w.write(chunk)
+
+    def run(self):
+        self.download()
 
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
@@ -154,6 +163,37 @@ class ElmoDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
         self.archive_name = self.model_id + ".tar.gz"
+        self.folder_is_local = is_local(folder) 
+
+    def download_to_local(self):
+        tempfile.tempdir = str(Path.home())
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            response = self.get_stream()
+            local_file_path = os.path.join(tmpdirname,self.archive_name)
+            
+            with open(local_file_path,'wb') as f_local:
+                for chunk in r.iter_content(chunk_size=100000):
+                    if chunk:
+                        f_local.write(chunk)
+                        
+            with tarfile.open(local_file_path) as tar:
+                tar.extractall(tmpdirname)
+                
+            os.remove(local_file_path)
+
+        for path, subdirs, files in os.walk(tmpdirname):
+            for name in files:
+                if not name.startswith('.'):
+                    local_path = os.path.join(path, name)
+                    remote_path = local_path.split(tmpdirname)[1]
+                    with open(local_path,'rb') as f:
+                        self.folder.upload_data(remote_path,f.read())
+
+    def run(self):
+        if self.folder_is_local:
+            self.download_to_local()
+        else:
+            self.download()
         
 
 class UseDownloader(BaseDownloader):
