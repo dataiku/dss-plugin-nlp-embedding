@@ -163,7 +163,6 @@ class Tfhubownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
         self.archive_name = self.model_id + ".tar.gz"
-        self.folder_is_local = is_local(folder) 
 
     def download(self):
         with self.folder.get_download_stream(self.archive_name) as f_in:
