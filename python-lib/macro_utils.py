@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import tarfile
 import io
+import zipfile
 
 
 MODELS_DOWNLOAD_LINKS = {
@@ -158,6 +159,21 @@ class GloveDownloader(BaseDownloader):
         BaseDownloader.__init__(self,folder,model_id)
         self.archive_name = self.model_id + ".zip"
 
+    def download(self):
+        #Donwload .zip file
+        response = self.get_stream()
+        with self.folder.get_writer(self.archive_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
+        #Unzip file
+         with self.folder.get_download_stream(self.archive_name) as f_in:
+            with zipfile.ZipFile(io.BytesIO(f_in.read())) as fzip:
+                archive_name = fzip.namelist()[0]
+                with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
+                    shutil.copyfileobj(fzip_file, f_out)
+            self.folder.delete_path(self.archive_name)       
+
 
 class Tfhubownloader(BaseDownloader):
     def __init__(self,folder,model_id):
@@ -165,6 +181,13 @@ class Tfhubownloader(BaseDownloader):
         self.archive_name = self.model_id + ".tar.gz"
 
     def download(self):
+        #Donwload .tar file
+        response = self.get_stream()
+        with self.folder.get_writer(self.archive_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    w.write(chunk)
+        #Untar file
         with self.folder.get_download_stream(self.archive_name) as f_in:
             with tarfile.open(fileobj=io.BytesIO(f_in.read())) as tar:
                 members = tar.getmembers()
