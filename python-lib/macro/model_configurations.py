@@ -1,4 +1,4 @@
-MODELS_DOWNLOAD_LINKS = {
+MODEL_CONFIFURATIONS = {
     
     "word2vec-english": {
         "model": "word2vec",  
