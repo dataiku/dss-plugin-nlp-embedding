@@ -79,7 +79,9 @@ MODELS_DOWNLOAD_LINKS = {
 }
 
 def is_local(folder):
-    return True if folder.get_info()["type"] == "Filesystem" else False
+    #return True if folder.get_info()["type"] == "Filesystem" else False
+    #For testing purposes
+    return False
 
 
 class BaseDownloader(object):
@@ -165,14 +167,14 @@ class ElmoDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".tar.gz"
         self.folder_is_local = is_local(folder) 
 
-    def download_to_local(self):
+    def download(self):
         tempfile.tempdir = str(Path.home())
         with tempfile.TemporaryDirectory() as tmpdirname:
             response = self.get_stream()
             local_file_path = os.path.join(tmpdirname,self.archive_name)
             
             with open(local_file_path,'wb') as f_local:
-                for chunk in r.iter_content(chunk_size=100000):
+                for chunk in response.iter_content(chunk_size=100000):
                     if chunk:
                         f_local.write(chunk)
                         
@@ -188,6 +190,9 @@ class ElmoDownloader(BaseDownloader):
                     remote_path = local_path.split(tmpdirname)[1]
                     with open(local_path,'rb') as f:
                         self.folder.upload_data(remote_path,f.read())
+
+    def download_to_local(self):
+        pass
 
     def run(self):
         if self.folder_is_local:
