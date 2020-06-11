@@ -4,8 +4,8 @@ import shutil
 import gzip
 import os
 from pathlib import Path
-import tempfile
 import tarfile
+import io
 
 
 MODELS_DOWNLOAD_LINKS = {
@@ -104,8 +104,6 @@ class BaseDownloader(object):
                 if chunk:
                     w.write(chunk)
 
-    def run(self):
-        self.download()
 
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
@@ -161,50 +159,31 @@ class GloveDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".zip"
 
 
-class ElmoDownloader(BaseDownloader):
+class Tfhubownloader(BaseDownloader):
     def __init__(self,folder,model_id):
         BaseDownloader.__init__(self,folder,model_id)
         self.archive_name = self.model_id + ".tar.gz"
         self.folder_is_local = is_local(folder) 
 
     def download(self):
-        tempfile.tempdir = str(Path.home())
-        with tempfile.TemporaryDirectory() as tmpdirname:
-            response = self.get_stream()
-            local_file_path = os.path.join(tmpdirname,self.archive_name)
-            
-            with open(local_file_path,'wb') as f_local:
-                for chunk in response.iter_content(chunk_size=100000):
-                    if chunk:
-                        f_local.write(chunk)
-                        
-            with tarfile.open(local_file_path) as tar:
-                tar.extractall(tmpdirname)
-                
-            os.remove(local_file_path)
-
-        for path, _, files in os.walk(tmpdirname):
-            for name in files:
-                if not name.startswith('.'):
-                    local_path = os.path.join(path, name)
-                    remote_path = local_path.split(tmpdirname)[1]
-                    with open(local_path,'rb') as f:
-                        self.folder.upload_data(remote_path,f.read())
-
-    def download_to_local(self):
-        pass
-
-    def run(self):
-        if self.folder_is_local:
-            self.download_to_local()
-        else:
-            self.download()
+        with self.folder.get_download_stream(self.archive_name) as f_in:
+            with tarfile.open(fileobj=io.BytesIO(f_in.read())) as tar:
+                members = tar.getmembers()
+                for member in members:
+                    if member.isfile():
+                        with self.folder.get_writer(member.name) as f_out:
+                            shutil.copyfileobj(tar.extractfile(member),f_out)
+            self.folder.delete_path(elf.archive_name)
         
 
-class UseDownloader(BaseDownloader):
+class ElmoDownloader(Tfhubownloader):
     def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
-        self.archive_name = self.model_id + ".tar.gz"
+        Tfhubownloader.__init__(self,folder,model_id)
+
+class UseDownloader(Tfhubownloader):
+    def __init__(self,folder,model_id):
+        Tfhubownloader.__init__(self,folder,model_id)        
+
 
 class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,model_id):
