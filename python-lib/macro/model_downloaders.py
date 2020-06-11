@@ -7,13 +7,13 @@ from pathlib import Path
 import tarfile
 import io
 import zipfile
-
+from macro.model_configurations import MODEL_CONFIFURATIONS
 
 class BaseDownloader(object):
     def __init__(self,folder,model_id):
         self.folder = folder
         self.model_id = model_id
-        self.model_params = MODELS_DOWNLOAD_LINKS[self.model_id]
+        self.model_params = MODEL_CONFIFURATIONS[self.model_id]
         self.archive_name = self.model_id
 
 
