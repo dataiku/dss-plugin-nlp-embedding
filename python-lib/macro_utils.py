@@ -172,7 +172,7 @@ class Tfhubownloader(BaseDownloader):
                     if member.isfile():
                         with self.folder.get_writer(member.name) as f_out:
                             shutil.copyfileobj(tar.extractfile(member),f_out)
-            self.folder.delete_path(elf.archive_name)
+            self.folder.delete_path(self.archive_name)
         
 
 class ElmoDownloader(Tfhubownloader):
