@@ -69,28 +69,28 @@ class MyRunnable(Runnable):
 
         if source == 'word2vec':
             model_id = source + "-" + text_language
-            Word2vecDownloader(output_folder,model_id).download()
+            Word2vecDownloader(output_folder,model_id).run()
 
 
         elif source == 'fasttext':
             model_id = source + "-" + text_language
-            FasttextDownloader(output_folder,model_id).download()
+            FasttextDownloader(output_folder,model_id).run()
 
 
         elif source == 'glove':
             model_id = source + "-" + text_language
-            GloveDownloader(output_folder,model_id).download()
+            GloveDownloader(output_folder,model_id).run()
 
         elif source == 'elmo':
             model_id = source + "-" + text_language
-            ElmoDownloader(output_folder,model_id).download()
+            ElmoDownloader(output_folder,model_id).run()
 
         elif source == 'use':
             model_id = source + "-" + text_language
-            UseDownloader(output_folder,model_id).download() 
+            UseDownloader(output_folder,model_id).run() 
 
         elif source == 'bert-base-uncased':
             model_id = source
-            HuggingFaceDownloader(output_folder,model_id).download() 
+            HuggingFaceDownloader(output_folder,model_id).run() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
