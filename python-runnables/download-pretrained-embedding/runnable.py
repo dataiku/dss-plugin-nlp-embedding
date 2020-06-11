@@ -3,12 +3,12 @@
 import dataiku
 from dataiku.runnables import Runnable
 from macro.model_downloaders import (Word2vecDownloader,
-                         FasttextDownloader,
-                         GloveDownloader,
-                         ElmoDownloader,
-                         UseDownloader,
-                         HuggingFaceDownloader
-                         )
+                                    FasttextDownloader,
+                                    GloveDownloader,
+                                    ElmoDownloader,
+                                    UseDownloader,
+                                    HuggingFaceDownloader
+                                    )
 
 import zipfile
 import json
