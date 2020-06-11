@@ -79,12 +79,6 @@ MODELS_DOWNLOAD_LINKS = {
     }
 }
 
-def is_local(folder):
-    #return True if folder.get_info()["type"] == "Filesystem" else False
-    #For testing purposes
-    return False
-
-
 class BaseDownloader(object):
     def __init__(self,folder,model_id):
         self.folder = folder
