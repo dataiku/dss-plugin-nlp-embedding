@@ -183,7 +183,7 @@ class ElmoDownloader(BaseDownloader):
                 
             os.remove(local_file_path)
 
-        for path, subdirs, files in os.walk(tmpdirname):
+        for path, _, files in os.walk(tmpdirname):
             for name in files:
                 if not name.startswith('.'):
                     local_path = os.path.join(path, name)
