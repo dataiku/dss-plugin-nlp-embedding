@@ -2,7 +2,7 @@
 
 import dataiku
 from dataiku.runnables import Runnable
-from macro_utils import (Word2vecDownloader,
+from macro.model_downloaders import (Word2vecDownloader,
                          FasttextDownloader,
                          GloveDownloader,
                          ElmoDownloader,
