@@ -195,9 +195,9 @@ class HuggingFaceDownloader(BaseDownloader):
                         update_time = self.update_percent(percent, update_time)
                         w.write(chunk)
 
-        def get_file_size(self):
-            total_size = 0
-            for parameter in self.model_params["params"].keys():
-                response = self.get_stream(parameter)
-                total_size += int(response.headers.get('content-length'))
-            return total_size
+    def get_file_size(self):
+        total_size = 0
+        for parameter in self.model_params["params"].keys():
+            response = self.get_stream(parameter)
+            total_size += int(response.headers.get('content-length'))
+        return total_size
