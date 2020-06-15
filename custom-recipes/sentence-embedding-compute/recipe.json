@@ -42,7 +42,7 @@
             "type": "COLUMNS",
             "description": "",
             "mandatory": true,
-            "columnRole":"input_dataset"
+            "columnRole": "input_dataset"
         },
         {
             "name": "aggregation_method",
@@ -84,14 +84,6 @@
             "description": "Used for computing SIF weights.",
             "type": "DOUBLE",
             "defaultValue": 0.001
-        },
-        {
-            "visibilityCondition": "model.advanced_settings",
-            "name": "n_principal_components",
-            "label": "[SIF] Principal Components",
-            "description": "Number of components to remove in SIF computation.",
-            "type": "INT",
-            "defaultValue": 1
         }
     ]
 }
