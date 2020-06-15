@@ -83,7 +83,7 @@ class Word2vecDownloader(BaseDownloader):
         for chunk in response.iter_content(chunk_size=32768):
             if chunk:  # filter out keep-alive new chunks
                 bytes_so_far += len(chunk)
-                percent = int(float(bytes_so_far) / total_size * 100)
+                percent = int(float(bytes_so_far) / total_size * 95)
                 update_time = self.update_percent(percent, update_time)
                 destination_writer.write(chunk)
         destination_writer.close()
@@ -124,7 +124,6 @@ class GloveDownloader(BaseDownloader):
                     bytes_so_far += len(chunk)
                     percent = int(float(bytes_so_far) / total_size * 95)
                     update_time = self.update_percent(percent, update_time)
-                    destination_writer.write(chunk)
                     w.write(chunk)
         #Unzip file
         with self.folder.get_download_stream(self.archive_name) as f_in:
@@ -152,7 +151,6 @@ class Tfhubownloader(BaseDownloader):
                     bytes_so_far += len(chunk)
                     percent = int(float(bytes_so_far) / total_size * 95)
                     update_time = self.update_percent(percent, update_time)
-                    destination_writer.write(chunk)
                     w.write(chunk)
         #Untar file
         with self.folder.get_download_stream(self.archive_name) as f_in:
