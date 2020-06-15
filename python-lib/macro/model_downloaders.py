@@ -8,6 +8,7 @@ import tarfile
 import io
 import zipfile
 from macro.model_configurations import MODEL_CONFIFURATIONS
+import time
 
 class BaseDownloader(object):
     def __init__(self,folder,model_id,proxy):
@@ -24,11 +25,32 @@ class BaseDownloader(object):
         return response
 
     def download(self):
+        bytes_so_far = 0
         response = self.get_stream()
+        total_size = self.__get_file_size(response)
         with self.folder.get_writer(self.archive_name) as w:
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
+                    bytes_so_far += len(chunk)
+                    percent = int(float(bytes_so_far) / total_size * 100)
+                    update_time = update_percent(percent, update_time)
                     w.write(chunk)
+
+    def __get_file_size(self,response):
+        total_size = 0
+        for link in self.model_params["params"].values():
+            total_size += int(response.headers.get('content-length'))
+        return total_size
+
+    def __update_percent(self,percent, last_update_time):
+            new_time = time.time()
+            if (new_time - last_update_time) > 3:
+                progress_callback(percent)
+                return new_time
+            else:
+                return last_update_time
+
+
 
 
 class Word2vecDownloader(BaseDownloader):
