@@ -113,7 +113,7 @@
             "defaultValue": "no_proxy"
         },
         {
-            "visibilityCondition": "model.proxy_conf == custom_proxy",
+            "visibilityCondition": "model.proxy_conf == 'custom_proxy'",
             "name" : "custom_proxy_config",
             "label": "Custom proxy configuration",
             "description": "Need to follow \"[requests]\"(https://2.python-requests.org/en/master/user/advanced/#proxies) specifications. Example {http --> http://10.10.1.10:3128, https --> http://10.10.1.10:1080 }",
