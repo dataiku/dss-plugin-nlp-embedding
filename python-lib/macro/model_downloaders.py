@@ -32,8 +32,8 @@ class BaseDownloader(object):
 
 
 class Word2vecDownloader(BaseDownloader):
-    def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        BaseDownloader.__init__(self,folder,model_id,proxy)
         self.archive_name = self.model_id + ".bin.gz"
 
 
@@ -75,13 +75,13 @@ class Word2vecDownloader(BaseDownloader):
 
 
 class FasttextDownloader(BaseDownloader):
-    def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        BaseDownloader.__init__(self,folder,model_id,proxy)
 
 
 class GloveDownloader(BaseDownloader):
-    def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        BaseDownloader.__init__(self,folder,model_id,proxy)
         self.archive_name = self.model_id + ".zip"
 
     def download(self):
@@ -101,8 +101,8 @@ class GloveDownloader(BaseDownloader):
 
 
 class Tfhubownloader(BaseDownloader):
-    def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        BaseDownloader.__init__(self,folder,model_id,proxy)
         self.archive_name = self.model_id + ".tar.gz"
 
     def download(self):
@@ -124,17 +124,17 @@ class Tfhubownloader(BaseDownloader):
         
 
 class ElmoDownloader(Tfhubownloader):
-    def __init__(self,folder,model_id):
-        Tfhubownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        Tfhubownloader.__init__(self,folder,model_id,proxy)
 
 class UseDownloader(Tfhubownloader):
-    def __init__(self,folder,model_id):
-        Tfhubownloader.__init__(self,folder,model_id)        
+    def __init__(self,folder,model_id,proxy):
+        Tfhubownloader.__init__(self,folder,model_id,proxy)        
 
 
 class HuggingFaceDownloader(BaseDownloader):
-    def __init__(self,folder,model_id):
-        BaseDownloader.__init__(self,folder,model_id)
+    def __init__(self,folder,model_id,proxy):
+        BaseDownloader.__init__(self,folder,model_id,proxy)
         self.archive_name = {
             "link_model": "pytorch_model.bin",
             "link_config": "config.json",
