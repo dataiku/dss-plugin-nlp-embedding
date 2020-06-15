@@ -28,6 +28,7 @@ class BaseDownloader(object):
         bytes_so_far = 0
         response = self.get_stream()
         total_size = self.get_file_size(response)
+        update_time = time.time()
         with self.folder.get_writer(self.archive_name) as w:
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
