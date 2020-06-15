@@ -111,7 +111,7 @@
                 
             ],
             "defaultValue": "no_proxy"
-        }
+        },
         {
             "visibilityCondition": "model.proxy_conf == custom_proxy",
             "name" : "custom_proxy_config",
