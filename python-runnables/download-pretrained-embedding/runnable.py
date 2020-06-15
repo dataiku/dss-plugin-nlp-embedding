@@ -80,7 +80,7 @@ class MyRunnable(Runnable):
 
         elif source == 'fasttext':
             model_id = source + "-" + text_language
-            FasttextDownloader(output_folder,model_id,proxy).download()
+            FasttextDownloader(output_folder,model_id,proxy,progress_callback).download()
 
 
         elif source == 'glove':
