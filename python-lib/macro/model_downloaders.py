@@ -11,12 +11,13 @@ from macro.model_configurations import MODEL_CONFIFURATIONS
 import time
 
 class BaseDownloader(object):
-    def __init__(self,folder,model_id,proxy):
+    def __init__(self,folder,model_id,proxy,progress_callback):
         self.folder = folder
         self.model_id = model_id
         self.model_params = MODEL_CONFIFURATIONS[self.model_id]
         self.archive_name = self.model_id
         self.proxy = proxy
+        self.progress_callback = progress_callback
 
 
 
@@ -44,7 +45,7 @@ class BaseDownloader(object):
     def update_percent(self,percent, last_update_time):
             new_time = time.time()
             if (new_time - last_update_time) > 3:
-                progress_callback(percent)
+                self.progress_callback(percent)
                 return new_time
             else:
                 return last_update_time
@@ -96,8 +97,8 @@ class Word2vecDownloader(BaseDownloader):
 
 
 class FasttextDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy):
-        BaseDownloader.__init__(self,folder,model_id,proxy)
+    def __init__(self,folder,model_id,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
 
 
 class GloveDownloader(BaseDownloader):
