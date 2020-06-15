@@ -4,7 +4,7 @@
         "description": "Downloads pre-trained word embeddings. Available models are: Word2vec, GloVe, fastText and ELMo.",
         "icon": "icon-cloud-download"
     },
-    "impersonate": false,
+    "impersonate": true,
     "permissions": [
         "WRITE_CONF"
     ],
