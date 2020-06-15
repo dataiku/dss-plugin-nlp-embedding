@@ -46,6 +46,13 @@ class MyRunnable(Runnable):
             text_language = self.config.get('text_language_fasttext', '')
         else:
             text_language = self.config.get('text_language_other', '')
+        proxy_config = {}
+        advanced_settings = recipe_config['advanced_settings']
+            if advanced_settings:
+                proxy = recipe_config['proxy_conf']
+                if proxy == "preset_proxy":
+                elif proxy == "custom_proxy":
+                    proxy_config = recipe_config['custom_proxy_config']
 
         # Creating new Managed Folder if needed
         project = self.client.get_project(self.project_key)
