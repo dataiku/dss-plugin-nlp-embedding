@@ -89,6 +89,36 @@
             "type": "BOOLEAN",
             "defaultValue": false
         },
-        
+        {
+            "visibilityCondition": "model.advanced_settings",
+            "name": "proxy_conf",
+            "label": "Proxy configuration",
+            "description": "Proxy configuration for downloading the pre-trained models.",
+            "type": "SELECT",
+            "selectChoices": [
+                {
+                    "value": "no_proxy",
+                    "label": "No proxy"
+                },
+                {
+                    "value": "preset_proxy",
+                    "label": "Use preset proxy"
+                },
+                {
+                    "value": "custom_proxy",
+                    "label": "Custom proxy"
+                }
+                
+            ],
+            "defaultValue": "no_proxy"
+        }
+        {
+            "visibilityCondition": "model.proxy_conf == custom_proxy",
+            "name" : "custom_proxy_config",
+            "label": "Custom proxy configuration",
+            "description": "Need to follow \"[requests]\"(https://2.python-requests.org/en/master/user/advanced/#proxies) specifications. Example {http --> http://10.10.1.10:3128, https --> http://10.10.1.10:1080 }",
+            "type": "MAP"    
+        }
+
     ]
 }
