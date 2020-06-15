@@ -44,7 +44,7 @@ class BaseDownloader(object):
 
     def update_percent(self,percent, last_update_time):
             new_time = time.time()
-            if (new_time - last_update_time) > 3:
+            if (new_time - last_update_time) > 5:
                 self.progress_callback(percent)
                 return new_time
             else:
