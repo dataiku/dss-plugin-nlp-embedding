@@ -116,7 +116,7 @@
             "visibilityCondition": "model.proxy_conf == 'custom_proxy'",
             "name" : "custom_proxy_config",
             "label": "Custom proxy configuration",
-            "description": "Needs to follow Python's requests specifications.\\n Example http --> http://10.10.1.10:3128; https --> http://10.10.1.10:1080",
+            "description": "Needs to follow Python's requests specifications.\\nExample http --> http://10.10.1.10:3128; https --> http://10.10.1.10:1080",
             "type": "MAP"    
         }
 
