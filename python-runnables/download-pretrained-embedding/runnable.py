@@ -51,7 +51,7 @@ class MyRunnable(Runnable):
         if advanced_settings:
             proxy_config = self.config['proxy_config']
             print("heeere")
-            print(proxy)
+            print(proxy_config)
             print(something)
 
         # Creating new Managed Folder if needed
