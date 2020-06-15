@@ -73,12 +73,18 @@ class Word2vecDownloader(BaseDownloader):
         return response
 
     def download(self):
+        bytes_so_far = 0
         response = self.get_stream()
+        total_size = self.get_file_size(response)
+        update_time = time.time()
         destination_writer = self.folder.get_writer(self.archive_name)
 
         #Write .gz file to folder
         for chunk in response.iter_content(chunk_size=32768):
             if chunk:  # filter out keep-alive new chunks
+                bytes_so_far += len(chunk)
+                percent = int(float(bytes_so_far) / total_size * 100)
+                update_time = self.update_percent(percent, update_time)
                 destination_writer.write(chunk)
         destination_writer.close()
 
@@ -97,8 +103,8 @@ class Word2vecDownloader(BaseDownloader):
 
 
 class FasttextDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback,progress_callback)
+    def __init__(self,folder,model_id,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
 
 
 class GloveDownloader(BaseDownloader):
@@ -108,10 +114,17 @@ class GloveDownloader(BaseDownloader):
 
     def download(self):
         #Donwload .zip file
+        bytes_so_far = 0
         response = self.get_stream()
+        total_size = self.get_file_size(response)
+        update_time = time.time()
         with self.folder.get_writer(self.archive_name) as w:
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
+                    bytes_so_far += len(chunk)
+                    percent = int(float(bytes_so_far) / total_size * 95)
+                    update_time = self.update_percent(percent, update_time)
+                    destination_writer.write(chunk)
                     w.write(chunk)
         #Unzip file
         with self.folder.get_download_stream(self.archive_name) as f_in:
@@ -129,10 +142,17 @@ class Tfhubownloader(BaseDownloader):
 
     def download(self):
         #Donwload .tar file
+        bytes_so_far = 0
         response = self.get_stream()
+        total_size = self.get_file_size(response)
+        update_time = time.time()
         with self.folder.get_writer(self.archive_name) as w:
             for chunk in response.iter_content(chunk_size=100000):
                 if chunk:
+                    bytes_so_far += len(chunk)
+                    percent = int(float(bytes_so_far) / total_size * 95)
+                    update_time = self.update_percent(percent, update_time)
+                    destination_writer.write(chunk)
                     w.write(chunk)
         #Untar file
         with self.folder.get_download_stream(self.archive_name) as f_in:
