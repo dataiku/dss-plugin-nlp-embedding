@@ -108,17 +108,22 @@
                     "value": "custom_proxy",
                     "label": "Custom proxy"
                 }
-                
             ],
             "defaultValue": "no_proxy"
         },
         {
             "visibilityCondition": "model.proxy_conf == 'custom_proxy'",
-            "name" : "custom_proxy_config",
+            "name": "custom_proxy_config",
             "label": "Custom proxy configuration",
             "description": "Needs to follow Python's requests specifications.\nExample:\nhttp --> http://10.10.1.10:3128\nhttps --> http://10.10.1.10:1080",
-            "type": "MAP"    
-        }
-
+            "type": "MAP"
+        },
+        {
+            "visibilityCondition": "model.proxy_conf == 'preset_proxy'",
+            "type": "PRESET",
+            "name": "preset_proxy_config",
+            "label": "Preset proxy configuration",
+            "parameterSetId": "aws_accounts"
+          }
     ]
 }
