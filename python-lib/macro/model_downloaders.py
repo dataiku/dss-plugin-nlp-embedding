@@ -10,16 +10,17 @@ import zipfile
 from macro.model_configurations import MODEL_CONFIFURATIONS
 
 class BaseDownloader(object):
-    def __init__(self,folder,model_id):
+    def __init__(self,folder,model_id,proxy):
         self.folder = folder
         self.model_id = model_id
         self.model_params = MODEL_CONFIFURATIONS[self.model_id]
         self.archive_name = self.model_id
+        self.proxy = proxy
 
 
 
     def get_stream(self,parameter = "link_model"):
-        response = requests.get(self.model_params["params"][parameter], stream=True)
+        response = requests.get(self.model_params["params"][parameter], stream=True, proxy=self.proxy)
         return response
 
     def download(self):
@@ -38,12 +39,12 @@ class Word2vecDownloader(BaseDownloader):
 
     def get_stream(self,link = "link_model"):
         session = requests.Session()
-        response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True)
+        response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True, proxy=self.proxy) 
         token = self.__get_confirm_token(response)
 
         if token:
             params = {'id': self.model_params["params"]["id_gdrive"], 'confirm': token}
-            response = session.get(self.model_params["params"]["link_model"], params=params, stream=True)
+            response = session.get(self.model_params["params"]["link_model"], params=params, stream=True, proxy=self.proxy)
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 
