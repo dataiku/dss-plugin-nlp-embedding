@@ -52,6 +52,7 @@ class MyRunnable(Runnable):
             proxy = recipe_config['proxy_config']
             print("heeere")
             print(proxy)
+            print(something)
 
         # Creating new Managed Folder if needed
         project = self.client.get_project(self.project_key)
