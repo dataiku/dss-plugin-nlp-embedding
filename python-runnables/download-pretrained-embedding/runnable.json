@@ -33,11 +33,11 @@
                 {
                     "label": "ELMo",
                     "value": "elmo"
-                },               
+                },
                 {
                     "label": "Universal Sentence Encoder",
                     "value": "use"
-                },               
+                },
                 {
                     "label": "Bert Based Uncased",
                     "value": "bert-base-uncased"
@@ -81,6 +81,14 @@
             "type": "STRING",
             "description": "Use a different folder for each downloaded embeddings.",
             "mandatory": true
-        }
+        },
+        {
+            "name": "advanced_settings",
+            "label": "Advanced Settings",
+            "description": "To set proxies.",
+            "type": "BOOLEAN",
+            "defaultValue": false
+        },
+        
     ]
 }
