@@ -47,9 +47,9 @@ class MyRunnable(Runnable):
         else:
             text_language = self.config.get('text_language_other', '')
         proxy_config = {}
-        advanced_settings = recipe_config['advanced_settings']
+        advanced_settings = self.config['advanced_settings']
         if advanced_settings:
-            proxy = recipe_config['proxy_config']
+            proxy_config = self.config['proxy_config']
             print("heeere")
             print(proxy)
             print(something)
