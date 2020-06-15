@@ -7,13 +7,7 @@
     "defaultDefinableInline": true,
     "defaultDefinableAtProjectLevel": true,
     "pluginParams": [
-        {
-            "name": "test",
-            "label": "test",
-            "description": "test",
-            "type": "STRING",
-            "mandatory": true
-        }
+
     ],
     "params": [
         {
