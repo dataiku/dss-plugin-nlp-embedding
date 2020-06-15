@@ -20,7 +20,7 @@ class BaseDownloader(object):
 
 
     def get_stream(self,parameter = "link_model"):
-        response = requests.get(self.model_params["params"][parameter], stream=True, proxy=self.proxy)
+        response = requests.get(self.model_params["params"][parameter], stream=True, proxies=self.proxy)
         return response
 
     def download(self):
@@ -39,12 +39,12 @@ class Word2vecDownloader(BaseDownloader):
 
     def get_stream(self,link = "link_model"):
         session = requests.Session()
-        response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True, proxy=self.proxy) 
+        response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
 
         if token:
             params = {'id': self.model_params["params"]["id_gdrive"], 'confirm': token}
-            response = session.get(self.model_params["params"]["link_model"], params=params, stream=True, proxy=self.proxy)
+            response = session.get(self.model_params["params"]["link_model"], params=params, stream=True, proxies=self.proxy)
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 
