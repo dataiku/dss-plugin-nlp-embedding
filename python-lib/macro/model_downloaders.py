@@ -91,7 +91,7 @@ class GloveDownloader(BaseDownloader):
                 if chunk:
                     w.write(chunk)
         #Unzip file
-         with self.folder.get_download_stream(self.archive_name) as f_in:
+        with self.folder.get_download_stream(self.archive_name) as f_in:
             with zipfile.ZipFile(io.BytesIO(f_in.read())) as fzip:
                 archive_name = fzip.namelist()[0]
                 with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
