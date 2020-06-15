@@ -50,6 +50,8 @@ class MyRunnable(Runnable):
         advanced_settings = self.config['advanced_settings']
         if advanced_settings:
             proxy = self.config['proxy_config']
+            if proxy:
+                proxy = proxy["custom_proxy_config"]
 
         # Creating new Managed Folder if needed
         project = self.client.get_project(self.project_key)
