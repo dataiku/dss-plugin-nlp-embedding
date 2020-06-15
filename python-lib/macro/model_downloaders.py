@@ -37,7 +37,7 @@ class BaseDownloader(object):
                     w.write(chunk)
 
     def get_file_size(self,response):
-        total_size += int(response.headers.get('content-length'))
+        total_size = int(response.headers.get('content-length'))
         return total_size
 
     def update_percent(self,percent, last_update_time):
