@@ -46,13 +46,10 @@ class MyRunnable(Runnable):
             text_language = self.config.get('text_language_fasttext', '')
         else:
             text_language = self.config.get('text_language_other', '')
-        proxy_config = {}
+        proxy = {}
         advanced_settings = self.config['advanced_settings']
         if advanced_settings:
-            proxy_config = self.config['proxy_config']
-            print("heeere")
-            print(proxy_config)
-            print(something)
+            proxy = self.config['proxy_config']
 
         # Creating new Managed Folder if needed
         project = self.client.get_project(self.project_key)
@@ -76,28 +73,28 @@ class MyRunnable(Runnable):
 
         if source == 'word2vec':
             model_id = source + "-" + text_language
-            Word2vecDownloader(output_folder,model_id).download()
+            Word2vecDownloader(output_folder,model_id,proxy).download()
 
 
         elif source == 'fasttext':
             model_id = source + "-" + text_language
-            FasttextDownloader(output_folder,model_id).download()
+            FasttextDownloader(output_folder,model_id,proxy).download()
 
 
         elif source == 'glove':
             model_id = source + "-" + text_language
-            GloveDownloader(output_folder,model_id).download()
+            GloveDownloader(output_folder,model_id,proxy).download()
 
         elif source == 'elmo':
             model_id = source + "-" + text_language
-            ElmoDownloader(output_folder,model_id).download()
+            ElmoDownloader(output_folder,model_id,proxy).download()
 
         elif source == 'use':
             model_id = source + "-" + text_language
-            UseDownloader(output_folder,model_id).download() 
+            UseDownloader(output_folder,model_id,proxy).download() 
 
         elif source == 'bert-base-uncased':
             model_id = source
-            HuggingFaceDownloader(output_folder,model_id).download() 
+            HuggingFaceDownloader(output_folder,model_id,proxy).download() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
