@@ -80,7 +80,7 @@ class Word2vecDownloader(BaseDownloader):
 
         return response
 
-    def download(self):
+    def download_gdrive(self):
         bytes_so_far = 0
         response = self.get_stream()
         total_size = self.get_file_size(response)
@@ -103,6 +103,27 @@ class Word2vecDownloader(BaseDownloader):
         #Remove the .gz file
         self.folder.delete_path(self.archive_name)
 
+    def download(self):
+        #Donwload .zip file
+        bytes_so_far = 0
+        response = self.get_stream()
+        total_size = self.get_file_size(response)
+        update_time = time.time()
+        with self.folder.get_writer(self.archive_name) as w:
+            for chunk in response.iter_content(chunk_size=100000):
+                if chunk:
+                    bytes_so_far += len(chunk)
+                    percent = int(float(bytes_so_far) / total_size * 95)
+                    update_time = self.update_percent(percent, update_time)
+                    w.write(chunk)
+        #Unzip file
+        with self.folder.get_download_stream(self.archive_name) as f_in:
+            with zipfile.ZipFile(io.BytesIO(f_in.read())) as fzip:
+                archive_name = fzip.namelist()[0]
+                with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
+                    shutil.copyfileobj(fzip_file, f_out)
+            self.folder.delete_path(self.archive_name)  
+
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
             if key.startswith('download_warning'):
@@ -110,12 +131,12 @@ class Word2vecDownloader(BaseDownloader):
         return None   
 
     def get_download_link(self):
-        if self.language = "english":
+        if self.language == "english":
             return self.model_params[self.language]["model_link"]
         else:
             model_id = elf.model_params[self.language]["model_id"]
             return self.DOWNLOAD_BASE_URL.format(model_id)
-        pass
+        
 
 
 
