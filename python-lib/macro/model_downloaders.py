@@ -62,6 +62,7 @@ class Word2vecDownloader(BaseDownloader):
         self.language = model_params["language"]
         self.model_id = 'word2vec-' + self.language
         self.archive_name = self.model_id + ".bin.gz"
+        self.DOWNLOAD_BASE_URL = "http://vectors.nlpl.eu/repository/20/%s.zip"
 
 
     def get_gdrive_stream(self,link = "link_model"):
@@ -109,6 +110,11 @@ class Word2vecDownloader(BaseDownloader):
         return None   
 
     def get_download_link(self):
+        if self.language = "english":
+            return self.model_params[self.language]["model_link"]
+        else:
+            model_id = elf.model_params[self.language]["model_id"]
+            return self.DOWNLOAD_BASE_URL.format(model_id)
         pass
 
 
