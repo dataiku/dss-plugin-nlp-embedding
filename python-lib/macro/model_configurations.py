@@ -58,7 +58,7 @@ MODEL_CONFIFURATIONS = {
         "architectures": {
             "bert": {
                 "label": "BERT",
-                "languages"; {
+                "languages": {
                     "Multilingual": [
                     "bert-base-multilingual-uncased",
                     "bert-base-multilingual-cased"
