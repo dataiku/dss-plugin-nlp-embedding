@@ -133,6 +133,27 @@ MODEL_CONFIFURATIONS = {
             "Japanese": [
                 "cl-tohoku/bert-base-japanese"
             ]
+        },
+
+        "DistilBERT": {
+            "English": [
+                "distilbert-base-uncased",
+                "distilbert-base-uncased-distilled-squad",
+                "distilbert-base-cased"
+            ],
+
+            "German": [
+                "distilbert-base-german-cased"
+            ]
+        },
+
+        "GPT-2": {
+            "English": [
+                "gpt2",
+                "gpt2-medium",
+                "gpt2-large",
+                "gpt2-xl"
+            ]
         }
     }
 
