@@ -68,7 +68,7 @@ class Word2vecDownloader(BaseDownloader):
         id_gdrive = model_params[self.language]["id_gdrive"]
         session = requests.Session()
         download_link = self.get_download_link()
-        response = session.get(download_link, params={'id': , stream=True, proxies=self.proxy) 
+        response = session.get(download_link, params={'id': id_gdrive , stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
 
         if token:
