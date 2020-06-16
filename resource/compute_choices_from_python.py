@@ -18,6 +18,8 @@ def do(payload, config, plugin_config, inputs):
             model = config["embedding_model"]
             values = MODEL_CONFIFURATIONS[model]["languages"].keys()
             choices = [{"value": v, "label": l} for v,l in zip(values,values)]
+        else:
+            choices = []
     
     
 
