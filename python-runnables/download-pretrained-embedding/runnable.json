@@ -19,16 +19,241 @@
             "name": "embedding_model",
             "label": "Embedding Model",
             "type": "SELECT",
-            "getChoicesFromPython": true,
             "mandatory": true
         },
 
         {
-            "name": "language",
+            "name": "language_word2vec",
             "label": "Language",
             "type": "SELECT",
-            "getChoicesFromPython": true,
-            "mandatory": true
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "Dutch",
+                    "value": "dutch"
+                }
+            ]
+        },
+
+        {
+            "name": "language_fasttext",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "Arabic",
+                    "value": "arabic"
+                }
+            ]
+        },
+
+        {
+            "name": "language_glove",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                }
+            ]
+        },
+
+        {
+            "name": "language_elmo",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                }
+            ]
+        },
+
+        {
+            "name": "language_use",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "Multilingual",
+                    "value": "multilingual"
+                },
+                {
+                    "label": "English",
+                    "value": "english"
+                }
+            ]
+        },
+
+        {
+            "name": "transformer_architecture",
+            "label": "Transformer Architecture",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "Bert",
+                    "value": "bert"
+                },
+                {
+                    "label": "DistilBERT",
+                    "value": "distilbert"
+                },
+                {
+                    "label": "GPT-2",
+                    "value": "gpt2"
+                }
+            ]
+        },
+
+        {
+            "name": "language_tranformer_bert",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "Multilingual",
+                    "value": "multilingual"
+                },
+                {
+                    "label": "English",
+                    "value": "english"
+                }
+            ]
+        },
+
+        {
+            "name": "language_tranformer_distilbert",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "German",
+                    "value": "german"
+                }
+            ]
+        },
+
+        {
+            "name": "language_tranformer_bert_multilingual",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "bert-base-multilingual-uncased",
+                    "value": "bert-base-multilingual-uncased"
+                },
+                {
+                    "label": "bert-base-multilingual-cased",
+                    "value": "bert-base-multilingual-cased"
+                }
+            ]
+        },
+
+        {
+            "name": "language_tranformer_bert_english",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "bert-base-cased",
+                    "value": "bert-base-cased"
+                },
+                {
+                    "label": "bert-base-uncased",
+                    "value": "bert-base-uncased"
+                }
+            ]
+        },
+
+        {
+            "name": "language_tranformer_distilbert_english",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "distilbert-base-cased",
+                    "value": "distilbert-base-cased"
+                },
+                {
+                    "label": "distilbert-base-uncased",
+                    "value": "distilbert-base-uncased"
+                }
+            ]
+        },
+
+        {
+            "name": "language_word2vec",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "Dutch",
+                    "value": "dutch"
+                }
+            ]
+        },
+
+        {
+            "name": "language_word2vec",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "Dutch",
+                    "value": "dutch"
+                }
+            ]
+        },
+
+        {
+            "name": "language_word2vec",
+            "label": "Language",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "English",
+                    "value": "english"
+                },
+                {
+                    "label": "Dutch",
+                    "value": "dutch"
+                }
+            ]
         },
 
         {
