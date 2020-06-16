@@ -18,7 +18,29 @@
             "name": "embedding_model",
             "label": "Embedding Model",
             "type": "SELECT",
-            "mandatory": true
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "Word2vec",
+                    "value": "word2vec"
+                },
+                {
+                    "label": "FastText",
+                    "value": "fasttext"
+                },
+                {
+                    "label": "Glove",
+                    "value": "glove"
+                },
+                {
+                    "label": "Universal Sentence Encoder",
+                    "value": "use"
+                },
+                {
+                    "label": "Transformers",
+                    "value": "tranformers"
+                }
+            ]
         },
 
         {
