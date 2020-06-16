@@ -3,11 +3,11 @@ MODEL_CONFIFURATIONS = {
     "word2vec": {
         "label": "Word2vec",
         "languages": {
-            "English": {
+            "english": {
                 "model_link" : "https://docs.google.com/uc?export=download",
                 "id_gdrive": "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
             },
-            "Dutch": {
+            "dutch": {
                 "model_id" : 39 
             }
         }
@@ -16,15 +16,15 @@ MODEL_CONFIFURATIONS = {
     "fasttext": {
         "label": "FastText",
         "languages": {
-            "English":  "en",
-            "Arabic": "ar"
+            "english":  "en",
+            "arabic": "ar"
         }        
     },
 
     "glove": {
         "label": "Glove",
         "languages": {
-            "English": {
+            "english": {
                 "model_link": "http://nlp.stanford.edu/data/glove.42B.300d.zip"
             }
         }
@@ -34,7 +34,7 @@ MODEL_CONFIFURATIONS = {
     "elmo": {
         "label": "ELMo",
         "languages": {
-            "English": {
+            "english": {
                 "model_link": "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
             }
         }
@@ -44,10 +44,10 @@ MODEL_CONFIFURATIONS = {
     "use": {
         "label": "Universal Sentence Encoder",
         "languages": {
-            "Multilingual": {
+            "multilingual": {
                 "model_link": "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3"
             },
-            "English": {
+            "english": {
                 "model_link": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
             }
         }
@@ -59,12 +59,12 @@ MODEL_CONFIFURATIONS = {
             "bert": {
                 "label": "BERT",
                 "languages": {
-                    "Multilingual": [
+                    "multilingual": [
                     "bert-base-multilingual-uncased",
                     "bert-base-multilingual-cased"
 
                     ],
-                    "English": [
+                    "english": [
                         "bert-base-uncased",
                         "bert-large-uncased",
                         "bert-base-cased",
