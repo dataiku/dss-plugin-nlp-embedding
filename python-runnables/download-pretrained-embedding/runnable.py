@@ -9,7 +9,7 @@ from macro.model_downloaders import (Word2vecDownloader,
                                     UseDownloader,
                                     HuggingFaceDownloader
                                     )
-
+from macro.macro_utils import read_model_inputs
 import zipfile
 import json
 import os
@@ -40,19 +40,8 @@ class MyRunnable(Runnable):
     def run(self, progress_callback):
 
         # Retrieving parameters
-        output_folder_name = self.config.get('outputName', '')
-        source = self.config.get('source', '')
-        if source == 'fasttext':
-            text_language = self.config.get('text_language_fasttext', '')
-        else:
-            text_language = self.config.get('text_language_other', '')
-        proxy = {}
-        advanced_settings = self.config['advanced_settings']
-        if advanced_settings:
-            proxy = self.config['proxy_config']
-            if proxy:
-                proxy = proxy["custom_proxy_config"]
-
+        macro_inputs = read_model_inputs(self.config)
+        
         # Creating new Managed Folder if needed
         project = self.client.get_project(self.project_key)
         output_folder_found = False
