@@ -7,6 +7,7 @@ def do(payload, config, plugin_config, inputs):
     print("plugin_config: {}".format(plugin_config))
     print("inputs: {}".format(inputs))
     parameter_name =  payload["parameterName"]
+    print("parameter_name: {}".format(parameter_name))
     if parameter_name == "embedding_model":
         values = MODEL_CONFIFURATIONS.keys()
         labels = [MODEL_CONFIFURATIONS[x]["label"] for x in values]
