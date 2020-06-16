@@ -11,18 +11,18 @@ from macro.model_configurations import MODEL_CONFIFURATIONS
 import time
 
 class BaseDownloader(object):
-    def __init__(self,folder,model_id,proxy,progress_callback):
+    def __init__(self,folder,model_params,proxy,progress_callback):
         self.folder = folder
-        self.model_id = model_id
-        self.model_params = MODEL_CONFIFURATIONS[self.model_id]
-        self.archive_name = self.model_id
+        self.model_params = model_params
         self.proxy = proxy
         self.progress_callback = progress_callback
+        self.archive_name = ''
 
 
 
-    def get_stream(self,parameter = "link_model"):
-        response = requests.get(self.model_params["params"][parameter], stream=True, proxies=self.proxy)
+    def get_stream(self):
+        download_link = self.get_download_link()
+        response = requests.get(download_link, stream=True, proxies=self.proxy)
         return response
 
     def download(self):
@@ -50,18 +50,25 @@ class BaseDownloader(object):
             else:
                 return last_update_time
 
+    def get_download_link(self):
+        raise NotImplementedError()
+
 
 
 
 class Word2vecDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
+    def __init__(self,folder,model_params,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,model_params,proxy,progress_callback)
+        self.language = model_params["language"]
+        self.model_id = 'word2vec-' + self.language
         self.archive_name = self.model_id + ".bin.gz"
 
 
-    def get_stream(self,link = "link_model"):
+    def get_gdrive_stream(self,link = "link_model"):
+        id_gdrive = model_params[self.language]["id_gdrive"]
         session = requests.Session()
-        response = session.get(self.model_params["params"]["link_model"], params={'id': self.model_params["params"]["id_gdrive"]}, stream=True, proxies=self.proxy) 
+        download_link = self.get_download_link()
+        response = session.get(download_link, params={'id': , stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
 
         if token:
@@ -100,6 +107,10 @@ class Word2vecDownloader(BaseDownloader):
             if key.startswith('download_warning'):
                 return value
         return None   
+
+    def get_download_link(self):
+        pass
+
 
 
 class FasttextDownloader(BaseDownloader):
