@@ -63,30 +63,32 @@ class MyRunnable(Runnable):
         # Downloading and extracting the data
         #######################################
 
-        if source == 'word2vec':
-            model_id = source + "-" + text_language
-            Word2vecDownloader(output_folder,model_id,proxy,progress_callback).download()
+        embedding_model = macro_inputs["embedding_model"]
+        proxy = macro_inputs["proxy"]
+        if embedding_model == 'word2vec':
+            model_params = embedding_model[embedding_model]
+            Word2vecDownloader(output_folder,model_params,proxy,progress_callback).download()
 
 
-        elif source == 'fasttext':
-            model_id = source + "-" + text_language
-            FasttextDownloader(output_folder,model_id,proxy,progress_callback).download()
+        elif embedding_model == 'fasttext':
+            model_params = embedding_model[embedding_model]
+            FasttextDownloader(output_folder,model_params,proxy,progress_callback).download()
 
 
-        elif source == 'glove':
-            model_id = source + "-" + text_language
-            GloveDownloader(output_folder,model_id,proxy,progress_callback).download()
+        elif embedding_model == 'glove':
+            model_params = embedding_model[embedding_model]
+            GloveDownloader(output_folder,model_params,proxy,progress_callback).download()
 
-        elif source == 'elmo':
-            model_id = source + "-" + text_language
-            ElmoDownloader(output_folder,model_id,proxy,progress_callback).download()
+        elif embedding_model == 'elmo':
+            model_params = embedding_model[embedding_model]
+            ElmoDownloader(output_folder,model_params,proxy,progress_callback).download()
 
-        elif source == 'use':
-            model_id = source + "-" + text_language
-            UseDownloader(output_folder,model_id,proxy,progress_callback).download() 
+        elif embedding_model == 'use':
+            model_params = embedding_model[embedding_model]
+            UseDownloader(output_folder,model_params,proxy,progress_callback).download() 
 
-        elif source == 'bert-base-uncased':
-            model_id = source
-            HuggingFaceDownloader(output_folder,model_id,proxy,progress_callback).download() 
+        elif embedding_model == 'transformers':
+            model_params = embedding_model[embedding_model]
+            HuggingFaceDownloader(output_folder,model_params,proxy,progress_callback).download() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
