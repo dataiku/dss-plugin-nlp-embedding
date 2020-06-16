@@ -220,7 +220,7 @@
         },
 
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_bert == 'english'",
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'english'",
             "name": "language_tranformer_distilbert_english",
             "label": "Shortcut name",
             "type": "SELECT",
@@ -233,6 +233,20 @@
                 {
                     "label": "distilbert-base-uncased",
                     "value": "distilbert-base-uncased"
+                }
+            ]
+        },
+
+        {
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'german'",
+            "name": "language_tranformer_distilbert_german",
+            "label": "Shortcut name",
+            "type": "SELECT",
+            "mandatory": true,
+            "selectChoices": [
+                {
+                    "label": "distilbert-base-german-cased",
+                    "value": "distilbert-base-german-cased"
                 }
             ]
         },
