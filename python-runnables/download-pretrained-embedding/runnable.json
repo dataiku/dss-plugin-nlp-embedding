@@ -16,12 +16,22 @@
 
     "params": [
         {
-            "name": "model",
-            "label": "Model",
+            "name": "embedding_model",
+            "label": "Embedding Model",
             "type": "SELECT",
             "getChoicesFromPython": true,
             "mandatory": true
         },
+
+        {
+            "name": "language",
+            "label": "Language",
+            "type": "SELECT",
+            "getChoicesFromPython": true,
+            "mandatory": true
+        },
+
+
         {
             "visibilityCondition": "model.source == 'fasttext'",
             "name": "text_language_fasttext",
