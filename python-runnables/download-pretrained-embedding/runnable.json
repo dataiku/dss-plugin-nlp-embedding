@@ -166,6 +166,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert'",
             "name": "language_tranformer_distilbert",
             "label": "Language",
             "type": "SELECT",
@@ -183,8 +184,9 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'multilingual'",
             "name": "language_tranformer_bert_multilingual",
-            "label": "Language",
+            "label": "Shortcut name",
             "type": "SELECT",
             "mandatory": true,
             "selectChoices": [
@@ -200,6 +202,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'english'",
             "name": "language_tranformer_bert_english",
             "label": "Language",
             "type": "SELECT",
@@ -217,6 +220,7 @@
         },
 
         {
+            
             "name": "language_tranformer_distilbert_english",
             "label": "Language",
             "type": "SELECT",
