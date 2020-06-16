@@ -9,14 +9,15 @@ def do(payload, config, plugin_config, inputs):
     parameter_name =  payload["parameterName"]
     if parameter_name == "embedding_model":
         values = MODEL_CONFIFURATIONS.keys()
-        labels = [x.lower().replace(" ","_") for x in MODEL_CONFIFURATIONS.keys()]
-        choices = [{"value": v, "label": l} for v,l in zip(labels,values)]
+        labels = [MODEL_CONFIFURATIONS[x]["label"] for x in values]
+        choices = [{"value": v, "label": l} for v,l in zip(values,labels)]
 
     elif parameter_name == "language":
         model = config["embedding_model"]
-        values = MODEL_CONFIFURATIONS[model]
+        values = MODEL_CONFIFURATIONS[model]["languages"].keys()
+        choices = [{"value": v, "label": l} for v,l in zip(values,values)]
     
     
-    print(stop)
+
     
     return {"choices": choices}
