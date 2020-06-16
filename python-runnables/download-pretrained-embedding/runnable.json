@@ -31,37 +31,6 @@
             "mandatory": true
         },
 
-
-        {
-            "visibilityCondition": "model.source == 'fasttext'",
-            "name": "text_language_fasttext",
-            "label": "Text language",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "label": "English",
-                    "value": "english"
-                },
-                {
-                    "label": "French",
-                    "value": "french"
-                }
-            ],
-            "mandatory": true
-        },
-        {
-            "visibilityCondition": "model.source != 'fasttext'",
-            "name": "text_language_other",
-            "label": "Text language",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "label": "English",
-                    "value": "english"
-                }
-            ],
-            "mandatory": true
-        },
         {
             "name": "outputName",
             "label": "Output folder name",
