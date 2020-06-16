@@ -206,57 +206,6 @@
         },
 
         {
-            "name": "language_word2vec",
-            "label": "Language",
-            "type": "SELECT",
-            "mandatory": true,
-            "selectChoices": [
-                {
-                    "label": "English",
-                    "value": "english"
-                },
-                {
-                    "label": "Dutch",
-                    "value": "dutch"
-                }
-            ]
-        },
-
-        {
-            "name": "language_word2vec",
-            "label": "Language",
-            "type": "SELECT",
-            "mandatory": true,
-            "selectChoices": [
-                {
-                    "label": "English",
-                    "value": "english"
-                },
-                {
-                    "label": "Dutch",
-                    "value": "dutch"
-                }
-            ]
-        },
-
-        {
-            "name": "language_word2vec",
-            "label": "Language",
-            "type": "SELECT",
-            "mandatory": true,
-            "selectChoices": [
-                {
-                    "label": "English",
-                    "value": "english"
-                },
-                {
-                    "label": "Dutch",
-                    "value": "dutch"
-                }
-            ]
-        },
-
-        {
             "name": "outputName",
             "label": "Output folder name",
             "type": "STRING",
