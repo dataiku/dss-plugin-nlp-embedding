@@ -27,16 +27,22 @@ MODEL_CONFIFURATIONS = {
     },
 
     "Universal Sentence Encoder": {
-        "English": {
-            "model_link": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
-        },
         "Multilingual": {
             "model_link": "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3"
+        },
+        "English": {
+            "model_link": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
         }
+        
     },
 
     "Transformers": {
         "BERT": {
+            "Multilingual": [
+                "bert-base-multilingual-uncased",
+                "bert-base-multilingual-cased"
+
+            ],
             "English": [
                 "bert-base-uncased",
                 "bert-large-uncased",
@@ -44,12 +50,6 @@ MODEL_CONFIFURATIONS = {
                 "bert-large-cased",
                 "bert-large-uncased-whole-word-masking",
                 "bert-large-cased-whole-word-masking"
-            ],
-
-            "Multilingual": [
-                "bert-base-multilingual-uncased",
-                "bert-base-multilingual-cased",
-
             ],
 
             "Chinese": [
