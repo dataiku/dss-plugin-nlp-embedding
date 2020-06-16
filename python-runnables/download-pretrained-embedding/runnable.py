@@ -41,8 +41,9 @@ class MyRunnable(Runnable):
 
         # Retrieving parameters
         macro_inputs = read_model_inputs(self.config)
-        
+
         # Creating new Managed Folder if needed
+        output_folder_name = macro_inputs["output_folder_name"]
         project = self.client.get_project(self.project_key)
         output_folder_found = False
 
