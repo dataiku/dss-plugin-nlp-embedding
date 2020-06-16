@@ -12,7 +12,6 @@
     "resultLabel": "model download output",
     "extension": "txt",
     "mimeType": "text/plain",
-    "paramsPythonSetup": "compute_choices_from_python.py",
 
     "params": [
         {
@@ -23,6 +22,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'word2vec'",
             "name": "language_word2vec",
             "label": "Language",
             "type": "SELECT",
@@ -40,6 +40,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'fasttext'",
             "name": "language_fasttext",
             "label": "Language",
             "type": "SELECT",
@@ -57,6 +58,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'glove'",
             "name": "language_glove",
             "label": "Language",
             "type": "SELECT",
@@ -70,6 +72,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'elmo'",
             "name": "language_elmo",
             "label": "Language",
             "type": "SELECT",
@@ -83,6 +86,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'use'",
             "name": "language_use",
             "label": "Language",
             "type": "SELECT",
@@ -100,6 +104,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'tranformers'",
             "name": "transformer_architecture",
             "label": "Transformer Architecture",
             "type": "SELECT",
@@ -121,6 +126,7 @@
         },
 
         {
+            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert'",
             "name": "language_tranformer_bert",
             "label": "Language",
             "type": "SELECT",
