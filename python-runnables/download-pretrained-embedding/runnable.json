@@ -27,7 +27,7 @@
             "name": "language",
             "label": "Language",
             "type": "SELECT",
-            "getChoicesFromPython": false,
+            "getChoicesFromPython": true,
             "mandatory": true
         },
 
