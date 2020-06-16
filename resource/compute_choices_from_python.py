@@ -1,6 +1,9 @@
+from macro.model_configurations import MODEL_CONFIFURATIONS
+
+
 def do(payload, config, plugin_config, inputs):
-  choices = [
-    { "value" : "val1", "label" : "Value 1"},
-    { "value" : "val2", "label" : "Value 2"}
-  ]
-  return {"choices": choices}
+    values = MODEL_CONFIFURATIONS.keys()
+    labels = [x.lower().replace(" ","_") for x in MODEL_CONFIFURATIONS.keys()]
+    choices = [{"value": v, "label", l} for v,l in zip(values,labels)}]
+    
+    return {"choices": choices}
