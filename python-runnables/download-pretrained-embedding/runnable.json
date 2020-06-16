@@ -12,37 +12,14 @@
     "resultLabel": "model download output",
     "extension": "txt",
     "mimeType": "text/plain",
+    "paramsPythonSetup": "compute_choices_from_python.py",
+
     "params": [
         {
-            "name": "source",
-            "label": "Source",
+            "name": "model",
+            "label": "Model",
             "type": "SELECT",
-            "selectChoices": [
-                {
-                    "label": "Word2vec",
-                    "value": "word2vec"
-                },
-                {
-                    "label": "GloVe",
-                    "value": "glove"
-                },
-                {
-                    "label": "FastText",
-                    "value": "fasttext"
-                },
-                {
-                    "label": "ELMo",
-                    "value": "elmo"
-                },
-                {
-                    "label": "Universal Sentence Encoder",
-                    "value": "use"
-                },
-                {
-                    "label": "Bert Based Uncased",
-                    "value": "bert-base-uncased"
-                }
-            ],
+            "getChoicesFromPython": true,
             "mandatory": true
         },
         {
