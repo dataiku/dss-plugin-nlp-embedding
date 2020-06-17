@@ -53,7 +53,7 @@ MODEL_CONFIFURATIONS = {
         }
     },
 
-    "tranformers": {
+    "transformers": {
         "label": "Transformers",
         "architectures": {
             "bert": {
