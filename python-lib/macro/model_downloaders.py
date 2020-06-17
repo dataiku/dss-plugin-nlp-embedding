@@ -262,7 +262,11 @@ class HuggingFaceDownloader(BaseDownloader):
         for filename in HG_FILENAMES:
             self.archive_name = filename
             download_link = self.get_download_link(filename)
+            print("HEERE filename")
+            print(download_link)
+            
             response = self.get_stream(download_link)
+            print("Response {}".format(response))
             bytes_so_far = self.download_plain(response, bytes_so_far)
 
     def get_file_size(self):
