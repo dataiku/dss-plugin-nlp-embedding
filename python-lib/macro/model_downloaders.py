@@ -188,12 +188,15 @@ class FasttextDownloader(BaseDownloader):
         self.model_id = 'fasttext-' + self.language
         self.archive_name = self.model_id + ".gz"
 
-    def run(self):
-        response = self.get_stream()
-        self.download_gz(response)
-
     def get_download_link(self):
         return FASTTEXT_BASE_URL.format(self.model_params["languages"][self.language])
+        
+    def run(self):
+        download_link = self.get_download_link()
+        response = self.get_stream(download_link)
+        self.download_gz(response)
+
+    
 
 
 
