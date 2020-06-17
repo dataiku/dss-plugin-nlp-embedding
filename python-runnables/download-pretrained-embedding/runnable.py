@@ -65,6 +65,7 @@ class MyRunnable(Runnable):
 
         embedding_model = macro_inputs["embedding_model"]
         proxy = macro_inputs["proxy"]
+        print("HEEERE0")
         if embedding_model == 'word2vec':
             Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
@@ -83,6 +84,7 @@ class MyRunnable(Runnable):
             UseDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
 
         elif embedding_model == 'transformers':
+            print("HEEERE1")
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
