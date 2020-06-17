@@ -240,7 +240,7 @@ class UseDownloader(BaseDownloader):
         self.language = self.model_params["language"]
         self.model_id = 'use-' + self.language
         self.archive_name = self.model_id + ".tar.gz"
-        
+
     def get_download_link(self): 
         return self.model_params["languages"][self.language]["model_link"]  
 
@@ -259,28 +259,17 @@ class HuggingFaceDownloader(BaseDownloader):
         self.model_shortcut_name = self.model_params["model_shortcut_name"]
         
     def run(self):
+        bytes_so_far = 0
         for filename in HG_FILENAMES:
             download_link = self.get_download_link(filename)
-            response = self.get_stream()
-
-    def download(self):
-        bytes_so_far = 0
-        total_size = self.get_file_size()
-        update_time = time.time()
-        for parameter in self.model_params["params"].keys():
-            response = self.get_stream(parameter)
-            with self.folder.get_writer(self.archive_name[parameter]) as w:
-                for chunk in response.iter_content(chunk_size=100000):
-                    if chunk:
-                        bytes_so_far += len(chunk)
-                        percent = int(float(bytes_so_far) / total_size * 95)
-                        update_time = self.update_percent(percent, update_time)
-                        w.write(chunk)
+            response = self.get_stream(download_link)
+            bytes_so_far = self.download_plain(response, bytes_so_far)
 
     def get_file_size(self):
         total_size = 0
-        for parameter in self.model_params["params"].keys():
-            response = self.get_stream(parameter)
+        for filename in HG_FILENAMES:
+            download_link = self.get_download_link(filename)
+            response = self.get_stream(download_link)
             total_size += int(response.headers.get('content-length'))
         return total_size
 
