@@ -66,23 +66,23 @@ class MyRunnable(Runnable):
         embedding_model = macro_inputs["embedding_model"]
         proxy = macro_inputs["proxy"]
         if embedding_model == 'word2vec':
-            Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
+            Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
 
         elif embedding_model == 'fasttext':
-            FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
+            FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
 
         elif embedding_model == 'glove':
-            GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
+            GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
         elif embedding_model == 'elmo':
-            ElmoDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
+            ElmoDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
         elif embedding_model == 'use':
-            UseDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
+            UseDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
 
         elif embedding_model == 'transformers':
-            HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
+            HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
