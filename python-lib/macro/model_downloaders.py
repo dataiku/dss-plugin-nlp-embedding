@@ -9,9 +9,13 @@ import io
 import zipfile
 from macro.model_configurations import MODEL_CONFIFURATIONS
 import time
+from transformers.file_utils import (S3_BUCKET_PREFIX,
+                                    CLOUDFRONT_DISTRIB_PREFIX,
+                                    hf_bucket_url)
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/%s.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.%s.300.vec.gz"
+HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.json"]
 
 class BaseDownloader(object):
     def __init__(self,folder,model_params,proxy,progress_callback):
@@ -23,8 +27,7 @@ class BaseDownloader(object):
 
 
 
-    def get_stream(self):
-        download_link = self.get_download_link()
+    def get_stream(self, download_link):
         response = requests.get(download_link, stream=True, proxies=self.proxy)
         return response
 
@@ -139,9 +142,8 @@ class Word2vecDownloader(BaseDownloader):
             
 
 
-    def get_gdrive_stream(self,link = "link_model"):
+    def get_gdrive_stream(self, download_link):
         id_gdrive = self.model_params[self.language]["id_gdrive"]
-        download_link = self.get_download_link()
         session = requests.Session()
         response = session.get(download_link, params={'id': id_gdrive} , stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
@@ -152,15 +154,7 @@ class Word2vecDownloader(BaseDownloader):
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 
-        return response
-
-    def run(self):
-        if self.language == "english":
-            response = self.get_gdrive_stream()
-            self.download_gz(response)
-        else:
-            response = self.get_stream()
-            self.download_zip(response)    
+        return response   
 
     def __get_confirm_token(self,response):
         for key, value in response.cookies.items():
@@ -174,6 +168,15 @@ class Word2vecDownloader(BaseDownloader):
         else:
             model_id = self.model_params["languages"][self.language]["model_id"]
             return WORD2VEC_BASE_URL.format(model_id)
+
+    def run(self):
+        if self.language == "english":
+            download_link = self.get_download_link()
+            response = self.get_gdrive_stream(download_link)
+            self.download_gz(response)
+        else:
+            response = self.get_stream()
+            self.download_zip(response) 
         
 
 
@@ -242,8 +245,14 @@ class UseDownloader(BaseDownloader):
 class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,model_id,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
+        self.architecture = self.model_params["transformer_architecture"]
+        self.language = self.model_params["language"]
+        self.model_shortcut_name = self.model_params["model_shortcut_name"]
         
-
+    def run(self):
+        for filename in HG_FILENAMES:
+            download_link = self.get_download_link(filename)
+            response = self.get_stream()
 
     def download(self):
         bytes_so_far = 0
@@ -265,3 +274,7 @@ class HuggingFaceDownloader(BaseDownloader):
             response = self.get_stream(parameter)
             total_size += int(response.headers.get('content-length'))
         return total_size
+
+
+    def get_download_link(self,filename): 
+        return hf_bucket_url(self.model_shortcut_name,filename)
