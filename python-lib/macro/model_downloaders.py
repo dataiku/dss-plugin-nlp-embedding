@@ -27,6 +27,7 @@ class BaseDownloader(object):
         self.progress_callback = progress_callback
         self.language = self.macro_inputs["language"]
         self.embedding_model = self.macro_inputs["embedding_model"]
+        self.model_id = self.embedding_model + '-' + self.language
         self.archive_name = ''
 
 
@@ -137,7 +138,6 @@ class BaseDownloader(object):
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.model_id = 'word2vec-' + self.language
         self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         if self.language == "english":
             self.archive_name = self.model_id + ".bin.gz"
@@ -189,7 +189,6 @@ class Word2vecDownloader(BaseDownloader):
 class FasttextDownloader(BaseDownloader):
     def __init__(self,folder,model_id,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.language = self.model_params["language"]
         self.model_id = 'fasttext-' + self.language
         self.archive_name = self.model_id + ".gz"
 
