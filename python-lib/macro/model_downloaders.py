@@ -231,12 +231,12 @@ class UseDownloader(BaseDownloader):
         self.model_id = 'use-' + self.language
         self.archive_name = self.model_id + ".tar.gz"
 
-        def run(self):
-            response = self.get_stream()
-            self.download_tar_gz(response)
+    def run(self):
+        response = self.get_stream()
+        self.download_tar_gz(response)
 
-        def get_download_link(self): 
-            return self.model_params["languages"][self.language]["model_link"]        
+    def get_download_link(self): 
+        return self.model_params["languages"][self.language]["model_link"]        
 
 
 class HuggingFaceDownloader(BaseDownloader):
