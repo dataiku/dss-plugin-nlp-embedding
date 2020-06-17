@@ -108,7 +108,10 @@ class BaseDownloader(object):
         #Unzip file
         with self.folder.get_download_stream(self.archive_name) as f_in:
             with zipfile.ZipFile(io.BytesIO(f_in.read())) as fzip:
-                archive_name = fzip.namelist()[0]
+                if self.embedding_model == "word2vec":
+                    archive_name = "model.bin"
+                elif self.embedding_model == "glove":
+                    archive_name = fzip.namelist()[0]
                 with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
                     shutil.copyfileobj(fzip_file, f_out)
             self.folder.delete_path(self.archive_name)  
