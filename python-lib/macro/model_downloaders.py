@@ -17,7 +17,7 @@ from .model_configurations import MODEL_CONFIFURATIONS
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/{}.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.vec.gz"
-HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.json"]
+HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.txt"]
 
 class BaseDownloader(object):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
