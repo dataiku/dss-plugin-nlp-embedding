@@ -222,13 +222,16 @@ class ElmoDownloader(BaseDownloader):
         self.language = self.model_params["language"]
         self.model_id = 'elmo-' + self.language
         self.archive_name = self.model_id + ".tar.gz"
-
-    def run(self):
-        response = self.get_stream()
-        self.download_tar_gz(response)
-
+    
     def get_download_link(self): 
         return self.model_params["languages"][self.language]["model_link"]
+    
+    def run(self):
+        download_link = self.get_download_link()
+        response = self.get_stream(download_link)
+        self.download_tar_gz(response)
+
+
 
 
 class UseDownloader(BaseDownloader):
