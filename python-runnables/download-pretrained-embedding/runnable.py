@@ -66,6 +66,7 @@ class MyRunnable(Runnable):
         embedding_model = macro_inputs["embedding_model"]
         proxy = macro_inputs["proxy"]
         print("HEEERE0")
+        print(embedding_model)
         if embedding_model == 'word2vec':
             Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
