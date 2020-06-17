@@ -24,8 +24,8 @@ class BaseDownloader(object):
         self.folder = folder
         self.proxy = proxy
         self.progress_callback = progress_callback
-        self.language = self.macro_inputs["language"]
-        self.embedding_model = self.macro_inputs["embedding_model"]
+        self.language = macro_inputs["language"]
+        self.embedding_model = macro_inputs["embedding_model"]
         self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         self.model_id = self.embedding_model + '-' + self.language
         self.archive_name = ''
