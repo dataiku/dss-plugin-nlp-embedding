@@ -22,11 +22,11 @@ HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.json"]
 class BaseDownloader(object):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         self.folder = folder
-        self.macro_inputs = macro_inputs
         self.proxy = proxy
         self.progress_callback = progress_callback
         self.language = self.macro_inputs["language"]
         self.embedding_model = self.macro_inputs["embedding_model"]
+        self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         self.model_id = self.embedding_model + '-' + self.language
         self.archive_name = ''
 
@@ -137,8 +137,7 @@ class BaseDownloader(object):
 
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)       
         if self.language == "english":
             self.archive_name = self.model_id + ".bin.gz"
         else:
@@ -187,9 +186,8 @@ class Word2vecDownloader(BaseDownloader):
 
 
 class FasttextDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.model_id = 'fasttext-' + self.language
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.archive_name = self.model_id + ".gz"
 
     def get_download_link(self):
@@ -205,10 +203,8 @@ class FasttextDownloader(BaseDownloader):
 
 
 class GloveDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.language = self.model_params["language"]
-        self.model_id = 'glove-' + self.language
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.archive_name = self.model_id + ".zip"
 
     def get_download_link(self): 
@@ -221,10 +217,8 @@ class GloveDownloader(BaseDownloader):
         
 
 class ElmoDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.language = self.model_params["language"]
-        self.model_id = 'elmo-' + self.language
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.archive_name = self.model_id + ".tar.gz"
     
     def get_download_link(self): 
@@ -239,10 +233,8 @@ class ElmoDownloader(BaseDownloader):
 
 
 class UseDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.language = self.model_params["language"]
-        self.model_id = 'use-' + self.language
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.archive_name = self.model_id + ".tar.gz"
 
     def get_download_link(self): 
@@ -256,11 +248,11 @@ class UseDownloader(BaseDownloader):
 
 
 class HuggingFaceDownloader(BaseDownloader):
-    def __init__(self,folder,model_id,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_id,proxy,progress_callback)
-        self.architecture = self.model_params["transformer_architecture"]
-        self.language = self.model_params["language"]
-        self.model_shortcut_name = self.model_params["model_shortcut_name"]
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
+        self.macro_inputs = macro_inputs
+        self.architecture = self.macro_inputs["transformer_architecture"]
+        self.model_shortcut_name = self.macro_inputs["model_shortcut_name"]
         
     def run(self):
         bytes_so_far = 0
