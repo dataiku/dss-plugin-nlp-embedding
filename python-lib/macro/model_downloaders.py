@@ -12,17 +12,21 @@ import time
 from transformers.file_utils import (S3_BUCKET_PREFIX,
                                     CLOUDFRONT_DISTRIB_PREFIX,
                                     hf_bucket_url)
+from .model_configurations import MODEL_CONFIFURATIONS
+
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/%s.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.%s.300.vec.gz"
 HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.json"]
 
 class BaseDownloader(object):
-    def __init__(self,folder,model_params,proxy,progress_callback):
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
         self.folder = folder
-        self.model_params = model_params
+        self.macro_inputs = macro_inputs
         self.proxy = proxy
         self.progress_callback = progress_callback
+        self.language = self.macro_inputs["language"]
+        self.embedding_model = self.macro_inputs["embedding_model"]
         self.archive_name = ''
 
 
@@ -131,10 +135,10 @@ class BaseDownloader(object):
 
 
 class Word2vecDownloader(BaseDownloader):
-    def __init__(self,folder,model_params,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,model_params,proxy,progress_callback)
-        self.language = self.model_params["language"]
+    def __init__(self,folder,macro_inputs,proxy,progress_callback):
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.model_id = 'word2vec-' + self.language
+        self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         if self.language == "english":
             self.archive_name = self.model_id + ".bin.gz"
         else:
@@ -143,7 +147,7 @@ class Word2vecDownloader(BaseDownloader):
 
 
     def get_gdrive_stream(self, download_link):
-        id_gdrive = self.model_params[self.language]["id_gdrive"]
+        id_gdrive = self.model_params["languages"][self.language]["id_gdrive"]
         session = requests.Session()
         response = session.get(download_link, params={'id': id_gdrive} , stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
