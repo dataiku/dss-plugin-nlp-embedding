@@ -86,5 +86,5 @@ class MyRunnable(Runnable):
         elif embedding_model == 'transformers':
             print("HEEERE1")
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
-        
+        print(something)
         return "<br><span>The model was downloaded successfuly !</span>"
