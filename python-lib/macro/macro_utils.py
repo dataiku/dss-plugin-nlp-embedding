@@ -23,7 +23,7 @@ def read_model_inputs(config):
     elif macro_inputs["embedding_model"] == "use":
         macro_inputs["language"]= config.get('language_use', '')
 
-    elif macro_inputs["embedding_model"] == "tranformers":
+    elif macro_inputs["embedding_model"] == "transformers":
         macro_inputs["transformer_architecture"] = config.get('transformer_architecture', '')
 
         if macro_inputs["transformer_architecture"] == "bert":
