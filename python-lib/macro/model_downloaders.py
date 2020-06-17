@@ -185,12 +185,12 @@ class FasttextDownloader(BaseDownloader):
         self.model_id = 'fasttext-' + self.language
         self.archive_name = self.model_id + ".gz"
 
-        def run(self):
-            response = self.get_stream()
-            self.download_gz(response)
+    def run(self):
+        response = self.get_stream()
+        self.download_gz(response)
 
-        def get_download_link(self):
-            return FASTTEXT_BASE_URL.format(self.model_params["languages"][self.language])
+    def get_download_link(self):
+        return FASTTEXT_BASE_URL.format(self.model_params["languages"][self.language])
 
 
 
@@ -201,12 +201,12 @@ class GloveDownloader(BaseDownloader):
         self.model_id = 'glove-' + self.language
         self.archive_name = self.model_id + ".zip"
 
-        def run(self):
-            response = self.get_stream()
-            self.download_zip(response)
+    def run(self):
+        response = self.get_stream()
+        self.download_zip(response)
 
-        def get_download_link(self): 
-            return self.model_params["languages"][self.language]["model_link"]
+    def get_download_link(self): 
+        return self.model_params["languages"][self.language]["model_link"]
         
 
 class ElmoDownloader(BaseDownloader):
