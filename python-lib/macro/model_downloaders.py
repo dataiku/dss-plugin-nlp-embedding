@@ -179,7 +179,8 @@ class Word2vecDownloader(BaseDownloader):
             response = self.get_gdrive_stream(download_link)
             self.download_gz(response)
         else:
-            response = self.get_stream()
+            download_link = self.get_download_link()
+            response = self.get_stream(download_link)
             self.download_zip(response) 
         
 
