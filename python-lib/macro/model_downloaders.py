@@ -168,6 +168,8 @@ class Word2vecDownloader(BaseDownloader):
             return self.model_params["languages"][self.language]["model_link"]
         else:
             model_id = self.model_params["languages"][self.language]["model_id"]
+            print("heeere2")
+            print(model_id)
             return WORD2VEC_BASE_URL.format(model_id)
 
     def run(self):
