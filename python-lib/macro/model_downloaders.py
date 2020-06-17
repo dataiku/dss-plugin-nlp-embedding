@@ -155,8 +155,6 @@ class Word2vecDownloader(BaseDownloader):
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 
-        print('heeeere')
-        print(token)
         return response   
 
     def __get_confirm_token(self,response):
@@ -179,6 +177,8 @@ class Word2vecDownloader(BaseDownloader):
             self.download_gz(response)
         else:
             download_link = self.get_download_link()
+            print('heeeere1')
+            print(download_link)
             response = self.get_stream(download_link)
             self.download_zip(response) 
         
