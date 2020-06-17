@@ -112,6 +112,8 @@ class BaseDownloader(object):
                     archive_name = "model.bin"
                 elif self.embedding_model == "glove":
                     archive_name = fzip.namelist()[0]
+                else:
+                    raise NotImplementedError()
                 with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
                     shutil.copyfileobj(fzip_file, f_out)
             self.folder.delete_path(self.archive_name)  
