@@ -143,8 +143,6 @@ class Word2vecDownloader(BaseDownloader):
         else:
             self.archive_name = self.model_id + ".zip"
             
-
-
     def get_gdrive_stream(self, download_link):
         id_gdrive = self.model_params["languages"][self.language]["id_gdrive"]
         session = requests.Session()
