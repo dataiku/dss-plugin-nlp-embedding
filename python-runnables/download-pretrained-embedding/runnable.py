@@ -10,7 +10,6 @@ from macro.model_downloaders import (Word2vecDownloader,
                                     HuggingFaceDownloader
                                     )
 from macro.macro_utils import read_model_inputs
-from macro.model_configurations import MODEL_CONFIFURATIONS
 import zipfile
 import json
 import os
@@ -67,29 +66,28 @@ class MyRunnable(Runnable):
         embedding_model = macro_inputs["embedding_model"]
         proxy = macro_inputs["proxy"]
         if embedding_model == 'word2vec':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
-            Word2vecDownloader(output_folder,model_params,proxy,progress_callback).download()
+            Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
 
         elif embedding_model == 'fasttext':
             model_params = MODEL_CONFIFURATIONS[embedding_model]
-            FasttextDownloader(output_folder,model_params,proxy,progress_callback).download()
+            FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
 
         elif embedding_model == 'glove':
             model_params = MODEL_CONFIFURATIONS[embedding_model]
-            GloveDownloader(output_folder,model_params,proxy,progress_callback).download()
+            GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
         elif embedding_model == 'elmo':
             model_params = MODEL_CONFIFURATIONS[embedding_model]
-            ElmoDownloader(output_folder,model_params,proxy,progress_callback).download()
+            ElmoDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
         elif embedding_model == 'use':
             model_params = MODEL_CONFIFURATIONS[embedding_model]
-            UseDownloader(output_folder,model_params,proxy,progress_callback).download() 
+            UseDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
 
         elif embedding_model == 'transformers':
             model_params = MODEL_CONFIFURATIONS[embedding_model]
-            HuggingFaceDownloader(output_folder,model_params,proxy,progress_callback).download() 
+            HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
