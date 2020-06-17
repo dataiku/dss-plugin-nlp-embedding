@@ -70,24 +70,19 @@ class MyRunnable(Runnable):
 
 
         elif embedding_model == 'fasttext':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
             FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
 
         elif embedding_model == 'glove':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
             GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
         elif embedding_model == 'elmo':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
             ElmoDownloader(output_folder,macro_inputs,proxy,progress_callback).download()
 
         elif embedding_model == 'use':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
             UseDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
 
         elif embedding_model == 'transformers':
-            model_params = MODEL_CONFIFURATIONS[embedding_model]
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).download() 
         
         return "<br><span>The model was downloaded successfuly !</span>"
