@@ -12,7 +12,6 @@
     "resultLabel": "model download output",
     "extension": "txt",
     "mimeType": "text/plain",
-
     "params": [
         {
             "name": "embedding_model",
@@ -33,6 +32,10 @@
                     "value": "glove"
                 },
                 {
+                    "label": "ELMo",
+                    "value": "elmo"
+                },
+                {
                     "label": "Universal Sentence Encoder",
                     "value": "use"
                 },
@@ -42,9 +45,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'word2vec'",
+            "visibilityCondition": "model.embedding_model == 'word2vec'",
             "name": "language_word2vec",
             "label": "Language",
             "type": "SELECT",
@@ -60,9 +62,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'fasttext'",
+            "visibilityCondition": "model.embedding_model == 'fasttext'",
             "name": "language_fasttext",
             "label": "Language",
             "type": "SELECT",
@@ -78,9 +79,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'glove'",
+            "visibilityCondition": "model.embedding_model == 'glove'",
             "name": "language_glove",
             "label": "Language",
             "type": "SELECT",
@@ -92,9 +92,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'elmo'",
+            "visibilityCondition": "model.embedding_model == 'elmo'",
             "name": "language_elmo",
             "label": "Language",
             "type": "SELECT",
@@ -106,9 +105,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'use'",
+            "visibilityCondition": "model.embedding_model == 'use'",
             "name": "language_use",
             "label": "Language",
             "type": "SELECT",
@@ -124,9 +122,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers'",
+            "visibilityCondition": "model.embedding_model == 'tranformers'",
             "name": "transformer_architecture",
             "label": "Transformer Architecture",
             "type": "SELECT",
@@ -146,9 +143,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert'",
             "name": "language_tranformer_bert",
             "label": "Language",
             "type": "SELECT",
@@ -164,9 +160,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert'",
             "name": "language_tranformer_distilbert",
             "label": "Language",
             "type": "SELECT",
@@ -182,9 +177,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'multilingual'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'multilingual'",
             "name": "language_tranformer_bert_multilingual",
             "label": "Shortcut name",
             "type": "SELECT",
@@ -200,9 +194,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'english'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'bert' && model.language_tranformer_bert == 'english'",
             "name": "language_tranformer_bert_english",
             "label": "Shortcut name",
             "type": "SELECT",
@@ -218,9 +211,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'english'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'english'",
             "name": "language_tranformer_distilbert_english",
             "label": "Shortcut name",
             "type": "SELECT",
@@ -236,9 +228,8 @@
                 }
             ]
         },
-
         {
-            "visibilityCondition":"model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'german'",
+            "visibilityCondition": "model.embedding_model == 'tranformers' && model.transformer_architecture == 'distilbert' && model.language_tranformer_distilbert == 'german'",
             "name": "language_tranformer_distilbert_german",
             "label": "Shortcut name",
             "type": "SELECT",
@@ -250,7 +241,6 @@
                 }
             ]
         },
-
         {
             "name": "outputName",
             "label": "Output folder name",
