@@ -15,7 +15,7 @@ from transformers.file_utils import (S3_BUCKET_PREFIX,
 from .model_configurations import MODEL_CONFIFURATIONS
 
 
-WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/%s.zip"
+WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/{}.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.%s.300.vec.gz"
 HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.json"]
 
