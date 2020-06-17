@@ -265,7 +265,7 @@ class HuggingFaceDownloader(BaseDownloader):
             response = self.get_stream(download_link)
             bytes_so_far = self.download_plain(response, bytes_so_far)
 
-    def get_file_size(self):
+    def get_file_size(self, response=None):
         total_size = 0
         for filename in HG_FILENAMES:
             download_link = self.get_download_link(filename)
