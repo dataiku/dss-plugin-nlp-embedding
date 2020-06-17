@@ -45,7 +45,7 @@ MODEL_CONFIFURATIONS = {
         "label": "Universal Sentence Encoder",
         "languages": {
             "multilingual": {
-                "model_link": "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3"
+                "model_link": "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3?tf-hub-format=compressed"
             },
             "english": {
                 "model_link": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed"
