@@ -12,6 +12,13 @@ app.controller('modelDownloaderController', function($scope) {
 
     };
 
+    $scope.getArchitectures = function(){
+       
+        $scope.callPythonDo({method:"get_architectures"}).then(function(data){
+            console.log(data);
+        })
+    };
+
     var init = function(){
         $scope.callPythonDo({method: "get_languages"}).then(function(data){
          $scope.languages = data['languages']
