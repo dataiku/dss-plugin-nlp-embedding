@@ -1,1 +1,36 @@
 <div ng-controller="modelDownloaderController" >
+
+  
+<form class="dku-form-horizontal">
+    
+    <div class="control-group" ng-show="showLanguageList">
+               <label class="control-label">Language</label>
+               <div class="controls">
+                 <select dku-bs-select
+                         ng-model="config.language"
+                         ng-options="l for l in languages"
+                         id="table">
+                     
+                 </select>
+                 <button ng-click="getModels()" class="btn btn--primary link-like">List Models</button>
+               </div>
+               
+    </div>  
+    
+    <div class="control-group" ng-show="showModelList">
+        <label class="control-label">Table Name</label>
+        <div class="controls">
+          <select dku-bs-select
+                  ng-model="config.modelName"
+                  ng-options="m for m in models"
+                  id="table">
+              
+          </select>
+          <button ng-click="getArchitectures()" class="btn btn--primary link-like">OK</button>
+        </div>
+        
+    </div>
+     
+ </form>
+     
+ </div>  
