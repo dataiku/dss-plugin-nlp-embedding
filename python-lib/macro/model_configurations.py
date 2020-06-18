@@ -5,7 +5,7 @@ MODEL_CONFIFURATIONS = {
         "languages": {
             "english": {
                 "model_link" : "https://docs.google.com/uc?export=download",
-                "id_gdrive": "0B7XkCwpI5KDYeFdmcVltWkhtbmM"
+                "id_gdrive": "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
             },
             "dutch": {
                 "model_id" : 39 
