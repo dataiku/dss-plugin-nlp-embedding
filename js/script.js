@@ -12,11 +12,10 @@ app.controller('modelDownloaderController', function($scope) {
 
     };
 
-    $scope.getArchitectures = function(){
-       
+    $scope.getArchitectures = function(){      
         $scope.callPythonDo({method:"get_architectures"}).then(function(data){
             console.log(data);
-        })
+        });
     };
 
     var init = function(){
