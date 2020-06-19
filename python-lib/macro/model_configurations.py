@@ -147,6 +147,7 @@ TRANSFORMERS_CONF = {
 MODELS_CONF = {
     "word2vec": {
         "label": "Word2Vec",
+        "family": "Word2Vec",
         "language_list": ["en","du"],
         "download_info": {
             "en": {
@@ -161,6 +162,7 @@ MODELS_CONF = {
 
     "fasttext": {
         "label": "FastText",
+        "family": "FastText",
         "language_list": ["en", "ar"],
         "download_info": {
             "en": "en",
