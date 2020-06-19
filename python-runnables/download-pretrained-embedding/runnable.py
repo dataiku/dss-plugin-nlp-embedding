@@ -10,6 +10,7 @@ from macro.model_downloaders import (Word2vecDownloader,
                                     HuggingFaceDownloader
                                     )
 from macro.macro_utils import read_model_inputs
+from macro.model_configurations import TRANSFORMERS_LIST
 import zipfile
 import json
 import os
@@ -82,7 +83,9 @@ class MyRunnable(Runnable):
         elif embedding_model == 'use':
             UseDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
 
-        elif embedding_model == 'transformers':
+        elif embedding_model in TRANSFORMERS_LIST:
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
+        else:
+            raise("Model not found.")
 
         return "<br><span>The model was downloaded successfuly !</span>"
