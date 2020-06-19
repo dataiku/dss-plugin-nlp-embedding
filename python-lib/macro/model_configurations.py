@@ -47,5 +47,5 @@ MODEL_CONFIFURATIONS = {
     }
 }
 
-
+TRANSFORMERS_LIST = ["bert-base-multilingual-cased","distilbert-base-uncased"]
 
