@@ -6,13 +6,13 @@
     <div class="control-group" ng-show="showLanguageList">
                <label class="control-label">Language</label>
                <div class="controls">
-                 <select dku-bs-select
-                         ng-model="config.language"
-                         ng-options="l for l in languages"
-                         ng-change="getModels()">
-                     
-                 </select>
-                 <!--<button ng-click="getModels()" class="btn btn--primary link-like">List Models</button>-->
+                    <select dku-bs-select
+                            ng-model="config.language"
+                            ng-options="l for l in languages"
+                            ng-change="getModels()"
+                            required="required">
+                        <option style="display:none" value="">Select a language</option>    
+                    </select>
                </div>
                
     </div>  
