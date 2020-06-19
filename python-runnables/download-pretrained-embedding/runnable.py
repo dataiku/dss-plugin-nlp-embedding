@@ -40,6 +40,9 @@ class MyRunnable(Runnable):
     def run(self, progress_callback):
 
         # Retrieving parameters
+        print("heere")
+        print(self.config)
+        print(something)
         macro_inputs = read_model_inputs(self.config)
 
         # Creating new Managed Folder if needed
