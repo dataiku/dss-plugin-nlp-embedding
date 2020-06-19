@@ -123,4 +123,51 @@ MODEL_CONFIFURATIONS = {
 }
 
 
+TRANSFORMERS_CONF = {
+    "bert-base-multilingual-cased": {
+        "label": "bert-base-multilingual-cased",
+        "family": "Bert",
+        "language_list": ["multilingual"],
+        "download_info": {
+            "multilingual": "bert-base-multilingual-cased"
+        }
+    },
+
+    "distilbert-base-uncased": {
+        "label": "distilbert-base-uncased",
+        "family": "DistilBert",
+        "language_list": ["en"],
+        "download_info": {
+            "multilingual": "distilbert-base-uncased"
+        }
+    }
+
+},
+
+MODELS_CONF = {
+    "word2vec": {
+        "label": "Word2Vec",
+        "language_list": ["en","du"],
+        "download_info": {
+            "en": {
+                "model_link": "https://docs.google.com/uc?export=download",
+                "id_gdrive": "0B7XkCwpI5KDYNlNUTTlSS21pQmM"
+            },
+            "du": {
+                "model_id" : 39
+            }
+        }
+    },
+
+    "fasttext": {
+        "label": "FastText",
+        "language_list": ["en", "ar"],
+        "download_info": {
+            "en": "en",
+            "ar": "ar"
+        }
+    }
+}
+
+
 
