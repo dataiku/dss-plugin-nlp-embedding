@@ -27,7 +27,7 @@ def get_models(config):
     models = []
     conf_list = [MODELS_CONF,TRANSFORMERS_CONF]
     for conf in conf_list:
-        models.extend([m["label"] for m in conf.values() if language in m["language_list"]])
+        models.extend([m["family"] for m in conf.values() if language in m["language_list"]])
     return {'models': models}
 
 def get_architectures(config):
