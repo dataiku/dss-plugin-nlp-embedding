@@ -31,4 +31,4 @@ def get_models(config):
     return {'models': models}
 
 def get_architectures(config):
-    return {"architectures": "foo"}
+    return {"architectures": ["foo"]}
