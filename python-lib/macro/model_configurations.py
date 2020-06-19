@@ -142,7 +142,7 @@ TRANSFORMERS_CONF = {
         }
     }
 
-},
+}
 
 MODELS_CONF = {
     "word2vec": {
