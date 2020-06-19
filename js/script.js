@@ -8,7 +8,7 @@ app.controller('modelDownloaderController', function($scope) {
         }); 
         
         $scope.showModelList=true;
-        $scope.showLanguageList=false;
+        $scope.showLanguageList=true;
 
     };
 
