@@ -24,6 +24,7 @@ app.controller('modelDownloaderController', function($scope) {
          }); 
          $scope.showLanguageList=true;
          $scope.showModelList=false;
+         $scope.showOutputFolder=true;
          
      };
          
