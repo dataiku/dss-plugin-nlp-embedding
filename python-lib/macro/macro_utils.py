@@ -3,7 +3,7 @@ def read_model_inputs(config):
 
     macro_inputs["output_folder_name"] = config.get("outputFolder",None)
     macro_inputs["language"] = config.get("language",None)
-    macro_inputs["modelName"] = config.get("modelName",None)
+    macro_inputs["embedding_model"] = config.get("modelName",None)
     
     
     proxy = {}
