@@ -149,7 +149,7 @@ class Word2vecDownloader(BaseDownloader):
             self.archive_name = self.model_id + ".zip"
             
     def get_gdrive_stream(self, download_link):
-        id_gdrive = self.model_params["languages"][self.language]["id_gdrive"]
+        id_gdrive = self.model_params["download_info"][self.language]["id_gdrive"]
         session = requests.Session()
         response = session.get(download_link, params={'id': id_gdrive} , stream=True, proxies=self.proxy) 
         token = self.__get_confirm_token(response)
@@ -170,9 +170,9 @@ class Word2vecDownloader(BaseDownloader):
 
     def get_download_link(self):
         if self.language == "english":
-            return self.model_params["languages"][self.language]["model_link"]
+            return self.model_params["download_info"][self.language]["model_link"]
         else:
-            model_id = self.model_params["languages"][self.language]["model_id"]
+            model_id = self.model_params["download_info"][self.language]["model_id"]
             return WORD2VEC_BASE_URL.format(model_id)
 
     def run(self):
@@ -194,7 +194,7 @@ class FasttextDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".gz"
 
     def get_download_link(self):
-        return FASTTEXT_BASE_URL.format(self.model_params["languages"][self.language])
+        return FASTTEXT_BASE_URL.format(self.model_params["download_info"][self.language])
 
     def run(self):
         download_link = self.get_download_link()
@@ -211,7 +211,7 @@ class GloveDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".zip"
 
     def get_download_link(self): 
-        return self.model_params["languages"][self.language]["model_link"]
+        return self.model_params["download_info"][self.language]["model_link"]
         
     def run(self):
         download_link = self.get_download_link()
@@ -225,7 +225,7 @@ class ElmoDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".tar.gz"
     
     def get_download_link(self): 
-        return self.model_params["languages"][self.language]["model_link"]
+        return self.model_params["download_info"][self.language]["model_link"]
     
     def run(self):
         download_link = self.get_download_link()
@@ -241,7 +241,7 @@ class UseDownloader(BaseDownloader):
         self.archive_name = self.model_id + ".tar.gz"
 
     def get_download_link(self): 
-        return self.model_params["languages"][self.language]["model_link"]  
+        return self.model_params["download_info"][self.language]["model_link"]  
 
     def run(self):
         download_link = self.get_download_link()
