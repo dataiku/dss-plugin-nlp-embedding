@@ -4,8 +4,6 @@ def read_model_inputs(config):
     macro_inputs["output_folder_name"] = config.get("outputFolder",None)
     macro_inputs["language"] = config.get("language",None)
     macro_inputs["modelName"] = config.get("modelName",None)
-    #Output Folder
-    macro_inputs["output_folder_name"] = config.get('outputName', '')
     
     '''
     proxy = {}
@@ -16,5 +14,5 @@ def read_model_inputs(config):
             proxy = proxy["custom_proxy_config"]
     macro_inputs["proxy"] = proxy
     '''
-    
+
     return macro_inputs
