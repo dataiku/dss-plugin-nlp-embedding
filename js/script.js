@@ -6,10 +6,10 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.callPythonDo({method: "get_models"}).then(function(data){
         $scope.models = data['models']
         }); 
-        
-        $scope.showModelList=true;
         $scope.showLanguageList=true;
-
+        $scope.showModelList=true;
+        $scope.showTransformersModelversion=false;
+        $scope.showOutputFolder=true;
     };
 
     $scope.getTransformerModelVersions = function(){      
@@ -28,6 +28,7 @@ app.controller('modelDownloaderController', function($scope) {
          }); 
          $scope.showLanguageList=true;
          $scope.showModelList=false;
+         $scope.showTransformersModelversion=false;
          $scope.showOutputFolder=true;
          
      };
