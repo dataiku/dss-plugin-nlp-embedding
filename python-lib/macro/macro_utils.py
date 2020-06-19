@@ -5,8 +5,10 @@ def read_model_inputs(config):
     macro_inputs["language"] = config.get("language",None)
     macro_inputs["modelName"] = config.get("modelName",None)
     
-    '''
+    
     proxy = {}
+    macro_inputs["proxy"] = proxy
+    '''
     advanced_settings = config['advanced_settings']
     if advanced_settings:
         proxy = config['proxy_config']
