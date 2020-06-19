@@ -1,7 +1,6 @@
 MODEL_CONFIFURATIONS = {
     "word2vec": {
         "id": "word2vec",
-        "label": "Word2Vec",
         "family": "Word2Vec",
         "language_list": ["en","du"],
         "download_info": {
@@ -17,7 +16,6 @@ MODEL_CONFIFURATIONS = {
 
     "fasttext": {
         "id": "fasttext",
-        "label": "FastText",
         "family": "FastText",
         "language_list": ["en", "ar"],
         "download_info": {
@@ -28,7 +26,6 @@ MODEL_CONFIFURATIONS = {
 
     "bert-base-multilingual-cased": {
         "id": "bert-base-multilingual-cased",
-        "label": "bert-base-multilingual-cased",
         "family": "Bert",
         "language_list": ["multilingual"],
         "download_info": {
@@ -38,7 +35,6 @@ MODEL_CONFIFURATIONS = {
 
     "distilbert-base-uncased": {
         "id": "distilbert-base-uncased",
-        "label": "distilbert-base-uncased",
         "family": "DistilBert",
         "language_list": ["en"],
         "download_info": {
