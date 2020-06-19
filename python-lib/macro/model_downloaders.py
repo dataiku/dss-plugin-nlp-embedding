@@ -254,8 +254,7 @@ class HuggingFaceDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
         self.macro_inputs = macro_inputs
-        self.architecture = self.macro_inputs["transformer_architecture"]
-        self.model_shortcut_name = self.macro_inputs["model_shortcut_name"]
+        self.model_shortcut_name = self.macro_inputs["transformer_shortcut_name"]
         
     def run(self):
         bytes_so_far = 0
