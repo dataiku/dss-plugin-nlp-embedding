@@ -12,10 +12,14 @@ app.controller('modelDownloaderController', function($scope) {
 
     };
 
-    $scope.getArchitectures = function(){      
-        $scope.callPythonDo({method:"get_architectures"}).then(function(data){
-            console.log(data);
+    $scope.getTransformerModelVersions = function(){      
+        $scope.callPythonDo({method:"get_transformer_model_versions"}).then(function(data){
+            $scope.transformersModelVersions = data['transformer_model_versions']
         });
+        $scope.showLanguageList=true;
+        $scope.showModelList=true;
+        $scope.showTransformersModelversion=true;
+        $scope.showOutputFolder=true;
     };
 
     var init = function(){
