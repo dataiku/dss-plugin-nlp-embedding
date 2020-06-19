@@ -9,7 +9,7 @@
                  <select dku-bs-select
                          ng-model="config.language"
                          ng-options="l for l in languages"
-                         ng-click="getModels()">
+                         ng-change="getModels()">
                      
                  </select>
                  <!--<button ng-click="getModels()" class="btn btn--primary link-like">List Models</button>-->
