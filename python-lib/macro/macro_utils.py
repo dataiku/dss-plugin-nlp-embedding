@@ -1,6 +1,7 @@
 def read_model_inputs(config):
     macro_inputs = {}
 
+    
     #Output Folder
     macro_inputs["output_folder_name"] = config.get('outputName', '')
 
