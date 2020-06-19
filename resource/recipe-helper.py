@@ -14,8 +14,18 @@ def do(payload, config, plugin_config, inputs):
 
 
 def get_languages():
-    languages = []
-    for conf in [MODELS_CONF,TRANSFORMERS_CONF]
+    languages= []
+    conf_list = [MODELS_CONF,TRANSFORMERS_CONF]
+    for conf in conf_list:
         languages.extend([m["language_list"] for m in conf.values()])
     languages = [item for sublist in languages for item in sublist]
-    return {'languages': languages}
+    return {'languages': list(set(languages))}
+
+
+def get_models(config):
+    language = config.get("language")
+    models = []
+    conf_list = [MODELS_CONF,TRANSFORMERS_CONF]
+    for conf in conf_list:
+        models.extend([m["label"] for m in conf.values() if language in m["language_list"]])
+    return {'models': models}
