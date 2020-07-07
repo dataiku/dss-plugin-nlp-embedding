@@ -6,8 +6,7 @@
     <div class="control-group" ng-show="showLanguageList">
                <label class="control-label">Language</label>
                <div class="controls">
-                    <select required
-                            dku-bs-select
+                    <select dku-bs-select
                             ng-model="config.language"
                             ng-options="l for l in languages"
                             ng-change="getModels()">
@@ -20,8 +19,7 @@
     <div class="control-group" ng-show="showModelList">
         <label class="control-label">Model</label>
         <div class="controls">
-          <select required
-                  dku-bs-select
+          <select dku-bs-select
                   ng-model="config.modelName"
                   ng-options="m for m in models"
                   ng-change="getTransformerModelVersions()">
