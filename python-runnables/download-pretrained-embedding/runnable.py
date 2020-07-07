@@ -42,9 +42,6 @@ class MyRunnable(Runnable):
 
         # Retrieving parameters
         macro_inputs = read_model_inputs(self.config)
-        print(self.plugin_config)
-        print("HOLA")
-        print(X)
 
         # Creating new Managed Folder if needed
         output_folder_name = macro_inputs["output_folder_name"]
@@ -68,7 +65,7 @@ class MyRunnable(Runnable):
         #######################################
 
         embedding_model = macro_inputs["embedding_model"]
-        proxy = macro_inputs["proxy"]
+        proxy = self.plugin_config["proxy"]
         if embedding_model == 'word2vec':
             Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
