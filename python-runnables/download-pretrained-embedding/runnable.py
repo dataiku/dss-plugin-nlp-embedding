@@ -44,6 +44,7 @@ class MyRunnable(Runnable):
         macro_inputs = read_model_inputs(self.config)
         print(self.plugin_config)
         print("HOLA")
+        print(X)
 
         # Creating new Managed Folder if needed
         output_folder_name = macro_inputs["output_folder_name"]
