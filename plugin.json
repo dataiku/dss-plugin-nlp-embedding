@@ -8,6 +8,19 @@
         "icon": "icon-table",
         "licenseInfo": "Apache Software License",
         "url": "https://www.dataiku.com/dss/plugins/info/sentence-embedding.html",
-        "tags": ["NLP", "Machine Learning", "AutoML"]
-    }
+        "tags": [
+            "NLP",
+            "Machine Learning",
+            "AutoML"
+        ]
+    },
+    "params": [
+        {
+            "name": "proxy",
+            "label": "Proxy settings",
+            "description": "Needs to follow Python's requests specifications.\nExample:\nhttp --> http://10.10.1.10:3128\nhttps --> http://10.10.1.10:1080",
+            "type": "MAP",
+            "mandatory": true
+        }
+    ]
 }
