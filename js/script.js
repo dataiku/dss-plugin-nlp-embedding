@@ -16,16 +16,9 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.callPythonDo({method:"get_transformer_model_versions"}).then(function(data){
             $scope.transformersModelVersions = data['transformer_model_versions']
         });
-        var non_transformer_models = ["Word2Vec","FastText"];
-        if (non_transformer_models.includes($scope.models)){
-            $scope.showTransformersModelversion=false;
-        }
-        else{
-            $scope.showTransformersModelversion=true;
-        }
-
         $scope.showLanguageList=true;
         $scope.showModelList=true;
+        $scope.showTransformersModelversion=true;
         $scope.showOutputFolder=true;
     };
 
