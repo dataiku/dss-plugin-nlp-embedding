@@ -263,7 +263,10 @@ class HuggingFaceDownloader(BaseDownloader):
             self.archive_name = filename
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
-            bytes_so_far = self.download_plain(response, bytes_so_far)
+            if response.status_code == 200:
+                bytes_so_far = self.download_plain(response, bytes_so_far)
+            elif response.status_code == 404:
+                pass
 
     def get_file_size(self, response=None):
         total_size = 0
@@ -275,6 +278,4 @@ class HuggingFaceDownloader(BaseDownloader):
 
 
     def get_download_link(self,filename): 
-        print("LOOOL")
-        print(hf_bucket_url(self.model_shortcut_name,filename))
         return hf_bucket_url(self.model_shortcut_name,filename)
