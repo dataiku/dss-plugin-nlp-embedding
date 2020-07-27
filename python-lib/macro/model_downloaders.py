@@ -192,7 +192,7 @@ class Word2vecDownloader(BaseDownloader):
 class FasttextDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_model + '/' 
+        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".gz"
 
     def get_download_link(self):
         return FASTTEXT_BASE_URL.format(self.model_params["download_info"][self.language])
