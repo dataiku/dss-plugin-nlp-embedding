@@ -209,7 +209,7 @@ class FasttextDownloader(BaseDownloader):
 class GloveDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.model_id + ".zip"
+        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".zip"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]
@@ -223,7 +223,7 @@ class GloveDownloader(BaseDownloader):
 class ElmoDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".tar.gz"
     
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]
@@ -239,7 +239,7 @@ class ElmoDownloader(BaseDownloader):
 class UseDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".tar.gz"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]  
