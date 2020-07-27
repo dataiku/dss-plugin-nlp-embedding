@@ -273,7 +273,10 @@ class HuggingFaceDownloader(BaseDownloader):
         for filename in HG_FILENAMES:
             download_link = self.get_download_link(filename)
             response = self.get_stream(download_link)
-            total_size += int(response.headers.get('content-length'))
+            if response.status_code == 200:
+                total_size += int(response.headers.get('content-length'))
+            elif response.status_code == 404:
+                total_size += 0
         return total_size
 
 
