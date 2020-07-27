@@ -260,7 +260,7 @@ class HuggingFaceDownloader(BaseDownloader):
     def run(self):
         bytes_so_far = 0
         for filename in HG_FILENAMES:
-            self.archive_name = filename
+            self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_shortcut_name + '/' + filename
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
             if response.status_code == 200:
