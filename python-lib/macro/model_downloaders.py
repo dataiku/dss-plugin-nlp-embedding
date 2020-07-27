@@ -275,4 +275,6 @@ class HuggingFaceDownloader(BaseDownloader):
 
 
     def get_download_link(self,filename): 
+        print("LOOOL")
+        print(hf_bucket_url(self.model_shortcut_name,filename))
         return hf_bucket_url(self.model_shortcut_name,filename)
