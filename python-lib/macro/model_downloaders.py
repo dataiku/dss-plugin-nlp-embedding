@@ -142,11 +142,12 @@ class BaseDownloader(object):
 
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
-        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)       
+        BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)   
+        self.archive_name = self.language + '/' + self.embedding_model + '/'   
         if self.language == "english":
-            self.archive_name = self.model_id + ".bin.gz"
+            self.archive_name += self.model_id + ".bin.gz"
         else:
-            self.archive_name = self.model_id + ".zip"
+            self.archive_name += self.model_id + ".zip"
             
     def get_gdrive_stream(self, download_link):
         id_gdrive = self.model_params["download_info"][self.language]["id_gdrive"]
