@@ -13,3 +13,16 @@ def read_model_inputs(config):
     macro_inputs["transformer_shortcut_name"] = config.get("transformersModelVersion",None)
 
     return macro_inputs
+
+def is_folder_exist(project,output_folder_name):
+    managed_folders_list = [x["name"] for x in project.list_managed_folders()]
+    return True if output_folder_name in managed_folders_list else False
+
+def manage_model_folder(output_folder_name,project_key,client):
+    project = client.get_project(project_key)
+
+    #If needed, create the managed folder
+    if not is_folder_exist(output_folder_name):
+        output_folder = project.create_managed_folder(output_folder_name)
+    
+    return output_folder
