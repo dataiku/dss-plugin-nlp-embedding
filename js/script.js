@@ -11,6 +11,7 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showModelList=true;
         $scope.showTransformersModelversion=false;
         $scope.showOutputFolder=true;
+        console.log("###### init models")
     };
 
     $scope.getTransformerModelVersions = function(){      
@@ -28,6 +29,7 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
+        console.log("###### init transformer")
 
     };
 
@@ -39,6 +41,7 @@ app.controller('modelDownloaderController', function($scope) {
          $scope.showModelList=false;
          $scope.showTransformersModelversion=false;
          $scope.showOutputFolder=true;
+         console.log("###### init")
          
      };
          
