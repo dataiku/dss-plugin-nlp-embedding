@@ -10,12 +10,11 @@
                             ng-model="config.language"
                             ng-options="l for l in languages"
                             ng-change="getModels()"
-                            ng-required="true"
-                            required>
+                            >
                         <option style="display:none" value="">Select a language</option>    
                     </select>
                </div>
-               
+     <span><red>toto</red></span>          
     </div>  
     
     <div class="control-group" ng-show="showModelList">
@@ -25,8 +24,7 @@
                   ng-model="config.modelName"
                   ng-options="m for m in models"
                   ng-change="getTransformerModelVersions()"
-                  ng-required="true"
-                  required>
+                  >
                 <option style="display:none" value="">Select a model</option>
               
           </select>
