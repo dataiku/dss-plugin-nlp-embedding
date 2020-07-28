@@ -22,6 +22,8 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
         if(non_transformer_models.includes(model_name)){
+            console.log("blabla")
+            console.log(model_name)
             $scope.showTransformersModelversion=false;
         }
         else{
