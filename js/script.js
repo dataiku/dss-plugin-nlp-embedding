@@ -14,6 +14,10 @@ app.controller('modelDownloaderController', function($scope) {
             return;
         }
         console.log("###### to do reset",{nv})
+        $scope.showLanguageList=true;
+        $scope.showModelList=false;
+        $scope.showTransformersModelversion=false;
+        $scope.showOutputFolder=true;
     });
 
     $scope.getModels = function(){
