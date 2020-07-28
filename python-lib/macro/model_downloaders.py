@@ -90,7 +90,8 @@ class BaseDownloader(object):
                 members = tar.getmembers()
                 for member in members:
                     if member.isfile():
-                        with self.folder.get_writer(member.name) as f_out:
+                        write_to_path = self.language + '/' + self.embedding_family + '/' + member.name
+                        with self.folder.get_writer(write_to_path) as f_out:
                             shutil.copyfileobj(tar.extractfile(member),f_out)
             self.folder.delete_path(self.archive_name)
         return bytes_so_far
