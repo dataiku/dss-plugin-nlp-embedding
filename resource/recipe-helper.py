@@ -28,4 +28,5 @@ def get_models(config):
 def get_transformer_model_versions(config):
     model = config.get("modelName")
     transformer_model_versions = [x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model]
-    return {"transformer_model_versions": transformer_model_versions}
+    return {"transformer_model_versions": transformer_model_versions,
+            "model_name" : model}
