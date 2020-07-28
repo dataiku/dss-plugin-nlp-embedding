@@ -43,8 +43,8 @@ MODEL_CONFIFURATIONS = {
     },
 
     "use": {
-        "id": "fasttext",
-        "family": "FastText",
+        "id": "use",
+        "family": "USE",
         "language_list": ["en", "multilingual"],
         "download_info": {
             "en": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed",
