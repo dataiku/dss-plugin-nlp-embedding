@@ -15,20 +15,22 @@ app.controller('modelDownloaderController', function($scope) {
 
     $scope.getTransformerModelVersions = function(){      
         $scope.callPythonDo({method:"get_transformer_model_versions"}).then(function(data){
-            $scope.transformersModelVersions = data['transformer_model_versions']
-            var model_name = data['model_name']
+            $scope.transformersModelVersions = data['transformer_model_versions'];
+            var model_name = data['model_name'];
+            if(non_transformer_models.includes(model_name)){
+                console.log("blabla")
+                console.log(model_name)
+                $scope.showTransformersModelversion=false;
+            }
+            else{
+                $scope.showTransformersModelversion=true;
+            }
+
         });
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
-        if(non_transformer_models.includes(model_name)){
-            console.log("blabla")
-            console.log(model_name)
-            $scope.showTransformersModelversion=false;
-        }
-        else{
-            $scope.showTransformersModelversion=true;
-        }
+
     };
 
     var init = function(){
