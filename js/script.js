@@ -21,9 +21,11 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
-        if([]){
+        if(non_transformer_models.includes(model_name)){
+            $scope.showTransformersModelversion=false;
+        }
+        else{
             $scope.showTransformersModelversion=true;
-
         }
     };
 
