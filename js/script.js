@@ -4,11 +4,6 @@ var non_transformer_models = ["Word2Vec","FastText","Glove","ELMo",'USE']
 app.controller('modelDownloaderController', function($scope) {
 
     $scope.$watch('config', function(nv) {
-        // if (!nv || !$scope.version.create) {
-        //     return;
-        // }
-        // $scope.version.id = $scope.suggestNextName($scope.packages.map(p => p.id));
-        
         if(nv && nv.language){
             return;
         }
