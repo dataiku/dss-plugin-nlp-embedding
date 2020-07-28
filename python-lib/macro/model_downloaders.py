@@ -213,7 +213,7 @@ class GloveDownloader(BaseDownloader):
         self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".zip"
 
     def get_download_link(self): 
-        return self.model_params["download_info"][self.language]["model_link"]
+        return self.model_params["download_info"][self.language]
         
     def run(self):
         download_link = self.get_download_link()
@@ -227,7 +227,7 @@ class ElmoDownloader(BaseDownloader):
         self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
     
     def get_download_link(self): 
-        return self.model_params["download_info"][self.language]["model_link"]
+        return self.model_params["download_info"][self.language]
     
     def run(self):
         download_link = self.get_download_link()
@@ -243,7 +243,7 @@ class UseDownloader(BaseDownloader):
         self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
 
     def get_download_link(self): 
-        return self.model_params["download_info"][self.language]["model_link"]  
+        return self.model_params["download_info"][self.language]
 
     def run(self):
         download_link = self.get_download_link()
