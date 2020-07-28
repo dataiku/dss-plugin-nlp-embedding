@@ -10,10 +10,8 @@ app.controller('modelDownloaderController', function($scope) {
         // $scope.version.id = $scope.suggestNextName($scope.packages.map(p => p.id));
         
         if(nv && nv.language){
-            console.log("###### nothing",{nv})
             return;
         }
-        console.log("###### to do reset",{nv})
         $scope.showLanguageList=true;
         $scope.showModelList=false;
         $scope.showTransformersModelversion=false;
@@ -22,13 +20,12 @@ app.controller('modelDownloaderController', function($scope) {
 
     $scope.getModels = function(){
         $scope.callPythonDo({method: "get_models"}).then(function(data){
-        $scope.models = data['models']
+            $scope.models = data['models']
         }); 
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showTransformersModelversion=false;
         $scope.showOutputFolder=true;
-        console.log("###### init models")
     };
 
     $scope.getTransformerModelVersions = function(){      
@@ -46,7 +43,6 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
-        console.log("###### init transformer")
 
     };
 
@@ -58,7 +54,6 @@ app.controller('modelDownloaderController', function($scope) {
          $scope.showModelList=false;
          $scope.showTransformersModelversion=false;
          $scope.showOutputFolder=true;
-         console.log("###### init")
          
      };
          
