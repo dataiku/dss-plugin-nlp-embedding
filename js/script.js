@@ -3,6 +3,14 @@ var non_transformer_models = ["Word2Vec","FastText","Glove","ELMo",'USE']
 
 app.controller('modelDownloaderController', function($scope) {
 
+    $scope.$watch('config', function(nv) {
+        // if (!nv || !$scope.version.create) {
+        //     return;
+        // }
+        // $scope.version.id = $scope.suggestNextName($scope.packages.map(p => p.id));
+        console.log("###### watch",{nv})
+    });
+
     $scope.getModels = function(){
         $scope.callPythonDo({method: "get_models"}).then(function(data){
         $scope.models = data['models']
