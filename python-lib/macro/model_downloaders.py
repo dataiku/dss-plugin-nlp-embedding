@@ -177,7 +177,7 @@ class Word2vecDownloader(BaseDownloader):
         if self.language == "english":
             return self.model_params["download_info"][self.language]["model_link"]
         else:
-            model_id = self.model_params["download_info"][self.language]["model_id"]
+            model_id = self.model_params["download_info"][self.language]["id_gdrive"]
             return WORD2VEC_BASE_URL.format(model_id)
 
     def run(self):
