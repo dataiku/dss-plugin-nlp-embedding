@@ -8,7 +8,12 @@ app.controller('modelDownloaderController', function($scope) {
         //     return;
         // }
         // $scope.version.id = $scope.suggestNextName($scope.packages.map(p => p.id));
-        console.log("###### watch",{nv})
+        
+        if(nv && nv.language){
+            console.log("###### nothing",{nv})
+            return;
+        }
+        console.log("###### to do reset",{nv})
     });
 
     $scope.getModels = function(){
