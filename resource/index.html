@@ -9,7 +9,8 @@
                     <select dku-bs-select
                             ng-model="config.language"
                             ng-options="l for l in languages"
-                            ng-change="getModels()">
+                            ng-change="getModels()"
+                            ng-required="config.language">
                         <option style="display:none" value="">Select a language</option>    
                     </select>
                </div>
