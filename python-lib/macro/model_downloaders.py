@@ -26,6 +26,7 @@ class BaseDownloader(object):
         self.progress_callback = progress_callback
         self.language = macro_inputs["language"]
         self.embedding_model = macro_inputs["embedding_model"]
+        self.embedding_family = macro_inputs["embedding_family"]
         self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         self.model_id = self.embedding_model + '-' + self.language
         self.archive_name = ''
@@ -143,7 +144,7 @@ class BaseDownloader(object):
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)   
-        self.archive_name = self.language + '/' + self.embedding_model + '/'   
+        self.archive_name = self.language + '/' + self.embedding_family + '/'   
         if self.language == "english":
             self.archive_name += self.model_id + ".bin.gz"
         else:
@@ -192,7 +193,7 @@ class Word2vecDownloader(BaseDownloader):
 class FasttextDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".gz"
+        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".gz"
 
     def get_download_link(self):
         return FASTTEXT_BASE_URL.format(self.model_params["download_info"][self.language])
@@ -209,7 +210,7 @@ class FasttextDownloader(BaseDownloader):
 class GloveDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".zip"
+        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".zip"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]
@@ -223,7 +224,7 @@ class GloveDownloader(BaseDownloader):
 class ElmoDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
     
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]
@@ -239,7 +240,7 @@ class ElmoDownloader(BaseDownloader):
 class UseDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]["model_link"]  
@@ -260,7 +261,7 @@ class HuggingFaceDownloader(BaseDownloader):
     def run(self):
         bytes_so_far = 0
         for filename in HG_FILENAMES:
-            self.archive_name = self.language + '/' + self.embedding_model + '/' + self.model_shortcut_name + '/' + filename
+            self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_shortcut_name + '/' + filename
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
             if response.status_code == 200:
