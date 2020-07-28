@@ -18,8 +18,6 @@ app.controller('modelDownloaderController', function($scope) {
             $scope.transformersModelVersions = data['transformer_model_versions'];
             var model_name = data['model_name'];
             if(non_transformer_models.includes(model_name)){
-                console.log("blabla")
-                console.log(model_name)
                 $scope.showTransformersModelversion=false;
             }
             else{
