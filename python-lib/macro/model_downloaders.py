@@ -66,6 +66,7 @@ class BaseDownloader(object):
         destination_writer.close()
 
         #Unzip file
+        write_to_path = self.language + '/' + self.embedding_family + '/' + self.model_id
         with self.folder.get_writer(self.model_id) as f_out, self.folder.get_download_stream(self.archive_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
