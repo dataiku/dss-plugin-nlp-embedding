@@ -24,6 +24,35 @@ MODEL_CONFIFURATIONS = {
         }
     },
 
+    "glove": {
+        "id": "glove",
+        "family": "Glove",
+        "language_list": ["en"],
+        "download_info": {
+            "en": "http://nlp.stanford.edu/data/glove.42B.300d.zip"
+        }
+    },
+
+    "elmo": {
+        "id": "elmo",
+        "family": "ELMo",
+        "language_list": ["en"],
+        "download_info": {
+            "en": "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
+        }
+    },
+
+    "use": {
+        "id": "fasttext",
+        "family": "FastText",
+        "language_list": ["en", "multilingual"],
+        "download_info": {
+            "en": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed",
+            "multilingual": "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3?tf-hub-format=compressed"
+        }
+    },
+
+
     "bert-base-multilingual-cased": {
         "id": "bert-base-multilingual-cased",
         "family": "Bert",
