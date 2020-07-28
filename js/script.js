@@ -1,4 +1,5 @@
 var app = angular.module('modelDownloader.build', []);
+var non_transformer_models = ["Word2Vec","FastText","Glove","ELMo",'USE']
 
 app.controller('modelDownloaderController', function($scope) {
 
@@ -15,11 +16,15 @@ app.controller('modelDownloaderController', function($scope) {
     $scope.getTransformerModelVersions = function(){      
         $scope.callPythonDo({method:"get_transformer_model_versions"}).then(function(data){
             $scope.transformersModelVersions = data['transformer_model_versions']
+            var model_name = data['model_name']
         });
         $scope.showLanguageList=true;
         $scope.showModelList=true;
-        $scope.showTransformersModelversion=true;
         $scope.showOutputFolder=true;
+        if([]){
+            $scope.showTransformersModelversion=true;
+
+        }
     };
 
     var init = function(){
