@@ -116,7 +116,8 @@ class BaseDownloader(object):
                     archive_name = fzip.namelist()[0]
                 else:
                     raise NotImplementedError()
-                with fzip.open(archive_name) as fzip_file, self.folder.get_writer(self.model_id) as f_out:
+                write_to_path = self.language + '/' + self.embedding_family + '/' + self.model_id
+                with fzip.open(archive_name) as fzip_file, self.folder.get_writer() as f_out:
                     shutil.copyfileobj(fzip_file, f_out)
             self.folder.delete_path(self.archive_name)  
         return bytes_so_far  
