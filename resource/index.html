@@ -10,7 +10,8 @@
                             ng-model="config.language"
                             ng-options="l for l in languages"
                             ng-change="getModels()"
-                            ng-required="config.language">
+                            ng-required="config.language"
+                            required>
                         <option style="display:none" value="">Select a language</option>    
                     </select>
                </div>
@@ -50,7 +51,8 @@
         <div class="controls">
             <input  type="text"
                   ng-model="config.outputFolder"
-                  ng-required="config.outputFolder">
+                  ng-required="config.outputFolder"
+                  required>
               
             </div>
         
