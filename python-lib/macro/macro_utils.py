@@ -1,4 +1,6 @@
 from macro.model_configurations import MODEL_CONFIFURATIONS
+from macro.language_dict import SUPPORTED_LANGUAGES
+
 
 
 def read_model_inputs(config):
