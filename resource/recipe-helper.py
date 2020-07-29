@@ -1,5 +1,6 @@
 import dataiku
 from macro.model_configurations import MODEL_CONFIFURATIONS
+from macro.language_dict import SUPPORTED_LANGUAGES
 
 def do(payload, config, plugin_config, inputs):
     if payload["method"] == "get_languages":
