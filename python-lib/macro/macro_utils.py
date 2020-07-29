@@ -1,8 +1,10 @@
 from macro.model_configurations import MODEL_CONFIFURATIONS
 
+
 def read_model_inputs(config):
     macro_inputs = {}
-    macro_inputs["language"] = config.get("language",None)
+    language_label = config.get("language",None)
+    macro_inputs["language"] = 
     #Add mapping language ISO <--> Language readable format
     
     model_name = config.get("modelName",None)
@@ -27,3 +29,21 @@ def manage_model_folder(output_folder_name,project_key,client):
         output_folder = project.create_managed_folder(output_folder_name)
     
     return output_folder
+
+
+def lang_iso_to_label(languages_iso):
+    languages_labels = []
+    for language in languages_iso:
+        search = [x for x in SUPPORTED_LANGUAGES if x["value"] == language]
+        if search:
+            languages_labels.append(search[0]["label"])
+        else:
+            languages_labels.append(language)
+    return languages_labels
+
+def lang_label_to_iso(language_label):
+    search = [x for x in SUPPORTED_LANGUAGES if x["label"] == language_label]
+    if search:
+        return search[0]["value"]
+    else:
+        return language_label
