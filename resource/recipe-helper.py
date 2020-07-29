@@ -18,7 +18,7 @@ def get_languages():
     languages = [m["language_list"] for m in MODEL_CONFIFURATIONS.values()]
     languages = list(set([item for sublist in languages for item in sublist]))
     languages_labels = lang_iso_to_label(languages)
-    return {'languages': languages_labels}
+    return {'languages': sorted(languages_labels)}
 
 
 def get_models(config):
