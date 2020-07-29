@@ -6,8 +6,8 @@ from macro.language_dict import SUPPORTED_LANGUAGES
 def read_model_inputs(config):
     macro_inputs = {}
     language_label = config.get("language",None)
-    macro_inputs["language"] = 
-    #Add mapping language ISO <--> Language readable format
+    macro_inputs["language"] = lang_label_to_iso(language_label)
+    
     
     model_name = config.get("modelName",None)
     model_id =[x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model_name][0] 
