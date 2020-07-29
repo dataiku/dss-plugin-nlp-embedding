@@ -185,5 +185,5 @@ SUPPORTED_LANGUAGES = [
     {'label': 'Chinese', 'value': 'zh'},
     {'label': 'Zulu', 'value': 'zu'},
     {'label': 'Ancient Greek', 'value': 'grc'},
-    {'label': 'multilingual', 'value': 'Multilingual'}
+    {'label': 'Multilingual', 'value': 'multilingual'}
     ]
