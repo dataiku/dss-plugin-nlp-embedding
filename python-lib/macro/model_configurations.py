@@ -2,7 +2,7 @@ MODEL_CONFIFURATIONS = {
     "word2vec": {
         "id": "word2vec",
         "family": "Word2Vec",
-        "language_list": ['en','grc', 'ar', 'eu', 'bg', 'ca', 'zh', 'hr', 'cs', 'da', 'nl', 'en', 'et', 'fi', 'fr', 'gl', 'de', 'el', 'he', 'hi', 'hu', 'id', 'ga', 'it', 'ja', 'kk', 'ko', 'la', 'lv', 'nb', 'nn', 'cu', 'fa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'es', 'sv', 'tr', 'uk', 'ur', 'ug', 'vi'],
+        "language_list": ['en','grc', 'ar', 'eu', 'bg', 'ca', 'zh', 'hr', 'cs', 'da', 'nl', 'et', 'fi', 'fr', 'gl', 'de', 'el', 'he', 'hi', 'hu', 'id', 'ga', 'it', 'ja', 'kk', 'ko', 'la', 'lv', 'nb', 'nn', 'cu', 'fa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'es', 'sv', 'tr', 'uk', 'ur', 'ug', 'vi'],
         "download_info": {
             "en": {
                 "model_link": "https://docs.google.com/uc?export=download",
