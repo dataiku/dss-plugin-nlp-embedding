@@ -1,6 +1,6 @@
 import dataiku
 from macro.model_configurations import MODEL_CONFIFURATIONS
-from macro.language_dict import SUPPORTED_LANGUAGES
+from macro.macro_utils import lang_iso_to_label, lang_label_to_iso
 
 def do(payload, config, plugin_config, inputs):
     if payload["method"] == "get_languages":
@@ -34,19 +34,4 @@ def get_transformer_model_versions(config):
     return {"transformer_model_versions": transformer_model_versions,
             "model_name" : model}
 
-def lang_iso_to_label(languages_iso):
-    languages_labels = []
-    for language in languages_iso:
-        search = [x for x in SUPPORTED_LANGUAGES if x["value"] == language]
-        if search:
-            languages_labels.append(search[0]["label"])
-        else:
-            languages_labels.append(language)
-    return languages_labels
 
-def lang_label_to_iso(language_label):
-    search = [x for x in SUPPORTED_LANGUAGES if x["label"] == language_label]
-    if search:
-        return search[0]["value"]
-    else:
-        return language_label
