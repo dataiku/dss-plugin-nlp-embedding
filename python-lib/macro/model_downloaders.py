@@ -124,7 +124,10 @@ class BaseDownloader(object):
         return bytes_so_far  
 
     def get_file_size(self,response):
-        total_size = int(response.headers.get('content-length'))
+        if self.model_id == "word2vec-en":
+            total_size = 3390000000
+        else:
+            total_size = int(response.headers.get('content-length'))
         return total_size
 
     def update_percent(self,percent, last_update_time):

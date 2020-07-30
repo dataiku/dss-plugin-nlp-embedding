@@ -11,6 +11,7 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showModelList=false;
         $scope.showTransformersModelversion=false;
         $scope.showOutputFolder=true;
+        $scope.showModelDescription=false;
     });
 
     $scope.getModels = function(){
@@ -21,6 +22,7 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showModelList=true;
         $scope.showTransformersModelversion=false;
         $scope.showOutputFolder=true;
+        $scope.showModelDescription=false;
     };
 
     $scope.getTransformerModelVersions = function(){      
@@ -38,7 +40,19 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showLanguageList=true;
         $scope.showModelList=true;
         $scope.showOutputFolder=true;
+        $scope.showModelDescription=false;
 
+    };
+
+    $scope.getModelDescription = function(){
+        $scope.callPythonDo({method: "get_model_description"}).then(function(data){
+            $scope.modelDescription = data['model_description']
+        }); 
+        $scope.showLanguageList=true;
+        $scope.showModelList=true;
+        $scope.showTransformersModelversion=true;
+        $scope.showOutputFolder=true;
+        $scope.showModelDescription=true;
     };
 
     var init = function(){
@@ -49,6 +63,7 @@ app.controller('modelDownloaderController', function($scope) {
          $scope.showModelList=false;
          $scope.showTransformersModelversion=false;
          $scope.showOutputFolder=true;
+         $scope.showModelDescription=false;
          
      };
          
