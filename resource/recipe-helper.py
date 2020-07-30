@@ -12,6 +12,9 @@ def do(payload, config, plugin_config, inputs):
     if payload["method"] == "get_transformer_model_versions":
         return get_transformer_model_versions(config)
 
+    if payload["method"] == "get_model_description":
+        return get_model_description(config)
+
 
 def get_languages():
     languages= []
@@ -24,14 +27,23 @@ def get_languages():
 def get_models(config):
     language_label = config.get("language")
     language = lang_label_to_iso(language_label)
-    models = []
     models = [m["family"] for m in MODEL_CONFIFURATIONS.values() if language in m["language_list"]]
-    return {'models': models}
+    return {'models': list(set(models))}
 
 def get_transformer_model_versions(config):
     model = config.get("modelName")
-    transformer_model_versions = [x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model]
+    language_label = config.get("language")
+    language = lang_label_to_iso(language_label)
+    transformer_model_versions = [x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model and language in x["language_list"]]
     return {"transformer_model_versions": transformer_model_versions,
             "model_name" : model}
+
+def get_model_description(config):
+    model = config.get("transformersModelVersion")
+    if model is None:
+        model_description = ""
+    else:
+        model_description = MODEL_CONFIFURATIONS[model]["description"]
+    return {'model_description': model_description}
 
 
