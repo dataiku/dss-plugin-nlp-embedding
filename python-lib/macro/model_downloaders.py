@@ -125,10 +125,11 @@ class BaseDownloader(object):
 
     def get_file_size(self,response):
         if self.model_id == "word2vec-en":
-            total_size = 3390000000
+            total_size = 3390000000 #3.39GB
         else:
             total_size = int(response.headers.get('content-length'))
-        return total_size
+
+        return total_size if total_size>0 else 300000000 #300MB
 
     def update_percent(self,percent, last_update_time):
             new_time = time.time()
@@ -264,10 +265,11 @@ class HuggingFaceDownloader(BaseDownloader):
         self.macro_inputs = macro_inputs
         self.model_shortcut_name = self.macro_inputs["transformer_shortcut_name"]
         
+        
     def run(self):
         bytes_so_far = 0
         for filename in HG_FILENAMES:
-            self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_shortcut_name + '/' + filename
+            self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_shortcut_name.replace("/","_") + '/' + filename
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
             if response.status_code == 200:
