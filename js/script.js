@@ -12,6 +12,7 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showTransformersModelversion=false;
         $scope.showOutputFolder=true;
         $scope.showModelDescription=false;
+        $scope.showNewOutputFolder = false;
     });
 
     $scope.getModels = function(){
@@ -55,16 +56,32 @@ app.controller('modelDownloaderController', function($scope) {
         $scope.showModelDescription=true;
     };
 
+    $scope.getIsCustomFolder = function(){
+        $scope.callPythonDo({method: "get_is_custom_folder"}).then(function(data){
+            var is_cutom_folder = data["is_cutom_folder"]
+            console.log("is_custom_folder")
+            console.log(is_cutom_folder)
+            if(is_cutom_folder){
+                $scope.showNewOutputFolder = true;
+            }
+            else{
+                $scope.showNewOutputFolder = false;
+            }
+        }); 
+
+    };
+
     var init = function(){
-        $scope.callPythonDo({method: "get_languages"}).then(function(data){
-         $scope.languages = data['languages']
+        $scope.callPythonDo({method: "init_form"}).then(function(data){
+            $scope.languages = data['languages']
+            $scope.outputFolders = data['output_folders']
          }); 
-         $scope.showLanguageList=true;
-         $scope.showModelList=false;
-         $scope.showTransformersModelversion=false;
-         $scope.showOutputFolder=true;
-         $scope.showModelDescription=false;
-         
+        $scope.showLanguageList=true;
+        $scope.showModelList=false;
+        $scope.showTransformersModelversion=false;
+        $scope.showOutputFolder=true;
+        $scope.showModelDescription=false;
+        
      };
          
      init();

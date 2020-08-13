@@ -44,21 +44,22 @@ class MyRunnable(Runnable):
         macro_inputs = read_model_inputs(self.config)
 
         # Creating new Managed Folder if needed
-        output_folder_name = macro_inputs["output_folder_name"]
-        project = self.client.get_project(self.project_key)
-        output_folder_found = False
-
-        for folder in project.list_managed_folders():
-            if output_folder_name == folder['name']:
-                output_folder = project.get_managed_folder(folder['id'])
-                output_folder_found = True
-                break
-
-        if not output_folder_found:
-            output_folder = project.create_managed_folder(output_folder_name)
-
-        output_folder = dataiku.Folder(output_folder.get_definition()["id"],
+        if macro_inputs["is_new_output_folder"]:
+            new_output_folder_name = macro_inputs["new_output_folder_name"]
+            project = self.client.get_project(self.project_key)
+            managed_folders = project.list_managed_folders()
+            managed_folders_names = [x["name"] for x in managed_folders]
+            if new_output_folder_name in managed_folders_names:
+                raise("Managed folder {} already exists.".format(new_output_folder_name))
+            else:
+                output_folder = project.create_managed_folder(new_output_folder_name)        
+                output_folder = dataiku.Folder(output_folder.get_definition()["id"],
                                        project_key=self.project_key)
+
+        else:
+            output_folder = dataiku.Folder(macro_inputs["output_folder_id"],
+                                       project_key=self.project_key)
+
 
         #######################################
         # Downloading and extracting the data

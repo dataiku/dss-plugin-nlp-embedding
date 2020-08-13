@@ -13,8 +13,15 @@ def read_model_inputs(config):
     model_id =[x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model_name][0] 
     macro_inputs["embedding_model"] = model_id
     macro_inputs["embedding_family"] = model_name
+    
+    is_new_output_folder = config.get("outputFolder",None)
+    if is_new_output_folder["value"] == "create_new_folder":
+        macro_inputs["is_new_output_folder"] = True
+        macro_inputs["new_output_folder_name"] = config.get("newOutputFolder",None)
+    else:
+        macro_inputs["is_new_output_folder"] = False
+        macro_inputs["output_folder_id"] = is_new_output_folder["value"]
 
-    macro_inputs["output_folder_name"] = config.get("outputFolder",None)
     macro_inputs["transformer_shortcut_name"] = config.get("transformersModelVersion",None)
 
     return macro_inputs

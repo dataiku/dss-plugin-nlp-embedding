@@ -9,3 +9,7 @@
     font-size: 10px;
     margin-left: 2px;    
 }
+
+hr.solid {
+    border-top: 2px solid gray;
+  }

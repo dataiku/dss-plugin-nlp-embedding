@@ -3,8 +3,12 @@ from macro.model_configurations import MODEL_CONFIFURATIONS
 from macro.macro_utils import lang_iso_to_label, lang_label_to_iso
 
 def do(payload, config, plugin_config, inputs):
-    if payload["method"] == "get_languages":
-        return get_languages()
+    if payload["method"] == "init_form":
+        output = {}
+        languages =  get_languages()
+        output_folders = get_output_folders()
+        output = {**languages, **output_folders}
+        return output
     
     if payload["method"] == "get_models":
         return get_models(config)
@@ -14,6 +18,9 @@ def do(payload, config, plugin_config, inputs):
 
     if payload["method"] == "get_model_description":
         return get_model_description(config)
+
+    if payload["method"] == "get_is_custom_folder":
+        return get_is_custom_folder(config)
 
 
 def get_languages():
@@ -28,7 +35,7 @@ def get_models(config):
     language_label = config.get("language")
     language = lang_label_to_iso(language_label)
     models = [m["family"] for m in MODEL_CONFIFURATIONS.values() if language in m["language_list"]]
-    return {'models': list(set(models))}
+    return {'models': sorted(list(set(models)))}
 
 def get_transformer_model_versions(config):
     model = config.get("modelName")
@@ -45,5 +52,27 @@ def get_model_description(config):
     else:
         model_description = MODEL_CONFIFURATIONS[model]["description"]
     return {'model_description': model_description}
+
+def get_output_folders():
+    api_client = dataiku.api_client()
+    project_key = dataiku.default_project_key()
+    project_managed_folders = api_client.get_project(project_key).list_managed_folders()
+
+    output_folders = [{
+        'label': '{} ({})'.format(mf['name'], mf['type']),
+        'value': mf['id']
+    } for mf in project_managed_folders]
+    output_folders.append({'label': 'Create new Filesystem folder...', 'value': 'create_new_folder'})
+    return {'output_folders': output_folders} 
+
+def get_is_custom_folder(config):
+    choice= config.get("outputFolder")
+    value = choice["value"]
+    if value == "create_new_folder":
+        return {"is_cutom_folder": 1}
+    else:
+        return {"is_cutom_folder": 0}
+
+
 
 
