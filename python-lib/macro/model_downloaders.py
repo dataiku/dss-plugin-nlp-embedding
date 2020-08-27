@@ -7,6 +7,7 @@ from pathlib import Path
 import tarfile
 import io
 import zipfile
+import logging
 from macro.model_configurations import MODEL_CONFIFURATIONS
 import time
 from transformers.file_utils import (S3_BUCKET_PREFIX,
@@ -14,6 +15,9 @@ from transformers.file_utils import (S3_BUCKET_PREFIX,
                                     hf_bucket_url)
 from .model_configurations import MODEL_CONFIFURATIONS
 
+FORMAT = '[Embedding Downloader] %(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger()
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/{}.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.vec.gz"
@@ -27,14 +31,19 @@ class BaseDownloader(object):
         self.language = macro_inputs["language"]
         self.embedding_model = macro_inputs["embedding_model"]
         self.embedding_family = macro_inputs["embedding_family"]
+        assert (self.embedding_model in MODEL_CONFIFURATIONS), "No configuration found for model {}".format(self.embedding_model)
         self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
         self.model_id = self.embedding_model + '-' + self.language
         self.archive_name = ''
 
 
-
     def get_stream(self, download_link):
-        response = requests.get(download_link, stream=True, proxies=self.proxy)
+        try:        
+            response = requests.get(download_link, stream=True, proxies=self.proxy)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as error:
+            logger.exception("Model could not be downloaded because of the following error:\n {}".format(error))
+            raise(error)
         return response
 
     def download_plain(self, response, bytes_so_far=0):
@@ -160,12 +169,20 @@ class Word2vecDownloader(BaseDownloader):
     def get_gdrive_stream(self, download_link):
         id_gdrive = self.model_params["download_info"][self.language]["id_gdrive"]
         session = requests.Session()
-        response = session.get(download_link, params={'id': id_gdrive} , stream=True, proxies=self.proxy) 
+        try:
+            response = session.get(download_link, params={'id': id_gdrive} , stream=True, proxies=self.proxy) 
+        except requests.exceptions.RequestException as error:
+            logger.exception("Model could not be downloaded because of the following error:\n {}".format(error))
+            raise(error)
         token = self.__get_confirm_token(response)
 
         if token:
             params = {'id': id_gdrive, 'confirm': token}
-            response = session.get(download_link, params=params, stream=True, proxies=self.proxy)
+            try:
+                response = session.get(download_link, params=params, stream=True, proxies=self.proxy)
+            except requests.exceptions.RequestException as error:
+                logger.exception("Model could not be downloaded because of the following error:\n {}".format(error))
+                raise(error)
         else:
             raise RuntimeError("Google Drive Token could not be verified.")
 

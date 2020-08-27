@@ -9,11 +9,16 @@ from macro.model_downloaders import (Word2vecDownloader,
                                     UseDownloader,
                                     HuggingFaceDownloader
                                     )
-from macro.macro_utils import read_model_inputs
-from macro.model_configurations import TRANSFORMERS_LIST
+from macro.macro_utils import read_model_inputs, check_macro_inputs
+from macro.model_configurations import TRANSFORMERS_MODELS
 import zipfile
 import json
 import os
+import logging
+
+FORMAT = '[Embedding Downloader] %(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger()
 
 
 class MyRunnable(Runnable):
@@ -40,21 +45,23 @@ class MyRunnable(Runnable):
 
     def run(self, progress_callback):
 
+        # Check marco inputs
+        check_macro_inputs(self.config)
+
         # Retrieving parameters
         macro_inputs = read_model_inputs(self.config)
 
         # Creating new Managed Folder if needed
         if macro_inputs["is_new_output_folder"]:
+            logger.info("Creating new managed folder...")
             new_output_folder_name = macro_inputs["new_output_folder_name"]
             project = self.client.get_project(self.project_key)
             managed_folders = project.list_managed_folders()
             managed_folders_names = [x["name"] for x in managed_folders]
-            if new_output_folder_name in managed_folders_names:
-                raise("Managed folder {} already exists.".format(new_output_folder_name))
-            else:
-                output_folder = project.create_managed_folder(new_output_folder_name)        
-                output_folder = dataiku.Folder(output_folder.get_definition()["id"],
-                                       project_key=self.project_key)
+            assert (new_output_folder_name not in managed_folders_names), "Managed folder {} already exists.".format(new_output_folder_name)
+            output_folder = project.create_managed_folder(new_output_folder_name)        
+            output_folder = dataiku.Folder(output_folder.get_definition()["id"],
+                                project_key=self.project_key)
 
         else:
             output_folder = dataiku.Folder(macro_inputs["output_folder_id"],
@@ -70,10 +77,8 @@ class MyRunnable(Runnable):
         if embedding_model == 'word2vec':
             Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
-
         elif embedding_model == 'fasttext':
             FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
-
 
         elif embedding_model == 'glove':
             GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
@@ -84,9 +89,9 @@ class MyRunnable(Runnable):
         elif embedding_model == 'use':
             UseDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
 
-        elif embedding_model in TRANSFORMERS_LIST:
+        elif embedding_model in TRANSFORMERS_MODELS:
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
         else:
-            raise("Model not found.")
+            raise ValueError("Model not found.")
 
         return "<br><span>The model was downloaded successfuly !</span>"

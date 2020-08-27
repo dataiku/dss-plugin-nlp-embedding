@@ -1,4 +1,4 @@
-from macro.model_configurations import MODEL_CONFIFURATIONS
+from macro.model_configurations import MODEL_CONFIFURATIONS, NON_TRANSFORMER_MODELS
 from macro.language_dict import SUPPORTED_LANGUAGES
 
 
@@ -56,3 +56,22 @@ def lang_label_to_iso(language_label):
         return search[0]["value"]
     else:
         return language_label
+
+def check_macro_inputs(config):
+    language = config.get("language",None)
+    modelName = config.get("modelName",None)
+    outputFolder = config.get("outputFolder",None)
+    newOutputFolder = config.get("newOutputFolder",None)
+    transformersModelVersion = config.get("transformersModelVersion",None)
+
+    assert (language is not None), "Language field is missing"
+    assert (modelName is not None), "Model field is missing"
+    assert (outputFolder is not None), "Output Folder field is missing"
+    
+    if outputFolder["value"] == "create_new_folder":
+        assert (newOutputFolder is not None), "New Output Folder Name field is missing"
+
+    model_id =[x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == modelName][0]
+    if  model_id not in NON_TRANSFORMER_MODELS:
+        assert (transformersModelVersion is not None), "Model version field is missing"
+    
