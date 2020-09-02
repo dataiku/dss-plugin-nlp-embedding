@@ -1,3 +1,15 @@
+from transformers import (tokenization_bert,
+                          tokenization_gpt2,
+                          tokenization_transfo_xl,
+                          tokenization_xlnet,
+                          tokenization_roberta,
+                          tokenization_distilbert,
+                          tokenization_ctrl,
+                          tokenization_camembert,
+                          tokenization_albert,
+                          tokenization_t5,
+                          tokenization_bart)
+
 NON_TRANSFORMER_MODELS = ["word2vec","fasttext","glove","elmo","use"]
 TRANSFORMERS_MODELS = ['bert-base-uncased', 'bert-large-uncased', 'bert-base-cased', 'bert-large-cased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-chinese', 'bert-base-german-cased', 'bert-large-uncased-whole-word-masking', 'bert-large-cased-whole-word-masking', 'bert-large-uncased-whole-word-masking-finetuned-squad', 'bert-large-cased-whole-word-masking-finetuned-squad', 'bert-base-cased-finetuned-mrpc', 'bert-base-german-dbmdz-cased', 'bert-base-german-dbmdz-uncased', 'cl-tohoku/bert-base-japanese', 'cl-tohoku/bert-base-japanese-whole-word-masking', 'cl-tohoku/bert-base-japanese-char', 'cl-tohoku/bert-base-japanese-char-whole-word-masking', 'TurkuNLP/bert-base-finnish-cased-v1', 'TurkuNLP/bert-base-finnish-uncased-v1', 'wietsedv/bert-base-dutch-cased', 'facebook/bart-large', 'facebook/bart-large-mnli', 'facebook/bart-large-cnn', 'facebook/mbart-large-en-ro', 'openai-gpt', 'transfo-xl-wt103', 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2', 'ctrl', 'xlnet-base-cased', 'xlnet-large-cased', 'xlm-mlm-en-2048', 'xlm-mlm-ende-1024', 'xlm-mlm-enfr-1024', 'xlm-mlm-enro-1024', 'xlm-mlm-tlm-xnli15-1024', 'xlm-mlm-xnli15-1024', 'xlm-clm-enfr-1024', 'xlm-clm-ende-1024', 'xlm-mlm-17-1280', 'xlm-mlm-100-1280', 'roberta-base', 'roberta-large', 'roberta-large-mnli', 'distilroberta-base', 'roberta-base-openai-detector', 'roberta-large-openai-detector', 'distilbert-base-uncased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-cased-distilled-squad', 'distilbert-base-german-cased', 'distilbert-base-multilingual-cased', 'albert-base-v1', 'albert-large-v1', 'albert-xlarge-v1', 'albert-xxlarge-v1', 'albert-base-v2', 'albert-large-v2', 'albert-xlarge-v2', 'albert-xxlarge-v2', 'camembert-base', 't5-small', 't5-base', 't5-large', 'xlm-roberta-base', 'xlm-roberta-large', 'flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased', 'allenai/longformer-base-4096', 'allenai/longformer-large-4096']
 MODEL_CONFIFURATIONS = {
@@ -1076,5 +1088,59 @@ MODEL_CONFIFURATIONS = {
                            'language_list': ['en']}
 
     }
+
+BART_URL_MAP = {
+    'vocab_file': {model: tokenization_bart.vocab_url for model in tokenization_bart._all_bart_models},
+    'merges_file': {model: tokenization_bart.merges_url for model in tokenization_bart._all_bart_models}
+}
+BART_FILE_NAMES = tokenization_roberta.VOCAB_FILES_NAMES
+
+
+TOKENIZER_CONFIGURATIONS = {
+    'BERT': {
+        'url_map': tokenization_bert.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_bert.VOCAB_FILES_NAMES
+    },
+    'GPT-2': {
+        'url_map': tokenization_gpt2.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_gpt2.VOCAB_FILES_NAMES
+    },
+    'CamemBERT': {
+        'url_map': tokenization_camembert.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_camembert.VOCAB_FILES_NAMES
+    },
+    'ALBERT': {
+        'url_map': tokenization_albert.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_albert.VOCAB_FILES_NAMES
+    },
+    'CTRL': {
+        'url_map': tokenization_ctrl.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_ctrl.VOCAB_FILES_NAMES
+    },
+    'DistilBERT': {
+        'url_map': tokenization_distilbert.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_distilbert.VOCAB_FILES_NAMES
+    },
+    'RoBERTa': {
+        'url_map': tokenization_roberta.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_roberta.VOCAB_FILES_NAMES
+    },
+    'Bart': {
+        'url_map': BART_URL_MAP,
+        'file_names': BART_FILE_NAMES
+    },
+    'T5': {
+        'url_map': tokenization_t5.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_t5.VOCAB_FILES_NAMES
+    },
+    'Transformer-XL': {
+        'url_map': tokenization_transfo_xl.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_transfo_xl.VOCAB_FILES_NAMES
+    },
+    'XLNet': {
+        'url_map': tokenization_xlnet.PRETRAINED_VOCAB_FILES_MAP,
+        'file_names': tokenization_xlnet.VOCAB_FILES_NAMES
+    },
+}
 
 

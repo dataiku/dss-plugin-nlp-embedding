@@ -8,7 +8,7 @@ import tarfile
 import io
 import zipfile
 import logging
-from macro.model_configurations import MODEL_CONFIFURATIONS
+from macro.model_configurations import MODEL_CONFIFURATIONS, TOKENIZER_CONFIGURATIONS
 import time
 from transformers.file_utils import (S3_BUCKET_PREFIX,
                                     CLOUDFRONT_DISTRIB_PREFIX,
@@ -21,7 +21,7 @@ logger = logging.getLogger()
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/{}.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.vec.gz"
-HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.txt"]
+HG_FILENAMES = ["pytorch_model.bin", "config.json"]
 
 class BaseDownloader(object):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
@@ -293,11 +293,29 @@ class HuggingFaceDownloader(BaseDownloader):
                 bytes_so_far = self.download_plain(response, bytes_so_far)
             elif response.status_code == 404:
                 pass
+        tokenizer_dict = TOKENIZER_CONFIGURATIONS[self.embedding_family]
+        for file_type in tokenizer_dict['url_map'].keys():
+            self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_shortcut_name.replace("/","_") + '/' + tokenizer_dict['file_names'][file_type]
+            download_link = tokenizer_dict['url_map'][file_type][self.model_shortcut_name]
+            response = self.get_stream(download_link)
+            if response.status_code == 200:
+                bytes_so_far = self.download_plain(response, bytes_so_far)
+            elif response.status_code == 404:
+                pass
+
 
     def get_file_size(self, response=None):
         total_size = 0
         for filename in HG_FILENAMES:
             download_link = self.get_download_link(filename)
+            response = self.get_stream(download_link)
+            if response.status_code == 200:
+                total_size += int(response.headers.get('content-length'))
+            elif response.status_code == 404:
+                total_size += 0
+        tokenizer_dict = TOKENIZER_CONFIGURATIONS[self.embedding_family]
+        for file_type in tokenizer_dict['url_map'].keys():
+            download_link = tokenizer_dict['url_map'][file_type][self.model_shortcut_name]
             response = self.get_stream(download_link)
             if response.status_code == 200:
                 total_size += int(response.headers.get('content-length'))
