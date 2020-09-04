@@ -8,12 +8,11 @@ import tarfile
 import io
 import zipfile
 import logging
-from macro.model_configurations import MODEL_CONFIFURATIONS
 import time
 from transformers.file_utils import (S3_BUCKET_PREFIX,
                                     CLOUDFRONT_DISTRIB_PREFIX,
                                     hf_bucket_url)
-from .model_configurations import MODEL_CONFIFURATIONS
+from .model_configurations import MODEL_CONFIFURATIONS, TRANSFORMERS_MODELS_FAMILY, TRANSFORMERS_CONFIG
 
 FORMAT = '[Embedding Downloader] %(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -21,7 +20,7 @@ logger = logging.getLogger()
 
 WORD2VEC_BASE_URL = "http://vectors.nlpl.eu/repository/20/{}.zip"
 FASTTEXT_BASE_URL = "https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.vec.gz"
-HG_FILENAMES = ["pytorch_model.bin","config.json","vocab.txt"]
+HG_FILENAMES = ["pytorch_model.bin","config.json"]
 
 class BaseDownloader(object):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
@@ -29,11 +28,10 @@ class BaseDownloader(object):
         self.proxy = proxy
         self.progress_callback = progress_callback
         self.language = macro_inputs["language"]
-        self.embedding_model = macro_inputs["embedding_model"]
-        self.embedding_family = macro_inputs["embedding_family"]
-        assert (self.embedding_model in MODEL_CONFIFURATIONS), "No configuration found for model {}".format(self.embedding_model)
-        self.model_params = MODEL_CONFIFURATIONS[self.embedding_model]
-        self.model_id = self.embedding_model + '-' + self.language
+        self.model_label = macro_inputs["model_label"]
+        self.model_family = macro_inputs["model_family"]         
+        self.model_params = MODEL_CONFIFURATIONS[macro_inputs["model_id"]]
+        self.model_id = self.model_family + '-' + self.language
         self.archive_name = ''
 
 
@@ -75,7 +73,7 @@ class BaseDownloader(object):
         destination_writer.close()
 
         #Unzip file
-        write_to_path = self.language + '/' + self.embedding_family + '/' + self.model_id
+        write_to_path = self.language + '/' + self.model_label + '/' + self.model_id
         with self.folder.get_writer(write_to_path) as f_out, self.folder.get_download_stream(self.archive_name) as f_in:
             shutil.copyfileobj(gzip.open(f_in), f_out)
         
@@ -100,7 +98,7 @@ class BaseDownloader(object):
                 members = tar.getmembers()
                 for member in members:
                     if member.isfile():
-                        write_to_path = self.language + '/' + self.embedding_family + '/' + member.name
+                        write_to_path = self.language + '/' + self.model_label + '/' + member.name
                         with self.folder.get_writer(write_to_path) as f_out:
                             shutil.copyfileobj(tar.extractfile(member),f_out)
             self.folder.delete_path(self.archive_name)
@@ -120,13 +118,13 @@ class BaseDownloader(object):
         #Unzip file
         with self.folder.get_download_stream(self.archive_name) as f_in:
             with zipfile.ZipFile(io.BytesIO(f_in.read())) as fzip:
-                if self.embedding_model == "word2vec":
+                if self.model_family == "word2vec":
                     archive_name = "model.bin"
-                elif self.embedding_model == "glove":
+                elif self.model_family == "glove":
                     archive_name = fzip.namelist()[0]
                 else:
                     raise NotImplementedError()
-                write_to_path = self.language + '/' + self.embedding_family + '/' + self.model_id
+                write_to_path = self.language + '/' + self.model_label + '/' + self.model_id
                 with fzip.open(archive_name) as fzip_file, self.folder.get_writer(write_to_path) as f_out:
                     shutil.copyfileobj(fzip_file, f_out)
             self.folder.delete_path(self.archive_name)  
@@ -160,7 +158,7 @@ class BaseDownloader(object):
 class Word2vecDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)   
-        self.archive_name = self.language + '/' + self.embedding_family + '/'   
+        self.archive_name = self.language + '/' + self.model_label + '/'   
         if self.language == "en":
             self.archive_name += self.model_id + ".bin.gz"
         else:
@@ -217,7 +215,7 @@ class Word2vecDownloader(BaseDownloader):
 class FasttextDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".gz"
+        self.archive_name = self.language + '/' + self.model_label + '/' + self.model_id + ".gz"
 
     def get_download_link(self):
         return FASTTEXT_BASE_URL.format(self.model_params["download_info"][self.language])
@@ -234,7 +232,7 @@ class FasttextDownloader(BaseDownloader):
 class GloveDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".zip"
+        self.archive_name = self.language + '/' + self.model_label + '/' + self.model_id + ".zip"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]
@@ -248,7 +246,7 @@ class GloveDownloader(BaseDownloader):
 class ElmoDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.model_label + '/' + self.model_id + ".tar.gz"
     
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]
@@ -264,7 +262,7 @@ class ElmoDownloader(BaseDownloader):
 class UseDownloader(BaseDownloader):
     def __init__(self,folder,macro_inputs,proxy,progress_callback):
         BaseDownloader.__init__(self,folder,macro_inputs,proxy,progress_callback)
-        self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_id + ".tar.gz"
+        self.archive_name = self.language + '/' + self.model_label + '/' + self.model_id + ".tar.gz"
 
     def get_download_link(self): 
         return self.model_params["download_info"][self.language]
@@ -285,14 +283,22 @@ class HuggingFaceDownloader(BaseDownloader):
         
     def run(self):
         bytes_so_far = 0
+        #Download pytorch_model.bin and config.json
         for filename in HG_FILENAMES:
-            self.archive_name = self.language + '/' + self.embedding_family + '/' + self.model_shortcut_name.replace("/","_") + '/' + filename
+            self.archive_name = self.language + '/' + self.model_label + '/' + self.model_shortcut_name.replace("/","_") + '/' + filename
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
-            if response.status_code == 200:
-                bytes_so_far = self.download_plain(response, bytes_so_far)
-            elif response.status_code == 404:
-                pass
+            bytes_so_far = self.download_plain(response, bytes_so_far)
+        #Download vocab file
+        vocab_files= self.get_vocab_file_info(self.model_family) 
+        for vocab_file in vocab_files:
+            vocab_file_name = vocab_file["vocab_file_name"]
+            vocab_file_link = vocab_file["vocab_file_link"]
+            self.archive_name = self.language + '/' + self.model_label + '/' + self.model_shortcut_name.replace("/","_") + '/' + vocab_file_name
+            response = self.get_stream(vocab_file_link)
+            self.download_plain(response, bytes_so_far)
+
+
 
     def get_file_size(self, response=None):
         total_size = 0
@@ -308,3 +314,17 @@ class HuggingFaceDownloader(BaseDownloader):
 
     def get_download_link(self,filename): 
         return hf_bucket_url(self.model_shortcut_name,filename)
+
+    def get_vocab_file_info(self,family):
+        vocab_files = []
+        vocab_files_names = TRANSFORMERS_CONFIG[family]["tokenizer_files_name"]
+        for key in vocab_files_names:
+            vocab_file_name = vocab_files_names[key]
+            vocab_file_link = TRANSFORMERS_CONFIG[family]["tokenizer_files_map"][key][self.model_shortcut_name]
+            vocab_files.append({"vocab_file_name": vocab_file_name,
+                                "vocab_file_link": vocab_file_link})
+
+
+        return vocab_files
+
+

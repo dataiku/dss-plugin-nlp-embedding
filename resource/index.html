@@ -24,7 +24,7 @@
         <div class="controls">
           <select dku-bs-select
                   ng-model="config.modelName"
-                  ng-options="m for m in models"
+                  ng-options="m.label for m in models"
                   ng-change="getTransformerModelVersions()"
                   >
                 <option style="display:none" value="">Select a model</option>

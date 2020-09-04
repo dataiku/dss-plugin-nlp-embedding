@@ -34,11 +34,21 @@ def get_languages():
 def get_models(config):
     language_label = config.get("language")
     language = lang_label_to_iso(language_label)
-    models = [m["family"] for m in MODEL_CONFIFURATIONS.values() if language in m["language_list"]]
-    return {'models': sorted(list(set(models)))}
+    models = [m for m in MODEL_CONFIFURATIONS.values() if language in m["language_list"]]
+    models_output = [{
+        'label': m["label"],
+        'value': m['family']
+    } for m in models]
+    #Remove duplicate entries
+    models_output = list({v['label']:v for v in models_output}.values())
+    #Sort list by label 
+    models_output = sorted(models_output,key = lambda i: i['label'])
+    return {'models': models_output}
 
 def get_transformer_model_versions(config):
     model = config.get("modelName")
+    if model is not None:
+        model = model["value"]
     language_label = config.get("language")
     language = lang_label_to_iso(language_label)
     transformer_model_versions = [x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model and language in x["language_list"]]

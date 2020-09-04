@@ -10,7 +10,7 @@ from macro.model_downloaders import (Word2vecDownloader,
                                     HuggingFaceDownloader
                                     )
 from macro.macro_utils import read_model_inputs, check_macro_inputs
-from macro.model_configurations import TRANSFORMERS_MODELS
+from macro.model_configurations import TRANSFORMERS_MODELS_FAMILY
 import zipfile
 import json
 import os
@@ -72,24 +72,24 @@ class MyRunnable(Runnable):
         # Downloading and extracting the data
         #######################################
 
-        embedding_model = macro_inputs["embedding_model"]
+        model_family = macro_inputs["model_family"]
         proxy = self.plugin_config["proxy"]
-        if embedding_model == 'word2vec':
+        if model_family == 'word2vec':
             Word2vecDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
-        elif embedding_model == 'fasttext':
+        elif model_family == 'fasttext':
             FasttextDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
-        elif embedding_model == 'glove':
+        elif model_family == 'glove':
             GloveDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
-        elif embedding_model == 'elmo':
+        elif model_family == 'elmo':
             ElmoDownloader(output_folder,macro_inputs,proxy,progress_callback).run()
 
-        elif embedding_model == 'use':
+        elif model_family == 'use':
             UseDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
 
-        elif embedding_model in TRANSFORMERS_MODELS:
+        elif model_family in TRANSFORMERS_MODELS_FAMILY:
             HuggingFaceDownloader(output_folder,macro_inputs,proxy,progress_callback).run() 
         else:
             raise ValueError("Model not found.")

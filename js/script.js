@@ -1,5 +1,5 @@
 var app = angular.module('modelDownloader.build', []);
-var non_transformer_models = ["Word2Vec","FastText","Glove","ELMo",'USE']
+var non_transformer_models = ["word2vec","fasttext","glove","elmo",'use']
 
 app.controller('modelDownloaderController', function($scope) {
 

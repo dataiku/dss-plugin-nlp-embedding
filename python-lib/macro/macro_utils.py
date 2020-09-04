@@ -1,4 +1,4 @@
-from macro.model_configurations import MODEL_CONFIFURATIONS, NON_TRANSFORMER_MODELS
+from macro.model_configurations import MODEL_CONFIFURATIONS, TRANSFORMERS_MODELS_FAMILY
 from macro.language_dict import SUPPORTED_LANGUAGES
 
 
@@ -9,10 +9,13 @@ def read_model_inputs(config):
     macro_inputs["language"] = lang_label_to_iso(language_label)
     
     
-    model_name = config.get("modelName",None)
-    model_id =[x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == model_name][0] 
-    macro_inputs["embedding_model"] = model_id
-    macro_inputs["embedding_family"] = model_name
+    model = config.get("modelName",None)
+    model_label =  model["label"]
+    model_family = model["value"]
+
+    macro_inputs["model_label"] = model_label
+    macro_inputs["model_family"] = model_family
+    
     
     is_new_output_folder = config.get("outputFolder",None)
     if is_new_output_folder["value"] == "create_new_folder":
@@ -23,6 +26,10 @@ def read_model_inputs(config):
         macro_inputs["output_folder_id"] = is_new_output_folder["value"]
 
     macro_inputs["transformer_shortcut_name"] = config.get("transformersModelVersion",None)
+    if macro_inputs["transformer_shortcut_name"] is None:
+        macro_inputs["model_id"] = model_family
+    else:
+         macro_inputs["model_id"] = macro_inputs["transformer_shortcut_name"]
 
     return macro_inputs
 
@@ -71,7 +78,6 @@ def check_macro_inputs(config):
     if outputFolder["value"] == "create_new_folder":
         assert (newOutputFolder is not None), "New Output Folder Name field is missing"
 
-    model_id =[x["id"] for x in MODEL_CONFIFURATIONS.values() if x["family"] == modelName][0]
-    if  model_id not in NON_TRANSFORMER_MODELS:
+    if  modelName["value"] in TRANSFORMERS_MODELS_FAMILY:
         assert (transformersModelVersion is not None), "Model version field is missing"
     

@@ -1,9 +1,34 @@
+import transformers
+from transformers import (tokenization_bert,
+                          tokenization_bert_japanese,
+                          tokenization_gpt2,
+                          tokenization_transfo_xl,
+                          tokenization_xlnet,
+                          tokenization_roberta,
+                          tokenization_distilbert,
+                          tokenization_ctrl,
+                          tokenization_camembert,
+                          tokenization_albert,
+                          tokenization_t5,
+                          tokenization_bart,
+                          tokenization_electra,
+                          tokenization_flaubert,
+                          tokenization_openai,
+                          tokenization_reformer,
+                          tokenization_xlm,
+                          tokenization_xlm_roberta,
+                          tokenization_longformer,
+                          tokenization_bart)
+
+
 NON_TRANSFORMER_MODELS = ["word2vec","fasttext","glove","elmo","use"]
-TRANSFORMERS_MODELS = ['bert-base-uncased', 'bert-large-uncased', 'bert-base-cased', 'bert-large-cased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-chinese', 'bert-base-german-cased', 'bert-large-uncased-whole-word-masking', 'bert-large-cased-whole-word-masking', 'bert-large-uncased-whole-word-masking-finetuned-squad', 'bert-large-cased-whole-word-masking-finetuned-squad', 'bert-base-cased-finetuned-mrpc', 'bert-base-german-dbmdz-cased', 'bert-base-german-dbmdz-uncased', 'cl-tohoku/bert-base-japanese', 'cl-tohoku/bert-base-japanese-whole-word-masking', 'cl-tohoku/bert-base-japanese-char', 'cl-tohoku/bert-base-japanese-char-whole-word-masking', 'TurkuNLP/bert-base-finnish-cased-v1', 'TurkuNLP/bert-base-finnish-uncased-v1', 'wietsedv/bert-base-dutch-cased', 'facebook/bart-large', 'facebook/bart-large-mnli', 'facebook/bart-large-cnn', 'facebook/mbart-large-en-ro', 'openai-gpt', 'transfo-xl-wt103', 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2', 'ctrl', 'xlnet-base-cased', 'xlnet-large-cased', 'xlm-mlm-en-2048', 'xlm-mlm-ende-1024', 'xlm-mlm-enfr-1024', 'xlm-mlm-enro-1024', 'xlm-mlm-tlm-xnli15-1024', 'xlm-mlm-xnli15-1024', 'xlm-clm-enfr-1024', 'xlm-clm-ende-1024', 'xlm-mlm-17-1280', 'xlm-mlm-100-1280', 'roberta-base', 'roberta-large', 'roberta-large-mnli', 'distilroberta-base', 'roberta-base-openai-detector', 'roberta-large-openai-detector', 'distilbert-base-uncased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-cased-distilled-squad', 'distilbert-base-german-cased', 'distilbert-base-multilingual-cased', 'albert-base-v1', 'albert-large-v1', 'albert-xlarge-v1', 'albert-xxlarge-v1', 'albert-base-v2', 'albert-large-v2', 'albert-xlarge-v2', 'albert-xxlarge-v2', 'camembert-base', 't5-small', 't5-base', 't5-large', 'xlm-roberta-base', 'xlm-roberta-large', 'flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased', 'allenai/longformer-base-4096', 'allenai/longformer-large-4096']
+TRANSFORMERS_MODELS_ID = ['bert-base-uncased', 'bert-large-uncased', 'bert-base-cased', 'bert-large-cased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-chinese', 'bert-base-german-cased', 'bert-large-uncased-whole-word-masking', 'bert-large-cased-whole-word-masking', 'bert-large-uncased-whole-word-masking-finetuned-squad', 'bert-large-cased-whole-word-masking-finetuned-squad', 'bert-base-cased-finetuned-mrpc', 'bert-base-german-dbmdz-cased', 'bert-base-german-dbmdz-uncased', 'cl-tohoku/bert-base-japanese', 'cl-tohoku/bert-base-japanese-whole-word-masking', 'cl-tohoku/bert-base-japanese-char', 'cl-tohoku/bert-base-japanese-char-whole-word-masking', 'TurkuNLP/bert-base-finnish-cased-v1', 'TurkuNLP/bert-base-finnish-uncased-v1', 'wietsedv/bert-base-dutch-cased', 'facebook/bart-large', 'facebook/bart-large-mnli', 'facebook/bart-large-cnn', 'facebook/mbart-large-en-ro', 'openai-gpt', 'transfo-xl-wt103', 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2', 'ctrl', 'xlnet-base-cased', 'xlnet-large-cased', 'xlm-mlm-en-2048', 'xlm-mlm-ende-1024', 'xlm-mlm-enfr-1024', 'xlm-mlm-enro-1024', 'xlm-mlm-tlm-xnli15-1024', 'xlm-mlm-xnli15-1024', 'xlm-clm-enfr-1024', 'xlm-clm-ende-1024', 'xlm-mlm-17-1280', 'xlm-mlm-100-1280', 'roberta-base', 'roberta-large', 'roberta-large-mnli', 'distilroberta-base', 'roberta-base-openai-detector', 'roberta-large-openai-detector', 'distilbert-base-uncased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-cased-distilled-squad', 'distilbert-base-german-cased', 'distilbert-base-multilingual-cased', 'albert-base-v1', 'albert-large-v1', 'albert-xlarge-v1', 'albert-xxlarge-v1', 'albert-base-v2', 'albert-large-v2', 'albert-xlarge-v2', 'albert-xxlarge-v2', 'camembert-base', 't5-small', 't5-base', 't5-large', 'xlm-roberta-base', 'xlm-roberta-large', 'flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased', 'allenai/longformer-base-4096', 'allenai/longformer-large-4096']
+TRANSFORMERS_MODELS_FAMILY = ['xlm', 'flaubert', 'xlm-roberta', 'ctrl', 'roberta', 'gpt-2', 'albert', 'transformer-xl', 'longformer', 'distilbert', 'gpt', 'camembert', 'xlnet', 'bert', 'bart', 't5']
 MODEL_CONFIFURATIONS = {
     "word2vec": {
         "id": "word2vec",
-        "family": "Word2Vec",
+        "label": "Word2Vec",
+        "family": "word2vec",
         "language_list": ['en','grc', 'ar', 'eu', 'bg', 'ca', 'zh', 'hr', 'cs', 'da', 'nl', 'et', 'fi', 'fr', 'gl', 'de', 'el', 'he', 'hi', 'hu', 'id', 'ga', 'it', 'ja', 'kk', 'ko', 'la', 'lv', 'nb', 'nn', 'cu', 'fa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'es', 'sv', 'tr', 'uk', 'ur', 'ug', 'vi'],
         "download_info": {
             "en": {
@@ -59,7 +84,8 @@ MODEL_CONFIFURATIONS = {
 
     "fasttext": {
         "id": "fasttext",
-        "family": "FastText",
+        "label": "FastText",
+        "family": "fasttext",
         "language_list": ['af', 'sq', 'am', 'ar', 'an', 'hy', 'as', 'az', 'ba', 'eu', 'be', 'bn', 'bs', 'br', 'bg', 'my', 'ca', 'ce', 'zh', 'cv', 'co', 'hr', 'cs', 'da', 'dv', 'nl', 'pa', 'en', 'eo', 'et', 'fi', 'fr', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'he', 'hi', 'hu', 'is', 'io', 'id', 'ia', 'ga', 'it', 'ja', 'jv', 'kn', 'kk', 'km', 'ky', 'ko', 'ku', 'la', 'lv', 'li', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'gv', 'mr', 'mn', 'ne', 'no', 'nn', 'oc', 'or', 'os', 'ps', 'fa', 'pl', 'pt', 'qu', 'ro', 'rm', 'ru', 'sa', 'sc', 'gd', 'sr', 'sh', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'tt', 'te', 'th', 'bo', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 'vi', 'vo', 'wa', 'cy', 'fy', 'yi', 'yo'],
         "download_info": {
             'af': 'af',
@@ -183,7 +209,8 @@ MODEL_CONFIFURATIONS = {
 
     "glove": {
         "id": "glove",
-        "family": "Glove",
+        "label": "Glove",
+        "family": "glove",
         "language_list": ["en"],
         "download_info": {
             "en": "http://nlp.stanford.edu/data/glove.42B.300d.zip"
@@ -192,7 +219,8 @@ MODEL_CONFIFURATIONS = {
 
     "elmo": {
         "id": "elmo",
-        "family": "ELMo",
+        "label": "ELMo",
+        "family": "elmo",
         "language_list": ["en"],
         "download_info": {
             "en": "https://tfhub.dev/google/elmo/3?tf-hub-format=compressed"
@@ -201,7 +229,8 @@ MODEL_CONFIFURATIONS = {
 
     "use": {
         "id": "use",
-        "family": "USE",
+        "label": "USE",
+        "family": "use",
         "language_list": ["en", "multilingual"],
         "download_info": {
             "en": "https://tfhub.dev/google/universal-sentence-encoder/4?tf-hub-format=compressed",
@@ -209,7 +238,7 @@ MODEL_CONFIFURATIONS = {
         }
     },
     
-    'TurkuNLP/bert-base-finnish-cased-v1': {  'description': '12-layer, '
+'TurkuNLP/bert-base-finnish-cased-v1': {  'description': '12-layer, '
                                                             '768-hidden, '
                                                             '12-heads, 110M '
                                                             'parameters.\n'
@@ -219,8 +248,9 @@ MODEL_CONFIFURATIONS = {
                                                             '(see details on '
                                                             'turkunlp.org).',
                                              'download_info': {'fi': 'fi'},
-                                             'family': 'BERT',
+                                             'family': 'bert',
                                              'id': 'TurkuNLP/bert-base-finnish-cased-v1',
+                                             'label': 'BERT',
                                              'language_list': ['fi']},
    'TurkuNLP/bert-base-finnish-uncased-v1': {  'description': '12-layer, '
                                                               '768-hidden, '
@@ -233,16 +263,18 @@ MODEL_CONFIFURATIONS = {
                                                               '(see details on '
                                                               'turkunlp.org).',
                                                'download_info': {'fi': 'fi'},
-                                               'family': 'BERT',
+                                               'family': 'bert',
                                                'id': 'TurkuNLP/bert-base-finnish-uncased-v1',
+                                               'label': 'BERT',
                                                'language_list': ['fi']},
    'albert-base-v1': {  'description': '12 repeating layers, 128 embedding, '
                                        '768-hidden, 12-heads, 11M parameters\n'
                                        'ALBERT base model\n'
                                        '\n',
                         'download_info': {'en': 'en'},
-                        'family': 'ALBERT',
+                        'family': 'albert',
                         'id': 'albert-base-v1',
+                        'label': 'ALBERT',
                         'language_list': ['en']},
    'albert-base-v2': {  'description': '12 repeating layers, 128 embedding, '
                                        '768-hidden, 12-heads, 11M parameters\n'
@@ -251,8 +283,9 @@ MODEL_CONFIFURATIONS = {
                                        'training\n'
                                        '\n',
                         'download_info': {'en': 'en'},
-                        'family': 'ALBERT',
+                        'family': 'albert',
                         'id': 'albert-base-v2',
+                        'label': 'ALBERT',
                         'language_list': ['en']},
    'albert-large-v1': {  'description': '24 repeating layers, 128 embedding, '
                                         '1024-hidden, 16-heads, 17M '
@@ -260,8 +293,9 @@ MODEL_CONFIFURATIONS = {
                                         'ALBERT large model\n'
                                         '\n',
                          'download_info': {'en': 'en'},
-                         'family': 'ALBERT',
+                         'family': 'albert',
                          'id': 'albert-large-v1',
+                         'label': 'ALBERT',
                          'language_list': ['en']},
    'albert-large-v2': {  'description': '24 repeating layers, 128 embedding, '
                                         '1024-hidden, 16-heads, 17M '
@@ -271,8 +305,9 @@ MODEL_CONFIFURATIONS = {
                                         'training\n'
                                         '\n',
                          'download_info': {'en': 'en'},
-                         'family': 'ALBERT',
+                         'family': 'albert',
                          'id': 'albert-large-v2',
+                         'label': 'ALBERT',
                          'language_list': ['en']},
    'albert-xlarge-v1': {  'description': '24 repeating layers, 128 embedding, '
                                          '2048-hidden, 16-heads, 58M '
@@ -280,8 +315,9 @@ MODEL_CONFIFURATIONS = {
                                          'ALBERT xlarge model\n'
                                          '\n',
                           'download_info': {'en': 'en'},
-                          'family': 'ALBERT',
+                          'family': 'albert',
                           'id': 'albert-xlarge-v1',
+                          'label': 'ALBERT',
                           'language_list': ['en']},
    'albert-xlarge-v2': {  'description': '24 repeating layers, 128 embedding, '
                                          '2048-hidden, 16-heads, 58M '
@@ -291,8 +327,9 @@ MODEL_CONFIFURATIONS = {
                                          'training\n'
                                          '\n',
                           'download_info': {'en': 'en'},
-                          'family': 'ALBERT',
+                          'family': 'albert',
                           'id': 'albert-xlarge-v2',
+                          'label': 'ALBERT',
                           'language_list': ['en']},
    'albert-xxlarge-v1': {  'description': '12 repeating layer, 128 embedding, '
                                           '4096-hidden, 64-heads, 223M '
@@ -300,8 +337,9 @@ MODEL_CONFIFURATIONS = {
                                           'ALBERT xxlarge model\n'
                                           '\n',
                            'download_info': {'en': 'en'},
-                           'family': 'ALBERT',
+                           'family': 'albert',
                            'id': 'albert-xxlarge-v1',
+                           'label': 'ALBERT',
                            'language_list': ['en']},
    'albert-xxlarge-v2': {  'description': '12 repeating layer, 128 embedding, '
                                           '4096-hidden, 64-heads, 223M '
@@ -311,8 +349,9 @@ MODEL_CONFIFURATIONS = {
                                           'and longer training\n'
                                           '\n',
                            'download_info': {'en': 'en'},
-                           'family': 'ALBERT',
+                           'family': 'albert',
                            'id': 'albert-xxlarge-v2',
+                           'label': 'ALBERT',
                            'language_list': ['en']},
    'allenai/longformer-base-4096': {  'description': '12-layer, 768-hidden, '
                                                      '12-heads, ~149M '
@@ -322,8 +361,9 @@ MODEL_CONFIFURATIONS = {
                                                      'trained on documents of '
                                                      'max length 4,096',
                                       'download_info': {'en': 'en'},
-                                      'family': 'Longformer',
+                                      'family': 'longformer',
                                       'id': 'allenai/longformer-base-4096',
+                                      'label': 'Longformer',
                                       'language_list': ['en']},
    'allenai/longformer-large-4096': {  'description': '24-layer, 1024-hidden, '
                                                       '16-heads, ~435M '
@@ -334,15 +374,17 @@ MODEL_CONFIFURATIONS = {
                                                       'documents of max length '
                                                       '4,096',
                                        'download_info': {'en': 'en'},
-                                       'family': 'Longformer',
+                                       'family': 'longformer',
                                        'id': 'allenai/longformer-large-4096',
+                                       'label': 'Longformer',
                                        'language_list': ['en']},
    'bert-base-cased': {  'description': '12-layer, 768-hidden, 12-heads, 110M '
                                         'parameters.\n'
                                         'Trained on cased English text.',
                          'download_info': {'en': 'en'},
-                         'family': 'BERT',
+                         'family': 'bert',
                          'id': 'bert-base-cased',
+                         'label': 'BERT',
                          'language_list': ['en']},
    'bert-base-cased-finetuned-mrpc': {  'description': '12-layer, 768-hidden, '
                                                        '12-heads, 110M '
@@ -355,16 +397,18 @@ MODEL_CONFIFURATIONS = {
                                                        'fine-tuning in the '
                                                        'example section)',
                                         'download_info': {'en': 'en'},
-                                        'family': 'BERT',
+                                        'family': 'bert',
                                         'id': 'bert-base-cased-finetuned-mrpc',
+                                        'label': 'BERT',
                                         'language_list': ['en']},
    'bert-base-chinese': {  'description': '12-layer, 768-hidden, 12-heads, '
                                           '110M parameters.\n'
                                           'Trained on cased Chinese Simplified '
                                           'and Traditional text.',
                            'download_info': {'zh': 'zh'},
-                           'family': 'BERT',
+                           'family': 'bert',
                            'id': 'bert-base-chinese',
+                           'label': 'BERT',
                            'language_list': ['zh']},
    'bert-base-german-cased': {  'description': '12-layer, 768-hidden, '
                                                '12-heads, 110M parameters.\n'
@@ -374,8 +418,9 @@ MODEL_CONFIFURATIONS = {
                                                '(see details on deepset.ai '
                                                'website).',
                                 'download_info': {'de': 'de'},
-                                'family': 'BERT',
+                                'family': 'bert',
                                 'id': 'bert-base-german-cased',
+                                'label': 'BERT',
                                 'language_list': ['de']},
    'bert-base-german-dbmdz-cased': {  'description': '12-layer, 768-hidden, '
                                                      '12-heads, 110M '
@@ -386,8 +431,9 @@ MODEL_CONFIFURATIONS = {
                                                      '(see details on dbmdz '
                                                      'repository).',
                                       'download_info': {'de': 'de'},
-                                      'family': 'BERT',
+                                      'family': 'bert',
                                       'id': 'bert-base-german-dbmdz-cased',
+                                      'label': 'BERT',
                                       'language_list': ['de']},
    'bert-base-german-dbmdz-uncased': {  'description': '12-layer, 768-hidden, '
                                                        '12-heads, 110M '
@@ -398,8 +444,9 @@ MODEL_CONFIFURATIONS = {
                                                        '(see details on dbmdz '
                                                        'repository).',
                                         'download_info': {'de': 'de'},
-                                        'family': 'BERT',
+                                        'family': 'bert',
                                         'id': 'bert-base-german-dbmdz-uncased',
+                                        'label': 'BERT',
                                         'language_list': ['de']},
    'bert-base-multilingual-cased': {  'description': '(New, recommended) '
                                                      '12-layer, 768-hidden, '
@@ -412,8 +459,9 @@ MODEL_CONFIFURATIONS = {
                                                      '\n'
                                                      '.',
                                       'download_info': {  'multilingual': 'multilingual'},
-                                      'family': 'BERT',
+                                      'family': 'bert',
                                       'id': 'bert-base-multilingual-cased',
+                                      'label': 'BERT',
                                       'language_list': ['multilingual']},
    'bert-base-multilingual-uncased': {  'description': '(Original, not '
                                                        'recommended) 12-layer, '
@@ -426,23 +474,26 @@ MODEL_CONFIFURATIONS = {
                                                        '\n'
                                                        '.',
                                         'download_info': {  'multilingual': 'multilingual'},
-                                        'family': 'BERT',
+                                        'family': 'bert',
                                         'id': 'bert-base-multilingual-uncased',
+                                        'label': 'BERT',
                                         'language_list': ['multilingual']},
    'bert-base-uncased': {  'description': '12-layer, 768-hidden, 12-heads, '
                                           '110M parameters.\n'
                                           'Trained on lower-cased English '
                                           'text.',
                            'download_info': {'en': 'en'},
-                           'family': 'BERT',
+                           'family': 'bert',
                            'id': 'bert-base-uncased',
+                           'label': 'BERT',
                            'language_list': ['en']},
    'bert-large-cased': {  'description': '24-layer, 1024-hidden, 16-heads, '
                                          '340M parameters.\n'
                                          'Trained on cased English text.',
                           'download_info': {'en': 'en'},
-                          'family': 'BERT',
+                          'family': 'bert',
                           'id': 'bert-large-cased',
+                          'label': 'BERT',
                           'language_list': ['en']},
    'bert-large-cased-whole-word-masking': {  'description': '24-layer, '
                                                             '1024-hidden, '
@@ -455,8 +506,9 @@ MODEL_CONFIFURATIONS = {
                                                             '\n'
                                                             '.',
                                              'download_info': {'en': 'en'},
-                                             'family': 'BERT',
+                                             'family': 'bert',
                                              'id': 'bert-large-cased-whole-word-masking',
+                                             'label': 'BERT',
                                              'language_list': ['en']},
    'bert-large-cased-whole-word-masking-finetuned-squad': {  'description': '24-layer, '
                                                                             '1024-hidden, '
@@ -479,16 +531,18 @@ MODEL_CONFIFURATIONS = {
                                                                             'example '
                                                                             'section)',
                                                              'download_info': {  'en': 'en'},
-                                                             'family': 'BERT',
+                                                             'family': 'bert',
                                                              'id': 'bert-large-cased-whole-word-masking-finetuned-squad',
+                                                             'label': 'BERT',
                                                              'language_list': [  'en']},
    'bert-large-uncased': {  'description': '24-layer, 1024-hidden, 16-heads, '
                                            '340M parameters.\n'
                                            'Trained on lower-cased English '
                                            'text.',
                             'download_info': {'en': 'en'},
-                            'family': 'BERT',
+                            'family': 'bert',
                             'id': 'bert-large-uncased',
+                            'label': 'BERT',
                             'language_list': ['en']},
    'bert-large-uncased-whole-word-masking': {  'description': '24-layer, '
                                                               '1024-hidden, '
@@ -502,8 +556,9 @@ MODEL_CONFIFURATIONS = {
                                                               '\n'
                                                               '.',
                                                'download_info': {'en': 'en'},
-                                               'family': 'BERT',
+                                               'family': 'bert',
                                                'id': 'bert-large-uncased-whole-word-masking',
+                                               'label': 'BERT',
                                                'language_list': ['en']},
    'bert-large-uncased-whole-word-masking-finetuned-squad': {  'description': '24-layer, '
                                                                               '1024-hidden, '
@@ -526,8 +581,9 @@ MODEL_CONFIFURATIONS = {
                                                                               'example '
                                                                               'section).',
                                                                'download_info': {  'en': 'en'},
-                                                               'family': 'BERT',
+                                                               'family': 'bert',
                                                                'id': 'bert-large-uncased-whole-word-masking-finetuned-squad',
+                                                               'label': 'BERT',
                                                                'language_list': [  'en']},
    'camembert-base': {  'description': '12-layer, 768-hidden, 12-heads, 110M '
                                        'parameters\n'
@@ -535,8 +591,9 @@ MODEL_CONFIFURATIONS = {
                                        'architecture\n'
                                        '\n',
                         'download_info': {'fr': 'fr'},
-                        'family': 'CamemBERT',
+                        'family': 'camembert',
                         'id': 'camembert-base',
+                        'label': 'CamemBERT',
                         'language_list': ['fr']},
    'cl-tohoku/bert-base-japanese': {  'description': '12-layer, 768-hidden, '
                                                      '12-heads, 110M '
@@ -551,8 +608,9 @@ MODEL_CONFIFURATIONS = {
                                                      '(see details on '
                                                      'cl-tohoku repository).',
                                       'download_info': {'ja': 'ja'},
-                                      'family': 'BERT',
+                                      'family': 'bert',
                                       'id': 'cl-tohoku/bert-base-japanese',
+                                      'label': 'BERT',
                                       'language_list': ['ja']},
    'cl-tohoku/bert-base-japanese-char': {  'description': '12-layer, '
                                                           '768-hidden, '
@@ -567,8 +625,9 @@ MODEL_CONFIFURATIONS = {
                                                           'cl-tohoku '
                                                           'repository).',
                                            'download_info': {'ja': 'ja'},
-                                           'family': 'BERT',
+                                           'family': 'bert',
                                            'id': 'cl-tohoku/bert-base-japanese-char',
+                                           'label': 'BERT',
                                            'language_list': ['ja']},
    'cl-tohoku/bert-base-japanese-char-whole-word-masking': {  'description': '12-layer, '
                                                                              '768-hidden, '
@@ -593,8 +652,9 @@ MODEL_CONFIFURATIONS = {
                                                                              'cl-tohoku '
                                                                              'repository).',
                                                               'download_info': {  'ja': 'ja'},
-                                                              'family': 'BERT',
+                                                              'family': 'bert',
                                                               'id': 'cl-tohoku/bert-base-japanese-char-whole-word-masking',
+                                                              'label': 'BERT',
                                                               'language_list': [  'ja']},
    'cl-tohoku/bert-base-japanese-whole-word-masking': {  'description': '12-layer, '
                                                                         '768-hidden, '
@@ -626,16 +686,18 @@ MODEL_CONFIFURATIONS = {
                                                                         'cl-tohoku '
                                                                         'repository).',
                                                          'download_info': {  'ja': 'ja'},
-                                                         'family': 'BERT',
+                                                         'family': 'bert',
                                                          'id': 'cl-tohoku/bert-base-japanese-whole-word-masking',
+                                                         'label': 'BERT',
                                                          'language_list': [  'ja']},
    'ctrl': {  'description': '48-layer, 1280-hidden, 16-heads, 1.6B '
                              'parameters\n'
                              'Salesforceâ\x80\x99s Large-sized CTRL English '
                              'model',
               'download_info': {'en': 'en'},
-              'family': 'CTRL',
+              'family': 'ctrl',
               'id': 'ctrl',
+              'label': 'CTRL',
               'language_list': ['en']},
    'distilbert-base-cased': {  'description': '6-layer, 768-hidden, 12-heads, '
                                               '65M parameters\n'
@@ -644,8 +706,9 @@ MODEL_CONFIFURATIONS = {
                                               'bert-base-cased checkpoint\n'
                                               '\n',
                                'download_info': {'en': 'en'},
-                               'family': 'DistilBERT',
+                               'family': 'distilbert',
                                'id': 'distilbert-base-cased',
+                               'label': 'DistilBERT',
                                'language_list': ['en']},
    'distilbert-base-cased-distilled-squad': {  'description': '6-layer, '
                                                               '768-hidden, '
@@ -664,8 +727,9 @@ MODEL_CONFIFURATIONS = {
                                                               'layer.\n'
                                                               '\n',
                                                'download_info': {'en': 'en'},
-                                               'family': 'DistilBERT',
+                                               'family': 'distilbert',
                                                'id': 'distilbert-base-cased-distilled-squad',
+                                               'label': 'DistilBERT',
                                                'language_list': ['en']},
    'distilbert-base-german-cased': {  'description': '6-layer, 768-hidden, '
                                                      '12-heads, 66M '
@@ -677,8 +741,9 @@ MODEL_CONFIFURATIONS = {
                                                      'checkpoint.\n'
                                                      '\n',
                                       'download_info': {'de': 'de'},
-                                      'family': 'DistilBERT',
+                                      'family': 'distilbert',
                                       'id': 'distilbert-base-german-cased',
+                                      'label': 'DistilBERT',
                                       'language_list': ['de']},
    'distilbert-base-multilingual-cased': {  'description': '6-layer, '
                                                            '768-hidden, '
@@ -693,8 +758,9 @@ MODEL_CONFIFURATIONS = {
                                                            'checkpoint.\n'
                                                            '\n',
                                             'download_info': {  'multilingual': 'multilingual'},
-                                            'family': 'DistilBERT',
+                                            'family': 'distilbert',
                                             'id': 'distilbert-base-multilingual-cased',
+                                            'label': 'DistilBERT',
                                             'language_list': ['multilingual']},
    'distilbert-base-uncased': {  'description': '6-layer, 768-hidden, '
                                                 '12-heads, 66M parameters\n'
@@ -703,8 +769,9 @@ MODEL_CONFIFURATIONS = {
                                                 'bert-base-uncased checkpoint\n'
                                                 '\n',
                                  'download_info': {'en': 'en'},
-                                 'family': 'DistilBERT',
+                                 'family': 'distilbert',
                                  'id': 'distilbert-base-uncased',
+                                 'label': 'DistilBERT',
                                  'language_list': ['en']},
    'distilbert-base-uncased-distilled-squad': {  'description': '6-layer, '
                                                                 '768-hidden, '
@@ -724,8 +791,9 @@ MODEL_CONFIFURATIONS = {
                                                                 'layer.\n'
                                                                 '\n',
                                                  'download_info': {'en': 'en'},
-                                                 'family': 'DistilBERT',
+                                                 'family': 'distilbert',
                                                  'id': 'distilbert-base-uncased-distilled-squad',
+                                                 'label': 'DistilBERT',
                                                  'language_list': ['en']},
    'distilgpt2': {  'description': '6-layer, 768-hidden, 12-heads, 82M '
                                    'parameters\n'
@@ -733,8 +801,9 @@ MODEL_CONFIFURATIONS = {
                                    'GPT2 model gpt2 checkpoint.\n'
                                    '\n',
                     'download_info': {'en': 'en'},
-                    'family': 'DistilBERT',
+                    'family': 'distilbert',
                     'id': 'distilgpt2',
+                    'label': 'DistilBERT',
                     'language_list': ['en']},
    'distilroberta-base': {  'description': '6-layer, 768-hidden, 12-heads, 82M '
                                            'parameters\n'
@@ -743,15 +812,17 @@ MODEL_CONFIFURATIONS = {
                                            'roberta-base checkpoint.\n'
                                            '\n',
                             'download_info': {'en': 'en'},
-                            'family': 'RoBERTa',
+                            'family': 'roberta',
                             'id': 'distilroberta-base',
+                            'label': 'RoBERTa',
                             'language_list': ['en']},
    'facebook/bart-large': {  'description': '24-layer, 1024-hidden, 16-heads, '
                                             '406M parameters\n'
                                             '\n',
                              'download_info': {'en': 'en'},
-                             'family': 'Bart',
+                             'family': 'bart',
                              'id': 'facebook/bart-large',
+                             'label': 'Bart',
                              'language_list': ['en']},
    'facebook/bart-large-cnn': {  'description': '12-layer, 1024-hidden, '
                                                 '16-heads, 406M '
@@ -761,8 +832,9 @@ MODEL_CONFIFURATIONS = {
                                                 'finetuned on cnn '
                                                 'summarization task',
                                  'download_info': {'en': 'en'},
-                                 'family': 'Bart',
+                                 'family': 'bart',
                                  'id': 'facebook/bart-large-cnn',
+                                 'label': 'Bart',
                                  'language_list': ['en']},
    'facebook/bart-large-mnli': {  'description': 'Adds a 2 layer '
                                                  'classification head with 1 '
@@ -771,8 +843,9 @@ MODEL_CONFIFURATIONS = {
                                                  'with a classification head, '
                                                  'finetuned on MNLI',
                                   'download_info': {'en': 'en'},
-                                  'family': 'Bart',
+                                  'family': 'bart',
                                   'id': 'facebook/bart-large-mnli',
+                                  'label': 'Bart',
                                   'language_list': ['en']},
    'facebook/mbart-large-en-ro': {  'description': '12-layer, 1024-hidden, '
                                                    '16-heads, 880M parameters\n'
@@ -782,8 +855,9 @@ MODEL_CONFIFURATIONS = {
                                                    'finetuned on WMT english '
                                                    'romanian translation.',
                                     'download_info': {  'multilingual': 'multilingual'},
-                                    'family': 'Bart',
+                                    'family': 'bart',
                                     'id': 'facebook/mbart-large-en-ro',
+                                    'label': 'Bart',
                                     'language_list': ['multilingual']},
    'flaubert/flaubert_base_cased': {  'description': '12-layer, 768-hidden, '
                                                      '12-heads, 138M '
@@ -793,8 +867,9 @@ MODEL_CONFIFURATIONS = {
                                                      'vocabulary\n'
                                                      '\n',
                                       'download_info': {'fr': 'fr'},
-                                      'family': 'FlauBERT',
+                                      'family': 'flaubert',
                                       'id': 'flaubert/flaubert_base_cased',
+                                      'label': 'FlauBERT',
                                       'language_list': ['fr']},
    'flaubert/flaubert_base_uncased': {  'description': '12-layer, 768-hidden, '
                                                        '12-heads, 137M '
@@ -804,8 +879,9 @@ MODEL_CONFIFURATIONS = {
                                                        'uncased vocabulary\n'
                                                        '\n',
                                         'download_info': {'fr': 'fr'},
-                                        'family': 'FlauBERT',
+                                        'family': 'flaubert',
                                         'id': 'flaubert/flaubert_base_uncased',
+                                        'label': 'FlauBERT',
                                         'language_list': ['fr']},
    'flaubert/flaubert_large_cased': {  'description': '24-layer, 1024-hidden, '
                                                       '16-heads, 373M '
@@ -814,8 +890,9 @@ MODEL_CONFIFURATIONS = {
                                                       'architecture\n'
                                                       '\n',
                                        'download_info': {'fr': 'fr'},
-                                       'family': 'FlauBERT',
+                                       'family': 'flaubert',
                                        'id': 'flaubert/flaubert_large_cased',
+                                       'label': 'FlauBERT',
                                        'language_list': ['fr']},
    'flaubert/flaubert_small_cased': {  'description': '6-layer, 512-hidden, '
                                                       '8-heads, 54M '
@@ -824,45 +901,51 @@ MODEL_CONFIFURATIONS = {
                                                       'architecture\n'
                                                       '\n',
                                        'download_info': {'fr': 'fr'},
-                                       'family': 'FlauBERT',
+                                       'family': 'flaubert',
                                        'id': 'flaubert/flaubert_small_cased',
+                                       'label': 'FlauBERT',
                                        'language_list': ['fr']},
    'gpt2': {  'description': '12-layer, 768-hidden, 12-heads, 117M '
                              'parameters.\n'
                              'OpenAI GPT-2 English model',
               'download_info': {'en': 'en'},
-              'family': 'GPT-2',
+              'family': 'gpt-2',
               'id': 'gpt2',
+              'label': 'GPT-2',
               'language_list': ['en']},
    'gpt2-large': {  'description': '36-layer, 1280-hidden, 20-heads, 774M '
                                    'parameters.\n'
                                    'OpenAIâ\x80\x99s Large-sized GPT-2 English '
                                    'model',
                     'download_info': {'en': 'en'},
-                    'family': 'GPT-2',
+                    'family': 'gpt-2',
                     'id': 'gpt2-large',
+                    'label': 'GPT-2',
                     'language_list': ['en']},
    'gpt2-medium': {  'description': '24-layer, 1024-hidden, 16-heads, 345M '
                                     'parameters.\n'
                                     'OpenAIâ\x80\x99s Medium-sized GPT-2 '
                                     'English model',
                      'download_info': {'en': 'en'},
-                     'family': 'GPT-2',
+                     'family': 'gpt-2',
                      'id': 'gpt2-medium',
+                     'label': 'GPT-2',
                      'language_list': ['en']},
    'gpt2-xl': {  'description': '48-layer, 1600-hidden, 25-heads, 1558M '
                                 'parameters.\n'
                                 'OpenAIâ\x80\x99s XL-sized GPT-2 English model',
                  'download_info': {'en': 'en'},
-                 'family': 'GPT-2',
+                 'family': 'gpt-2',
                  'id': 'gpt2-xl',
+                 'label': 'GPT-2',
                  'language_list': ['en']},
    'openai-gpt': {  'description': '12-layer, 768-hidden, 12-heads, 110M '
                                    'parameters.\n'
                                    'OpenAI GPT English model',
                     'download_info': {'en': 'en'},
-                    'family': 'GPT',
+                    'family': 'gpt',
                     'id': 'openai-gpt',
+                    'label': 'GPT',
                     'language_list': ['en']},
    'roberta-base': {  'description': '12-layer, 768-hidden, 12-heads, 125M '
                                      'parameters\n'
@@ -870,8 +953,9 @@ MODEL_CONFIFURATIONS = {
                                      'architecture\n'
                                      '\n',
                       'download_info': {'en': 'en'},
-                      'family': 'RoBERTa',
+                      'family': 'roberta',
                       'id': 'roberta-base',
+                      'label': 'RoBERTa',
                       'language_list': ['en']},
    'roberta-base-openai-detector': {  'description': '12-layer, 768-hidden, '
                                                      '12-heads, 125M '
@@ -882,8 +966,9 @@ MODEL_CONFIFURATIONS = {
                                                      'GPT-2 model.\n'
                                                      '\n',
                                       'download_info': {'en': 'en'},
-                                      'family': 'RoBERTa',
+                                      'family': 'roberta',
                                       'id': 'roberta-base-openai-detector',
+                                      'label': 'RoBERTa',
                                       'language_list': ['en']},
    'roberta-large': {  'description': '24-layer, 1024-hidden, 16-heads, 355M '
                                       'parameters\n'
@@ -891,16 +976,18 @@ MODEL_CONFIFURATIONS = {
                                       'architecture\n'
                                       '\n',
                        'download_info': {'en': 'en'},
-                       'family': 'RoBERTa',
+                       'family': 'roberta',
                        'id': 'roberta-large',
+                       'label': 'RoBERTa',
                        'language_list': ['en']},
    'roberta-large-mnli': {  'description': '24-layer, 1024-hidden, 16-heads, '
                                            '355M parameters\n'
                                            'roberta-large fine-tuned on MNLI.\n'
                                            '\n',
                             'download_info': {'en': 'en'},
-                            'family': 'RoBERTa',
+                            'family': 'roberta',
                             'id': 'roberta-large-mnli',
+                            'label': 'RoBERTa',
                             'language_list': ['en']},
    'roberta-large-openai-detector': {  'description': '24-layer, 1024-hidden, '
                                                       '16-heads, 355M '
@@ -912,8 +999,9 @@ MODEL_CONFIFURATIONS = {
                                                       'model.\n'
                                                       '\n',
                                        'download_info': {'en': 'en'},
-                                       'family': 'RoBERTa',
+                                       'family': 'roberta',
                                        'id': 'roberta-large-openai-detector',
+                                       'label': 'RoBERTa',
                                        'language_list': ['en']},
    't5-base': {  'description': '~220M parameters with 12-layers, '
                                 '768-hidden-state, 3072 feed-forward '
@@ -921,8 +1009,9 @@ MODEL_CONFIFURATIONS = {
                                 'Trained on English text: the Colossal Clean '
                                 'Crawled Corpus (C4)',
                  'download_info': {'en': 'en'},
-                 'family': 'T5',
+                 'family': 't5',
                  'id': 't5-base',
+                 'label': 'T5',
                  'language_list': ['en']},
    't5-large': {  'description': '~770M parameters with 24-layers, '
                                  '1024-hidden-state, 4096 feed-forward '
@@ -930,8 +1019,9 @@ MODEL_CONFIFURATIONS = {
                                  'Trained on English text: the Colossal Clean '
                                  'Crawled Corpus (C4)',
                   'download_info': {'en': 'en'},
-                  'family': 'T5',
+                  'family': 't5',
                   'id': 't5-large',
+                  'label': 'T5',
                   'language_list': ['en']},
    't5-small': {  'description': '~60M parameters with 6-layers, '
                                  '512-hidden-state, 2048 feed-forward '
@@ -939,16 +1029,18 @@ MODEL_CONFIFURATIONS = {
                                  'Trained on English text: the Colossal Clean '
                                  'Crawled Corpus (C4)',
                   'download_info': {'en': 'en'},
-                  'family': 'T5',
+                  'family': 't5',
                   'id': 't5-small',
+                  'label': 'T5',
                   'language_list': ['en']},
    'transfo-xl-wt103': {  'description': '18-layer, 1024-hidden, 16-heads, '
                                          '257M parameters.\n'
                                          'English model trained on '
                                          'wikitext-103',
                           'download_info': {'en': 'en'},
-                          'family': 'Transformer-XL',
+                          'family': 'transformer-xl',
                           'id': 'transfo-xl-wt103',
+                          'label': 'Transformer-XL',
                           'language_list': ['en']},
    'wietsedv/bert-base-dutch-cased': {  'description': '12-layer, 768-hidden, '
                                                        '12-heads, 110M '
@@ -959,8 +1051,9 @@ MODEL_CONFIFURATIONS = {
                                                        '(see details on '
                                                        'wietsedv repository).',
                                         'download_info': {'nl': 'nl'},
-                                        'family': 'BERT',
+                                        'family': 'bert',
                                         'id': 'wietsedv/bert-base-dutch-cased',
+                                        'label': 'BERT',
                                         'language_list': ['nl']},
    'xlm-clm-ende-1024': {  'description': '6-layer, 1024-hidden, 8-heads\n'
                                           'XLM English-German model trained '
@@ -968,8 +1061,9 @@ MODEL_CONFIFURATIONS = {
                                           'on the concatenation of English and '
                                           'German wikipedia',
                            'download_info': {'multilingual': 'multilingual'},
-                           'family': 'XLM',
+                           'family': 'xlm',
                            'id': 'xlm-clm-ende-1024',
+                           'label': 'XLM',
                            'language_list': ['multilingual']},
    'xlm-clm-enfr-1024': {  'description': '6-layer, 1024-hidden, 8-heads\n'
                                           'XLM English-French model trained '
@@ -977,51 +1071,58 @@ MODEL_CONFIFURATIONS = {
                                           'on the concatenation of English and '
                                           'French wikipedia',
                            'download_info': {'multilingual': 'multilingual'},
-                           'family': 'XLM',
+                           'family': 'xlm',
                            'id': 'xlm-clm-enfr-1024',
+                           'label': 'XLM',
                            'language_list': ['multilingual']},
    'xlm-mlm-100-1280': {  'description': '16-layer, 1280-hidden, 16-heads\n'
                                          'XLM model trained with MLM (Masked '
                                          'Language Modeling) on 100 languages.',
                           'download_info': {'multilingual': 'multilingual'},
-                          'family': 'XLM',
+                          'family': 'xlm',
                           'id': 'xlm-mlm-100-1280',
+                          'label': 'XLM',
                           'language_list': ['multilingual']},
    'xlm-mlm-17-1280': {  'description': '16-layer, 1280-hidden, 16-heads\n'
                                         'XLM model trained with MLM (Masked '
                                         'Language Modeling) on 17 languages.',
                          'download_info': {'multilingual': 'multilingual'},
-                         'family': 'XLM',
+                         'family': 'xlm',
                          'id': 'xlm-mlm-17-1280',
+                         'label': 'XLM',
                          'language_list': ['multilingual']},
    'xlm-mlm-en-2048': {  'description': '12-layer, 2048-hidden, 16-heads\n'
                                         'XLM English model',
                          'download_info': {'en': 'en'},
-                         'family': 'XLM',
+                         'family': 'xlm',
                          'id': 'xlm-mlm-en-2048',
+                         'label': 'XLM',
                          'language_list': ['en']},
    'xlm-mlm-ende-1024': {  'description': '6-layer, 1024-hidden, 8-heads\n'
                                           'XLM English-German model trained on '
                                           'the concatenation of English and '
                                           'German wikipedia',
                            'download_info': {'multilingual': 'multilingual'},
-                           'family': 'XLM',
+                           'family': 'xlm',
                            'id': 'xlm-mlm-ende-1024',
+                           'label': 'XLM',
                            'language_list': ['multilingual']},
    'xlm-mlm-enfr-1024': {  'description': '6-layer, 1024-hidden, 8-heads\n'
                                           'XLM English-French model trained on '
                                           'the concatenation of English and '
                                           'French wikipedia',
                            'download_info': {'multilingual': 'multilingual'},
-                           'family': 'XLM',
+                           'family': 'xlm',
                            'id': 'xlm-mlm-enfr-1024',
+                           'label': 'XLM',
                            'language_list': ['multilingual']},
    'xlm-mlm-enro-1024': {  'description': '6-layer, 1024-hidden, 8-heads\n'
                                           'XLM English-Romanian Multi-language '
                                           'model',
                            'download_info': {'multilingual': 'multilingual'},
-                           'family': 'XLM',
+                           'family': 'xlm',
                            'id': 'xlm-mlm-enro-1024',
+                           'label': 'XLM',
                            'language_list': ['multilingual']},
    'xlm-mlm-tlm-xnli15-1024': {  'description': '12-layer, 1024-hidden, '
                                                 '8-heads\n'
@@ -1029,15 +1130,17 @@ MODEL_CONFIFURATIONS = {
                                                 'MLM + TLM on the 15 XNLI '
                                                 'languages.',
                                  'download_info': {  'multilingual': 'multilingual'},
-                                 'family': 'XLM',
+                                 'family': 'xlm',
                                  'id': 'xlm-mlm-tlm-xnli15-1024',
+                                 'label': 'XLM',
                                  'language_list': ['multilingual']},
    'xlm-mlm-xnli15-1024': {  'description': '12-layer, 1024-hidden, 8-heads\n'
                                             'XLM Model pre-trained with MLM on '
                                             'the 15 XNLI languages.',
                              'download_info': {'multilingual': 'multilingual'},
-                             'family': 'XLM',
+                             'family': 'xlm',
                              'id': 'xlm-mlm-xnli15-1024',
+                             'label': 'XLM',
                              'language_list': ['multilingual']},
    'xlm-roberta-base': {  'description': '~125M parameters with 12-layers, '
                                          '768-hidden-state, 3072 feed-forward '
@@ -1046,9 +1149,10 @@ MODEL_CONFIFURATIONS = {
                                          'created clean CommonCrawl data in '
                                          '100 languages',
                           'download_info': {  'xlm-roberta-base': 'xlm-roberta-base'},
-                          'family': 'XLM-RoBERTa',
+                          'family': 'xlm-roberta',
                           'id': 'xlm-roberta-base',
-                          'language_list': ['xlm-roberta-base']},
+                          'label': 'XLM-RoBERTa',
+                          'language_list': ['multilingual']},
    'xlm-roberta-large': {  'description': '~355M parameters with 24-layers, '
                                           '1027-hidden-state, 4096 '
                                           'feed-forward hidden-state, '
@@ -1057,24 +1161,112 @@ MODEL_CONFIFURATIONS = {
                                           'clean CommonCrawl data in 100 '
                                           'languages',
                            'download_info': {  'xlm-roberta-large': 'xlm-roberta-large'},
-                           'family': 'XLM-RoBERTa',
+                           'family': 'xlm-roberta',
                            'id': 'xlm-roberta-large',
-                           'language_list': ['xlm-roberta-large']},
+                           'label': 'XLM-RoBERTa',
+                           'language_list': ['multilingual']},
    'xlnet-base-cased': {  'description': '12-layer, 768-hidden, 12-heads, 110M '
                                          'parameters.\n'
                                          'XLNet English model',
                           'download_info': {'en': 'en'},
-                          'family': 'XLNet',
+                          'family': 'xlnet',
                           'id': 'xlnet-base-cased',
+                          'label': 'XLNet',
                           'language_list': ['en']},
    'xlnet-large-cased': {  'description': '24-layer, 1024-hidden, 16-heads, '
                                           '340M parameters.\n'
                                           'XLNet Large English model',
                            'download_info': {'en': 'en'},
-                           'family': 'XLNet',
+                           'family': 'xlnet',
                            'id': 'xlnet-large-cased',
+                           'label': 'XLNet',
                            'language_list': ['en']}
 
     }
 
+BART_URL_MAP = {
+    'vocab_file': {model: tokenization_bart.vocab_url for model in tokenization_bart._all_bart_models},
+    'merges_file': {model: tokenization_bart.merges_url for model in tokenization_bart._all_bart_models}
+}
+BART_FILE_NAMES = tokenization_roberta.VOCAB_FILES_NAMES
 
+LONGFORMER_URL_MAP = {
+    'vocab_file': {model: tokenization_longformer.vocab_url for model in tokenization_longformer._all_longformer_models},
+    'merges_file': {model: tokenization_longformer.merges_url for model in tokenization_longformer._all_longformer_models}
+}
+LONGFORMER_FILE_NAMES = tokenization_roberta.VOCAB_FILES_NAMES
+
+TRANSFORMERS_CONFIG = {
+    'bert': {
+        'tokenizer_files_map': tokenization_bert.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_bert.VOCAB_FILES_NAMES
+    },
+    'gpt2': {
+        'tokenizer_files_map': tokenization_gpt2.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_gpt2.VOCAB_FILES_NAMES
+    },
+    'transformerxl': {
+        'tokenizer_files_map': tokenization_transfo_xl.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_transfo_xl.VOCAB_FILES_NAMES
+    },
+    'xlnet': {
+        'tokenizer_files_map': tokenization_xlnet.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_xlnet.VOCAB_FILES_NAMES
+    },
+    'roberta': {
+        'tokenizer_files_map': tokenization_roberta.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_roberta.VOCAB_FILES_NAMES
+    },
+    'distilbert': {
+        'tokenizer_files_map': tokenization_distilbert.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_distilbert.VOCAB_FILES_NAMES 
+    },
+    'ctrl': {
+        'tokenizer_files_map': tokenization_ctrl.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_ctrl.VOCAB_FILES_NAMES
+    },
+    'camembert': {
+        'tokenizer_files_map': tokenization_camembert.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_camembert.VOCAB_FILES_NAMES
+    },
+    'albert': {
+        'tokenizer_files_map': tokenization_albert.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_albert.VOCAB_FILES_NAMES
+    },
+    't5': {
+        'tokenizer_files_map': tokenization_t5.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_t5.VOCAB_FILES_NAMES
+    },
+    'bart': {
+        'tokenizer_files_map': BART_URL_MAP,
+        "tokenizer_files_name": BART_FILE_NAMES
+    },
+    'longformer': {
+        'tokenizer_files_map': LONGFORMER_URL_MAP,
+        "tokenizer_files_name": LONGFORMER_FILE_NAMES
+    },
+    'electra': {
+        'tokenizer_files_map': tokenization_electra.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_electra.VOCAB_FILES_NAMES
+    },
+    'flaubert': {
+        'tokenizer_files_map': tokenization_flaubert.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_flaubert.VOCAB_FILES_NAMES
+    },
+    'gpt': {
+        'tokenizer_files_map': tokenization_openai.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_openai.VOCAB_FILES_NAMES
+    },
+    'reformer': {
+        'tokenizer_files_map': tokenization_reformer.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_reformer.VOCAB_FILES_NAMES
+    },
+    'xlm': {
+        'tokenizer_files_map': tokenization_xlm.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_xlm.VOCAB_FILES_NAMES
+    },
+    'xlm-roberta': {
+        'tokenizer_files_map': tokenization_xlm_roberta.PRETRAINED_VOCAB_FILES_MAP,
+        "tokenizer_files_name": tokenization_xlm_roberta.VOCAB_FILES_NAMES
+    }                     
+}
