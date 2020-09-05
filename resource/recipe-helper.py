@@ -1,5 +1,5 @@
 import dataiku
-from macro.model_configurations import MODEL_CONFIFURATIONS
+from macro.model_configurations import MODEL_CONFIFURATIONS, ALL_MODELS_FAMILY
 from macro.macro_utils import lang_iso_to_label, lang_label_to_iso
 
 def do(payload, config, plugin_config, inputs):
@@ -42,7 +42,7 @@ def get_models(config):
     #Remove duplicate entries
     models_output = list({v['label']:v for v in models_output}.values())
     #Sort list by label 
-    models_output = sorted(models_output,key = lambda i: i['label'])
+    models_output = sorted(models_output,key = lambda i: ALL_MODELS_FAMILY.index(i['value']))
     return {'models': models_output}
 
 def get_transformer_model_versions(config):
