@@ -41,7 +41,7 @@ def get_models(config):
     } for m in models]
     #Remove duplicate entries
     models_output = list({v['label']:v for v in models_output}.values())
-    #Sort list by label 
+    #Sort list following ALL_MODELS_FAMILY order
     models_output = sorted(models_output,key = lambda i: ALL_MODELS_FAMILY.index(i['value']))
     return {'models': models_output}
 
