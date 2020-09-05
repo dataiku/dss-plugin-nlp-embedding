@@ -26,7 +26,9 @@ def read_model_inputs(config):
         macro_inputs["output_folder_id"] = is_new_output_folder["value"]
 
     macro_inputs["transformer_shortcut_name"] = config.get("transformersModelVersion",None)
-    if macro_inputs["transformer_shortcut_name"] is None:
+
+    model_ids = MODEL_CONFIFURATIONS.keys()
+    if model_family in model_ids:
         macro_inputs["model_id"] = model_family
     else:
          macro_inputs["model_id"] = macro_inputs["transformer_shortcut_name"]
