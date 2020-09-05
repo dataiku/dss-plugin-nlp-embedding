@@ -59,8 +59,6 @@ app.controller('modelDownloaderController', function($scope) {
     $scope.getIsCustomFolder = function(){
         $scope.callPythonDo({method: "get_is_custom_folder"}).then(function(data){
             var is_cutom_folder = data["is_cutom_folder"]
-            console.log("is_custom_folder")
-            console.log(is_cutom_folder)
             if(is_cutom_folder){
                 $scope.showNewOutputFolder = true;
             }
@@ -74,7 +72,7 @@ app.controller('modelDownloaderController', function($scope) {
     var init = function(){
         $scope.callPythonDo({method: "init_form"}).then(function(data){
             $scope.languages = data['languages']
-            $scope.outputFolders = data['output_folders']
+            $scope.outputFolders = data['output_folders']  
          }); 
         $scope.showLanguageList=true;
         $scope.showModelList=false;

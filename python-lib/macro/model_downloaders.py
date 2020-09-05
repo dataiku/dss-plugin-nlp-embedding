@@ -289,8 +289,8 @@ class HuggingFaceDownloader(BaseDownloader):
             download_link = self.get_download_link(filename)         
             response = self.get_stream(download_link)
             bytes_so_far = self.download_plain(response, bytes_so_far)
-        #Download vocab file
-        vocab_files= self.get_vocab_file_info(self.model_family) 
+        #Download vocab files
+        vocab_files = self.get_vocab_file_info(self.model_family) 
         for vocab_file in vocab_files:
             vocab_file_name = vocab_file["vocab_file_name"]
             vocab_file_link = vocab_file["vocab_file_link"]
@@ -302,13 +302,17 @@ class HuggingFaceDownloader(BaseDownloader):
 
     def get_file_size(self, response=None):
         total_size = 0
+        #File size for pytorch_model.bin and config.json
         for filename in HG_FILENAMES:
             download_link = self.get_download_link(filename)
             response = self.get_stream(download_link)
-            if response.status_code == 200:
-                total_size += int(response.headers.get('content-length'))
-            elif response.status_code == 404:
-                total_size += 0
+            total_size += int(response.headers.get('content-length'))
+        #File size for vocab files    
+        vocab_files = self.get_vocab_file_info(self.model_family) 
+        for vocab_file in vocab_files:
+            vocab_file_link = vocab_file["vocab_file_link"]
+            response = self.get_stream(vocab_file_link)
+            total_size += int(response.headers.get('content-length'))
         return total_size
 
 
@@ -323,8 +327,6 @@ class HuggingFaceDownloader(BaseDownloader):
             vocab_file_link = TRANSFORMERS_CONFIG[family]["tokenizer_files_map"][key][self.model_shortcut_name]
             vocab_files.append({"vocab_file_name": vocab_file_name,
                                 "vocab_file_link": vocab_file_link})
-
-
         return vocab_files
 
 
