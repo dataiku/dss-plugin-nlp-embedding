@@ -1,6 +1,5 @@
 import transformers
 from transformers import (tokenization_bert,
-                          tokenization_bert_japanese,
                           tokenization_gpt2,
                           tokenization_transfo_xl,
                           tokenization_xlnet,
@@ -22,7 +21,7 @@ from transformers import (tokenization_bert,
 
 
 NON_TRANSFORMER_MODELS = ["word2vec","fasttext","glove","elmo","use"]
-TRANSFORMERS_MODELS_ID = ['bert-base-uncased', 'bert-large-uncased', 'bert-base-cased', 'bert-large-cased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-chinese', 'bert-base-german-cased', 'bert-large-uncased-whole-word-masking', 'bert-large-cased-whole-word-masking', 'bert-large-uncased-whole-word-masking-finetuned-squad', 'bert-large-cased-whole-word-masking-finetuned-squad', 'bert-base-cased-finetuned-mrpc', 'bert-base-german-dbmdz-cased', 'bert-base-german-dbmdz-uncased', 'cl-tohoku/bert-base-japanese', 'cl-tohoku/bert-base-japanese-whole-word-masking', 'cl-tohoku/bert-base-japanese-char', 'cl-tohoku/bert-base-japanese-char-whole-word-masking', 'TurkuNLP/bert-base-finnish-cased-v1', 'TurkuNLP/bert-base-finnish-uncased-v1', 'wietsedv/bert-base-dutch-cased', 'facebook/bart-large', 'facebook/bart-large-mnli', 'facebook/bart-large-cnn', 'facebook/mbart-large-en-ro', 'openai-gpt', 'transfo-xl-wt103', 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2', 'ctrl', 'xlnet-base-cased', 'xlnet-large-cased', 'xlm-mlm-en-2048', 'xlm-mlm-ende-1024', 'xlm-mlm-enfr-1024', 'xlm-mlm-enro-1024', 'xlm-mlm-tlm-xnli15-1024', 'xlm-mlm-xnli15-1024', 'xlm-clm-enfr-1024', 'xlm-clm-ende-1024', 'xlm-mlm-17-1280', 'xlm-mlm-100-1280', 'roberta-base', 'roberta-large', 'roberta-large-mnli', 'distilroberta-base', 'roberta-base-openai-detector', 'roberta-large-openai-detector', 'distilbert-base-uncased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-cased-distilled-squad', 'distilbert-base-german-cased', 'distilbert-base-multilingual-cased', 'albert-base-v1', 'albert-large-v1', 'albert-xlarge-v1', 'albert-xxlarge-v1', 'albert-base-v2', 'albert-large-v2', 'albert-xlarge-v2', 'albert-xxlarge-v2', 'camembert-base', 't5-small', 't5-base', 't5-large', 'xlm-roberta-base', 'xlm-roberta-large', 'flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased', 'allenai/longformer-base-4096', 'allenai/longformer-large-4096']
+TRANSFORMERS_MODELS_ID = ['bert-base-uncased', 'bert-large-uncased', 'bert-base-cased', 'bert-large-cased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-chinese', 'bert-base-german-cased', 'bert-large-uncased-whole-word-masking', 'bert-large-cased-whole-word-masking', 'bert-large-uncased-whole-word-masking-finetuned-squad', 'bert-large-cased-whole-word-masking-finetuned-squad', 'bert-base-cased-finetuned-mrpc', 'bert-base-german-dbmdz-cased', 'bert-base-german-dbmdz-uncased', 'TurkuNLP/bert-base-finnish-cased-v1', 'TurkuNLP/bert-base-finnish-uncased-v1', 'wietsedv/bert-base-dutch-cased', 'facebook/bart-large', 'facebook/bart-large-mnli', 'facebook/bart-large-cnn', 'facebook/mbart-large-en-ro', 'openai-gpt', 'transfo-xl-wt103', 'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl', 'distilgpt2', 'ctrl', 'xlnet-base-cased', 'xlnet-large-cased', 'xlm-mlm-en-2048', 'xlm-mlm-ende-1024', 'xlm-mlm-enfr-1024', 'xlm-mlm-enro-1024', 'xlm-mlm-tlm-xnli15-1024', 'xlm-mlm-xnli15-1024', 'xlm-clm-enfr-1024', 'xlm-clm-ende-1024', 'xlm-mlm-17-1280', 'xlm-mlm-100-1280', 'roberta-base', 'roberta-large', 'roberta-large-mnli', 'distilroberta-base', 'roberta-base-openai-detector', 'roberta-large-openai-detector', 'distilbert-base-uncased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-cased-distilled-squad', 'distilbert-base-german-cased', 'distilbert-base-multilingual-cased', 'albert-base-v1', 'albert-large-v1', 'albert-xlarge-v1', 'albert-xxlarge-v1', 'albert-base-v2', 'albert-large-v2', 'albert-xlarge-v2', 'albert-xxlarge-v2', 'camembert-base', 't5-small', 't5-base', 't5-large', 'xlm-roberta-base', 'xlm-roberta-large', 'flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased', 'allenai/longformer-base-4096', 'allenai/longformer-large-4096']
 TRANSFORMERS_MODELS_FAMILY = ['xlm', 'flaubert', 'xlm-roberta', 'ctrl', 'roberta', 'gpt-2', 'albert', 'transformer-xl', 'longformer', 'distilbert', 'gpt', 'camembert', 'xlnet', 'bert', 'bart', 't5']
 ALL_MODELS_FAMILY =  NON_TRANSFORMER_MODELS + sorted(TRANSFORMERS_MODELS_FAMILY)
 MODEL_CONFIFURATIONS = {
@@ -596,101 +595,6 @@ MODEL_CONFIFURATIONS = {
                         'id': 'camembert-base',
                         'label': 'CamemBERT',
                         'language_list': ['fr']},
-   'cl-tohoku/bert-base-japanese': {  'description': '12-layer, 768-hidden, '
-                                                     '12-heads, 110M '
-                                                     'parameters.\n'
-                                                     'Trained on Japanese '
-                                                     'text. Text is tokenized '
-                                                     'with MeCab and '
-                                                     'WordPiece.\n'
-                                                     'MeCab is required for '
-                                                     'tokenization.\n'
-                                                     '\n'
-                                                     '(see details on '
-                                                     'cl-tohoku repository).',
-                                      'download_info': {'ja': 'ja'},
-                                      'family': 'bert',
-                                      'id': 'cl-tohoku/bert-base-japanese',
-                                      'label': 'BERT',
-                                      'language_list': ['ja']},
-   'cl-tohoku/bert-base-japanese-char': {  'description': '12-layer, '
-                                                          '768-hidden, '
-                                                          '12-heads, 110M '
-                                                          'parameters.\n'
-                                                          'Trained on Japanese '
-                                                          'text. Text is '
-                                                          'tokenized into '
-                                                          'characters.\n'
-                                                          '\n'
-                                                          '(see details on '
-                                                          'cl-tohoku '
-                                                          'repository).',
-                                           'download_info': {'ja': 'ja'},
-                                           'family': 'bert',
-                                           'id': 'cl-tohoku/bert-base-japanese-char',
-                                           'label': 'BERT',
-                                           'language_list': ['ja']},
-   'cl-tohoku/bert-base-japanese-char-whole-word-masking': {  'description': '12-layer, '
-                                                                             '768-hidden, '
-                                                                             '12-heads, '
-                                                                             '110M '
-                                                                             'parameters.\n'
-                                                                             'Trained '
-                                                                             'on '
-                                                                             'Japanese '
-                                                                             'text '
-                                                                             'using '
-                                                                             'Whole-Word-Masking. '
-                                                                             'Text '
-                                                                             'is '
-                                                                             'tokenized '
-                                                                             'into '
-                                                                             'characters.\n'
-                                                                             '\n'
-                                                                             '(see '
-                                                                             'details '
-                                                                             'on '
-                                                                             'cl-tohoku '
-                                                                             'repository).',
-                                                              'download_info': {  'ja': 'ja'},
-                                                              'family': 'bert',
-                                                              'id': 'cl-tohoku/bert-base-japanese-char-whole-word-masking',
-                                                              'label': 'BERT',
-                                                              'language_list': [  'ja']},
-   'cl-tohoku/bert-base-japanese-whole-word-masking': {  'description': '12-layer, '
-                                                                        '768-hidden, '
-                                                                        '12-heads, '
-                                                                        '110M '
-                                                                        'parameters.\n'
-                                                                        'Trained '
-                                                                        'on '
-                                                                        'Japanese '
-                                                                        'text '
-                                                                        'using '
-                                                                        'Whole-Word-Masking. '
-                                                                        'Text '
-                                                                        'is '
-                                                                        'tokenized '
-                                                                        'with '
-                                                                        'MeCab '
-                                                                        'and '
-                                                                        'WordPiece.\n'
-                                                                        'MeCab '
-                                                                        'is '
-                                                                        'required '
-                                                                        'for '
-                                                                        'tokenization.\n'
-                                                                        '\n'
-                                                                        '(see '
-                                                                        'details '
-                                                                        'on '
-                                                                        'cl-tohoku '
-                                                                        'repository).',
-                                                         'download_info': {  'ja': 'ja'},
-                                                         'family': 'bert',
-                                                         'id': 'cl-tohoku/bert-base-japanese-whole-word-masking',
-                                                         'label': 'BERT',
-                                                         'language_list': [  'ja']},
    'ctrl': {  'description': '48-layer, 1280-hidden, 16-heads, 1.6B '
                              'parameters\n'
                              'Salesforceâ\x80\x99s Large-sized CTRL English '
