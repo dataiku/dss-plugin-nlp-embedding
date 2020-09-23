@@ -1,0 +1,20 @@
+{
+    "meta": {
+        "label": "Custom Proxy Configuration",
+        "description": "",
+        "icon": "icon-powerbi"
+    },
+    "defaultDefinableInline": true,
+    "defaultDefinableAtProjectLevel": true,
+    "pluginParams": [
+
+    ],
+    "params": [
+        {
+            "name": "custom_proxy_config",
+            "label": "Custom proxy configuration",
+            "description": "Needs to follow Python's requests specifications.\nExample:\nhttp --> http://10.10.1.10:3128\nhttps --> http://10.10.1.10:1080",
+            "type": "MAP"
+        }
+    ]
+}
