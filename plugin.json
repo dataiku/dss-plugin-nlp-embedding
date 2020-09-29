@@ -2,13 +2,25 @@
     "id": "sentence-embedding",
     "version": "1.2.2",
     "meta": {
-        "label": "Text Embedding",
-        "category": "Natural Language Processing",
-        "description": "Compute numerical representations for text data so that they can be fed to ML algorithms",
+        "label": "Sentence Embedding",
+        "description": "Compute numerical representations for sentences so that they can be fed to ML algorithms.",
         "author": "Dataiku (Hicham El Boukkouri)",
-        "icon": "icon-list-alt",
+        "icon": "icon-table",
         "licenseInfo": "Apache Software License",
-        "url": "https://www.dataiku.com/product/plugins/sentence-embedding/",
-        "tags": ["NLP", "Machine Learning", "AutoML"]
-    }
+        "url": "https://www.dataiku.com/dss/plugins/info/sentence-embedding.html",
+        "tags": [
+            "NLP",
+            "Machine Learning",
+            "AutoML"
+        ]
+    },
+    "params": [
+        {
+            "name": "proxy",
+            "label": "Proxy settings",
+            "description": "Needs to follow Python's requests specifications.\nExample:\nhttp --> http://10.10.1.10:3128\nhttps --> http://10.10.1.10:1080",
+            "type": "MAP",
+            "mandatory": true
+        }
+    ]
 }
