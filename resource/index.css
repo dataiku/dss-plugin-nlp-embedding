@@ -1,0 +1,11 @@
+.error-message{
+    color:red;
+    font-size: 10px;
+    margin-left: 2px;
+}
+
+.desc-message{
+    color:gray;
+    font-size: 10px;
+    margin-left: 2px;    
+}
