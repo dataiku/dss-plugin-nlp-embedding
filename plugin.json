@@ -4,7 +4,7 @@
     "meta": {
         "label": "Text Embedding",
         "category": "Natural Language Processing",
-        "description": "Compute numerical representations for text data so that they can be fed to ML algorithms",
+        "description": "Compute numerical representations for text data so that they can be fed to ML algorithms. ⚠️ This plugin is now \"deprecated\", we recommend using the [Generative AI](https://doc.dataiku.com/dss/latest/generative-ai/index.html) feature and native handling in Visual ML instead.",
         "author": "Dataiku (Hicham El Boukkouri)",
         "icon": "icon-list-alt",
         "licenseInfo": "Apache Software License",
