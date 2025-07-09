@@ -1,6 +1,6 @@
 ﻿# Sentence Embedding
 
-⚠️ This plugin is now "deprecated", we recommend using the native [Generative AI](https://doc.dataiku.com/dss/latest/generative-ai/index.html) feature and native handling in Visual ML instead.
+⚠️ This plugin is now "deprecated", we recommend using the [Generative AI](https://doc.dataiku.com/dss/latest/generative-ai/index.html) feature and native handling in Visual ML instead.
 
 This Dataiku DSS plugin provides a tool for computing numerical sentence representations (also known as **Sentence Embeddings**).
 
