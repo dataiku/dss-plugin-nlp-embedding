@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.1.1](https://github.com/dataiku/dss-plugin-nlp-embedding/releases/tag/v2.1.1) - 2025-12
+
+- Updated warning
+
 ## [Version 2.1.0](https://github.com/dataiku/dss-plugin-nlp-embedding/releases/tag/v2.1.0) - 2023-04
 
 - ✨ Python 3.8 to 3.10 support & fix Word2vec
